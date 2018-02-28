@@ -1,0 +1,100 @@
+@import '~@enact/moonstone/styles/text.less';
+@import '~@enact/moonstone/styles/skin.less';
+
+.applySkins({
+	.connectionStatus {
+
+		margin-left: 12px;
+		margin-right: 12px;
+
+		& > div {
+			clear: both;
+		}
+
+		& .iconSize {
+			height: 60px;
+		}
+
+		& .spacer {
+			float: left;
+			:global(.enact-locale-right-to-left) & {
+				float: right;
+			}
+			width: 42px;
+			height: 60px;
+			background-size: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-image: url('../../../../assets/images/network-status-disconnected.png');
+		}
+
+		& > .label {
+			margin: 9px 0;
+			float: none;
+			clear: both;
+			.moon-body-text;
+		}
+
+		& .icon {
+			float: left;
+			:global(.enact-locale-right-to-left) & {
+				float: right;
+			}
+			width: 60px;
+			height: 60px;
+			background-position: center;
+			background-size: 100%;
+			background-repeat: no-repeat;
+
+			&.tv {
+				background-image: url('../../../../assets/images/network-tv-active.png');
+			}
+
+			&.router {
+				background-image: url('../../../../assets/images/network-wirelessrouter-inactive.png');
+			}
+
+			&.dns {
+				background-image: url('../../../../assets/images/network-dns-inactive.png');
+			}
+
+			&.internet {
+				background-image: url('../../../../assets/images/network-internet-inactive.png');
+			}
+		}
+
+		&[data-status=CONNECTED] {
+			& .spacer {
+				&.tv2router {
+					background-image: url('../../../../assets/images/network-status-connected.png');
+				}
+			}
+			& .icon {
+				&.router {
+					background-image: url('../../../../assets/images/network-wirelessrouter-active.png');
+				}
+			}
+		}
+
+		&[data-status=ON_INTERNET] {
+			& .spacer {
+				&.tv2router, &.router2dns, &.dns2internet {
+					background-image: url('../../../../assets/images/network-status-connected.png');
+				}
+			}
+			& .icon {
+				&.router {
+					background-image: url('../../../../assets/images/network-wirelessrouter-active.png');
+				}
+
+				&.dns {
+					background-image: url('../../../../assets/images/network-dns-active.png');
+				}
+
+				&.internet {
+					background-image: url('../../../../assets/images/network-internet-active.png');
+				}
+			}
+		}
+	}
+});

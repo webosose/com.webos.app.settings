@@ -1,0 +1,22 @@
+{
+   "id": "com.palm.app.settings",
+   "version": "1.1.0",
+   "vendor": "LG",
+   "type": "web",
+   "main": "index.html",
+   "title": "Settings",
+   "sysAssetsBasePath": "assets",
+   "icon": "icon.png",
+   "uiRevision": 2,
+   "transparent": true,
+   "defaultWindowType": "overlay",
+   "visible": false,
+   "lockable": false,
+   "noSplashOnLaunch": true,
+   "disableBackHistoryAPI": true,
+   "supportQuickStart": false,
+   "trustLevel": "trusted",
+   "accessibility": {
+      "supportsAudioGuidance": true
+   }
+}

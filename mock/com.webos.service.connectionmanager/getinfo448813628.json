@@ -1,0 +1,10 @@
+{
+    "subscribed": true,
+    "wifiInfo": {
+        "macAddress": "30:a9:de:ca:f2:82"
+    },
+    "wiredInfo": {
+        "macAddress": "E8:5B:5B:82:6C:B7"
+    },
+    "returnValue": true
+}

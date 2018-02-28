@@ -1,0 +1,9 @@
+{
+    "subscribed": true,
+    "category": "option",
+    "method": "getSystemSettings",
+    "settings": {
+        "country": "KOR"
+    },
+    "returnValue": true
+}

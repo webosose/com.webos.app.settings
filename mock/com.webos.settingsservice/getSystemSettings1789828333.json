@@ -1,0 +1,10 @@
+{
+    "subscribed": true,
+    "category": "option",
+    "method": "getSystemSettings",
+    "settings": {
+        "countryRegion": "other",
+        "country": "USA"
+    },
+    "returnValue": true
+}

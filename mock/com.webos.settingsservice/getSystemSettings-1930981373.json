@@ -1,0 +1,25 @@
+{
+    "subscribed": true,
+    "method": "getSystemSettings",
+    "settings": {
+        "localeInfo": {
+            "locales": {
+                "UI": "ko-KR",
+                "TV": "en-US",
+                "FMT": "en-US",
+                "NLP": "en-US",
+                "STT": "en-US",
+                "AUD": "en-US",
+                "AUD2": "en-US"
+            },
+            "clock": "locale",
+            "keyboards": [
+                "en",
+                "ko"
+            ],
+            "timezone": ""
+        }
+    },
+    "returnValue": true
+}
+

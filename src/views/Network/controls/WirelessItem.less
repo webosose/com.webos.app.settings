@@ -1,0 +1,59 @@
+@import '~@enact/moonstone/styles/text.less';
+@import '~@enact/moonstone/styles/skin.less';
+
+.applySkins({
+	.wirelessItem {
+		height: 78px;
+		clear: both;
+		width: 100%;
+		position: absolute;
+
+		.check {
+			margin: 12px 9px 9px 0;
+			font-size: 72px;
+			float: left;
+			:global(.enact-locale-right-to-left) & {
+				float: right;
+			}
+		}
+
+		.icon {
+			margin: 12px 9px 9px 0;
+			font-size: 72px;
+			background-position: center center !important;
+			background-size: 51px 65px;
+			&.disconnect {
+				background-size: .83333rem;
+			}
+			float: left;
+			:global(.enact-locale-right-to-left) & {
+				float: right;
+			}
+		}
+
+		.label {
+			.moon-text-base(39px);
+			line-height: 78px;
+			margin: 0 6px 0 6px;
+			width: 74%;
+			:global(.enact-locale-ja-JP) & {
+				width: 66%;
+			}
+			display: inline-block;
+			vertical-align: middle;
+			float: left;
+			:global(.enact-locale-right-to-left) & {
+				float: right;
+			}
+		}
+
+		.spinner {
+			margin: 0;
+			float: left;
+			:global(.enact-locale-right-to-left) & {
+				float: right;
+			}
+			top: 3px;
+		}
+	}
+});

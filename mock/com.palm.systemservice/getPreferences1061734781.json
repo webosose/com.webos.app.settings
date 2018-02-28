@@ -1,0 +1,15 @@
+{
+    "timeZone": {
+        "offsetFromUTC": -480,
+        "City": "Los Angeles",
+        "supportsDST": 1,
+        "CountryCode": "US",
+        "Description": "Pacific Time",
+        "Country": "United States of America",
+        "ZoneID": "America/Los_Angeles",
+        "preferred": true
+    },
+    "useNetworkTime": false,
+    "subscribed": true,
+    "returnValue": true
+}

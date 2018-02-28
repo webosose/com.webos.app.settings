@@ -1,0 +1,9 @@
+{
+    "subscribed": true,
+    "category": "network",
+    "method": "getSystemSettings",
+    "settings": {
+        "deviceName": "jin WEBOS3.5gggg"
+    },
+    "returnValue": true
+}

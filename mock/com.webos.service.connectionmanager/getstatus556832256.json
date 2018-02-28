@@ -1,0 +1,41 @@
+{
+    "cellular": {
+        "enabled": false
+    },
+    "returnValue": true,
+    "offlineMode": "disabled",
+    "wired": {
+        "netmask": "255.255.255.0",
+        "dns1": "10.195.253.88",
+        "dns2": "10.195.253.89",
+        "ipAddress": "10.195.249.109",
+        "proxyinfo": {
+            "method": "direct"
+        },
+        "onInternet": "yes",
+        "method": "dhcp",
+        "state": "connected",
+        "gateway": "10.195.249.1",
+        "checkingInternet": false,
+        "interfaceName": "eth0",
+        "plugged": true
+    },
+    "wifi": {
+        "tetheringEnabled": false,
+        "state": "disconnected"
+    },
+    "subscribed": true,
+    "bluetooth": {
+        "tetheringEnabled": false,
+        "state": "disconnected"
+    },
+    "wan": {
+        "connected": false,
+        "connectedContexts": [
+        ]
+    },
+    "wifiDirect": {
+        "state": "disconnected"
+    },
+    "isInternetConnectionAvailable": true
+}

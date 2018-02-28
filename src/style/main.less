@@ -1,0 +1,61 @@
+@v-spacing-cmr-margin-bottom: 9px;
+@import '~@enact/moonstone/styles/mixins.less';
+@import '~@enact/moonstone/styles/variables.less';
+@import '~@enact/moonstone/styles/rules.less';
+@import '~@enact/moonstone/styles/skin.less';
+@import '~@enact/moonstone/styles/text.less';
+@moon-accent: #cf0652;
+
+.vspacingCMR {
+	margin-bottom: @v-spacing-cmr-margin-bottom;
+	> :last-child {
+		margin-bottom: 0px;
+	}
+	.labeleditem {
+		margin-bottom: 1000px;
+	}
+}
+
+.networkEditButton {
+	margin-top: 21px;
+	margin-right: 30px;
+	float:right;
+}
+
+.networkEditPosition {
+	position: relative;
+	top: 12px;
+}
+
+.doneButton{
+	margin-top: -160px;
+	margin-left: 600px;
+}
+
+.iconButton {
+	height: 84px;
+	width: 84px;
+	.bg {
+		border: 3px solid;
+	}
+	.applySkins({
+		.bg {
+			border-color: rgba(191, 191, 191, .3);
+		}
+		&.selected {
+			.bg {
+				border-color: @moon-accent;
+			}
+			&:global(.spottable):focus {
+				.bg {
+					border-color: @moon-accent;
+				}
+			}
+		}
+		&:global(.spottable):focus {
+			.bg {
+				border-color: @moon-accent;
+			}
+		}
+	});
+}

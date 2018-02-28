@@ -1,0 +1,18 @@
+{
+    "subscribed": false,
+    "method": "getSystemSettingValues",
+    "returnValue": true,
+    "countryList": [
+        {
+            "countries": [
+                {
+                    "fullName": "United States",
+                    "shortName": "US",
+                    "alpha3": "USA"
+                }
+            ],
+            "groupName": "United States",
+            "groupCode": "US"
+        }
+    ]
+}

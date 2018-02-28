@@ -1,0 +1,22 @@
+@import '~@enact/moonstone/styles/text.less';
+@import '~@enact/moonstone/styles/variables.less';
+@import '../../../style/main.less';
+
+.splitInput {
+	clear: both;
+	height: 85px;
+
+	& .label {
+		width: 45%;
+		float: left;
+		.moon-text-base(@moon-item-font-size-large);
+		line-height: 2.275em;
+	}
+
+	& .input {
+		width: 55%;
+		float: right;
+		margin: 0;
+	}
+	.vspacingCMR;
+}

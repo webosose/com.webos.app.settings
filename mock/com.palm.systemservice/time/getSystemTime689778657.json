@@ -1,0 +1,24 @@
+{
+    "timezone": "America/Los_Angeles",
+    "returnValue": true,
+    "utc": 1500423003,
+    "localtime": {
+        "month": 7,
+        "day": 18,
+        "hour": 17,
+        "minute": 10,
+        "year": 2017,
+        "second": 3
+    },
+    "subscribed": true,
+    "TZ": "PDT",
+    "systemTimeSource": "sdp",
+    "timestamp": {
+        "source": "monotonic",
+        "sec": 1019,
+        "nsec": 408484859
+    },
+    "offset": -420,
+    "timeZoneFile": "/var/luna/preferences/localtime",
+    "isDST": true
+}

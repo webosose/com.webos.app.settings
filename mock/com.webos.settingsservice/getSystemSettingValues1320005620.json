@@ -1,0 +1,942 @@
+{
+    "returnValue": true,
+    "locale": [
+        {
+            "languageClass": "nonLatin",
+            "languageCode": "ko",
+            "countries": [
+                {
+                    "regions": [
+                        "KR",
+                        "US",
+                        "CA",
+                        "MX",
+                        "HN"
+                    ],
+                    "spec": "ko-KR",
+                    "name": "한국"
+                }
+            ],
+            "name": "한국어"
+        },
+        {
+            "languageClass": "latin",
+            "languageCode": "en",
+            "countries": [
+                {
+                    "regions": [
+                        "KR",
+                        "US",
+                        "MX",
+                        "HN",
+                        "BR",
+                        "CL",
+                        "PE",
+                        "AR",
+                        "EC",
+                        "CO",
+                        "PA"
+                    ],
+                    "spec": "en-US",
+                    "name": "United States"
+                }
+            ],
+            "name": "English"
+        },
+        {
+            "languageClass": "latin",
+            "languageCode": "es",
+            "countries": [
+                {
+                    "regions": [
+                        "US"
+                    ],
+                    "spec": "es-US",
+                    "name": "Estados Unidos"
+                },
+                {
+                    "regions": [
+                        "US",
+                        "MX",
+                        "HN"
+                    ],
+                    "spec": "es-PR",
+                    "name": "Puerto Rico"
+                }
+            ],
+            "name": "Español"
+        },
+        {
+            "languageClass": "latin",
+            "languageCode": "fr",
+            "countries": [
+                {
+                    "regions": [
+                        "US",
+                        "CA",
+                        "MX"
+                    ],
+                    "spec": "fr-CA",
+                    "name": "Canada"
+                }
+            ],
+            "name": "Français"
+        }
+    ],
+    "nlp": [
+        {
+            "languageCode": "en",
+            "countries": [
+                {
+                    "regions": [
+                        "KR",
+                        "US",
+                        "CA",
+                        "MX",
+                        "HN",
+                        "EU",
+                        "CS",
+                        "Nordic",
+                        "NonNordic",
+                        "EastEU",
+                        "WestEU",
+                        "EtcEU",
+                        "JA",
+                        "TW",
+                        "CO",
+                        "PA",
+                        "HK",
+                        "AJ",
+                        "JP",
+                        "IL",
+                        "IR",
+                        "BR",
+                        "CL",
+                        "PE",
+                        "AR",
+                        "EC"
+                    ],
+                    "spec": "en-US",
+                    "name": "United States"
+                },
+                {
+                    "regions": [
+                        "EU",
+                        "CS",
+                        "Nordic",
+                        "NonNordic",
+                        "EastEU",
+                        "WestEU",
+                        "EtcEU",
+                        "US",
+                        "CA",
+                        "MX",
+                        "HN",
+                        "KR",
+                        "JA",
+                        "TW",
+                        "CO",
+                        "PA",
+                        "HK",
+                        "AJ",
+                        "IL",
+                        "IR",
+                        "JP",
+                        "BR",
+                        "CL",
+                        "PE",
+                        "AR",
+                        "EC"
+                    ],
+                    "spec": "en-GB",
+                    "name": "United Kingdom"
+                }
+            ],
+            "name": "English"
+        },
+        {
+            "languageCode": "es",
+            "countries": [
+                {
+                    "regions": [
+                        "US",
+                        "CA",
+                        "MX",
+                        "HN",
+                        "EU",
+                        "CS",
+                        "Nordic",
+                        "NonNordic",
+                        "EastEU",
+                        "WestEU",
+                        "EtcEU",
+                        "BR",
+                        "CL",
+                        "PE",
+                        "AR",
+                        "EC",
+                        "CO",
+                        "PA"
+                    ],
+                    "spec": "es-ES",
+                    "name": "España"
+                }
+            ],
+            "name": "Español"
+        },
+        {
+            "languageCode": "fr",
+            "countries": [
+                {
+                    "regions": [
+                        "US",
+                        "CA",
+                        "MX"
+                    ],
+                    "spec": "fr-CA",
+                    "name": "Canada"
+                }
+            ],
+            "name": "Français"
+        },
+        {
+            "languageCode": "pt",
+            "countries": [
+                {
+                    "regions": [
+                        "US",
+                        "CA",
+                        "MX",
+                        "HN",
+                        "EU",
+                        "CS",
+                        "Nordic",
+                        "JA",
+                        "IR",
+                        "CO",
+                        "PA",
+                        "BR",
+                        "CL",
+                        "PE",
+                        "AR",
+                        "EC"
+                    ],
+                    "spec": "pt-BR",
+                    "name": "Brasil"
+                }
+            ],
+            "name": "Português"
+        }
+    ],
+    "subscribed": false,
+    "method": "getSystemSettingValues",
+    "stt": [
+        {
+            "languageCode": "ko",
+            "countries": [
+                {
+                    "spec": "ko-KR",
+                    "name": "한국",
+                    "includeAlways": true
+                }
+            ],
+            "name": "한국어"
+        },
+        {
+            "languageCode": "en",
+            "countries": [
+                {
+                    "spec": "en-US",
+                    "name": "United States",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "en-AU",
+                    "name": "Australia",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "en-CA",
+                    "name": "Canada",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "en-GB",
+                    "name": "United Kingdom",
+                    "includeAlways": true
+                }
+            ],
+            "name": "English"
+        },
+        {
+            "languageCode": "pt",
+            "countries": [
+                {
+                    "spec": "pt-BR",
+                    "name": "Brasil",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "pt-PT",
+                    "name": "Portugal",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Português"
+        },
+        {
+            "languageCode": "cs",
+            "countries": [
+                {
+                    "spec": "cs-CZ",
+                    "name": "Česká republika",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Čeština"
+        },
+        {
+            "languageCode": "da",
+            "countries": [
+                {
+                    "spec": "da-DK",
+                    "name": "Danmark",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Dansk"
+        },
+        {
+            "languageCode": "de",
+            "countries": [
+                {
+                    "spec": "de-DE",
+                    "name": "Deutschland",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Deutsch"
+        },
+        {
+            "languageCode": "el",
+            "countries": [
+                {
+                    "spec": "el-GR",
+                    "name": "Ελλάδα",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Ελληνική γλώσσα"
+        },
+        {
+            "languageCode": "es",
+            "countries": [
+                {
+                    "spec": "es-ES",
+                    "name": "España",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "es-MX",
+                    "name": "México",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Español"
+        },
+        {
+            "languageCode": "fi",
+            "countries": [
+                {
+                    "spec": "fi-FI",
+                    "name": "Suomi",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Suomi"
+        },
+        {
+            "languageCode": "fr",
+            "countries": [
+                {
+                    "spec": "fr-CA",
+                    "name": "Canada",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "fr-FR",
+                    "name": "France",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Français"
+        },
+        {
+            "languageCode": "he",
+            "countries": [
+                {
+                    "spec": "he-IL",
+                    "name": "ישראל",
+                    "includeAlways": true
+                }
+            ],
+            "name": "עברית"
+        },
+        {
+            "languageCode": "hr",
+            "countries": [
+                {
+                    "spec": "hr-HR",
+                    "name": "Hrvatska",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Hrvatski"
+        },
+        {
+            "languageCode": "hu",
+            "countries": [
+                {
+                    "spec": "hu-HU",
+                    "name": "Magyarország",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Magyar"
+        },
+        {
+            "languageCode": "it",
+            "countries": [
+                {
+                    "spec": "it-IT",
+                    "name": "Italia",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Italiano"
+        },
+        {
+            "languageCode": "nb",
+            "countries": [
+                {
+                    "spec": "nb-NO",
+                    "name": "Norge",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Norsk"
+        },
+        {
+            "languageCode": "nl",
+            "countries": [
+                {
+                    "spec": "nl-NL",
+                    "name": "Nederland",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Nederlands"
+        },
+        {
+            "languageCode": "pl",
+            "countries": [
+                {
+                    "spec": "pl-PL",
+                    "name": "Polska",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Polski"
+        },
+        {
+            "languageCode": "ro",
+            "countries": [
+                {
+                    "spec": "ro-RO",
+                    "name": "România",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Română"
+        },
+        {
+            "languageCode": "ru",
+            "countries": [
+                {
+                    "spec": "ru-RU",
+                    "name": "Российская Федерация",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Русский"
+        },
+        {
+            "languageCode": "sv",
+            "countries": [
+                {
+                    "spec": "sv-SE",
+                    "name": "Sverige",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Svenska"
+        },
+        {
+            "languageCode": "sk",
+            "countries": [
+                {
+                    "spec": "sk-SK",
+                    "name": "Slovensko",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Slovenský jazyk"
+        },
+        {
+            "languageCode": "tr",
+            "countries": [
+                {
+                    "spec": "tr-TR",
+                    "name": "Türkiye",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Türkçe"
+        },
+        {
+            "languageCode": "cmn",
+            "countries": [
+                {
+                    "spec": "cmn-Hans-CN",
+                    "name": "中国",
+                    "includeAlways": true
+                }
+            ],
+            "name": "普通话"
+        },
+        {
+            "languageCode": "cmn",
+            "countries": [
+                {
+                    "spec": "cmn-Hant-TW",
+                    "name": "台灣",
+                    "includeAlways": true
+                }
+            ],
+            "name": "台灣語"
+        },
+        {
+            "languageCode": "yue",
+            "countries": [
+                {
+                    "spec": "yue-Hant-HK",
+                    "name": "香港",
+                    "includeAlways": true
+                }
+            ],
+            "name": "广州话"
+        },
+        {
+            "languageCode": "ja",
+            "countries": [
+                {
+                    "spec": "ja-JP",
+                    "name": "日本",
+                    "includeAlways": true
+                }
+            ],
+            "name": "日本語"
+        },
+        {
+            "languageCode": "id",
+            "countries": [
+                {
+                    "spec": "id-ID",
+                    "name": "Indonesia",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Bahasa Indonesia"
+        },
+        {
+            "languageCode": "ms",
+            "countries": [
+                {
+                    "spec": "ms-MY",
+                    "name": "Malaysia",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Bahasa Melayu"
+        },
+        {
+            "languageCode": "th",
+            "countries": [
+                {
+                    "spec": "th-TH",
+                    "name": "ประเทศไทย",
+                    "includeAlways": true
+                }
+            ],
+            "name": "ภาษาไทย"
+        },
+        {
+            "languageCode": "uk",
+            "countries": [
+                {
+                    "spec": "uk-UA",
+                    "name": "Україна",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Українська"
+        },
+        {
+            "languageCode": "vi",
+            "countries": [
+                {
+                    "spec": "vi-VN",
+                    "name": "Việt Nam",
+                    "includeAlways": true
+                }
+            ],
+            "name": "Tiếng Việt"
+        },
+        {
+            "languageCode": "ar",
+            "countries": [
+                {
+                    "spec": "ar-AE",
+                    "name": "الأمارات العربية المتحدة",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "ar-EG",
+                    "name": "مصر",
+                    "includeAlways": true
+                },
+                {
+                    "spec": "ar-SA",
+                    "name": "العربية السعودية",
+                    "includeAlways": true
+                }
+            ],
+            "name": "العربية"
+        }
+    ],
+    "audio": [
+        {
+            "languageCode": "en",
+            "countries": [
+                {
+                    "regions": [
+                        "TW",
+                        "BR",
+                        "CL",
+                        "PE",
+                        "AR",
+                        "EC",
+                        "KR",
+                        "US",
+                        "CA",
+                        "MX",
+                        "HN",
+                        "CO",
+                        "PA",
+                        "CN"
+                    ],
+                    "spec": "en-US",
+                    "name": "United States"
+                }
+            ],
+            "name": "English"
+        },
+        {
+            "languageCode": "es",
+            "countries": [
+                {
+                    "regions": [
+                        "EU",
+                        "CS",
+                        "Nordic",
+                        "NonNordic",
+                        "EastEU",
+                        "WestEU",
+                        "EtcEU",
+                        "AJ",
+                        "JA",
+                        "IL",
+                        "IR",
+                        "BR",
+                        "CL",
+                        "PE",
+                        "AR",
+                        "EC",
+                        "US",
+                        "CA",
+                        "MX",
+                        "HN"
+                    ],
+                    "spec": "es-ES",
+                    "name": "España"
+                }
+            ],
+            "name": "Español"
+        },
+        {
+            "languageCode": "fr",
+            "countries": [
+                {
+                    "regions": [
+                        "US",
+                        "CA",
+                        "MX"
+                    ],
+                    "spec": "fr-CA",
+                    "name": "Canada"
+                }
+            ],
+            "name": "Français"
+        }
+    ],
+    "vkb": [
+        {
+            "languageCode": "ko",
+            "name": "한국어",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "en",
+            "name": "English",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "id",
+            "name": "Bahasa Indonesia",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "ms",
+            "name": "Bahasa Melayu",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "bs",
+            "name": "Bosanski",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "cs",
+            "name": "Čeština",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "da",
+            "name": "Dansk",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "de",
+            "name": "Deutsch",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "et",
+            "name": "Eesti",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "es",
+            "name": "Español",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "fr",
+            "name": "Français",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "ga",
+            "name": "Gaeilge",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "hr",
+            "name": "Hrvatski",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "it",
+            "name": "Italiano",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "lv",
+            "name": "Latviešu valoda",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "lt",
+            "name": "Lietuvių kalba",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "hu",
+            "name": "Magyar",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "mi",
+            "name": "Māori",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "nl",
+            "name": "Nederlands",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "nb",
+            "name": "Norsk",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "uz",
+            "keyboards": {
+                "Oʻzbek": "uz-Latn"
+            },
+            "name": "Oʻzbek",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "pl",
+            "name": "Polski",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "pt",
+            "name": "Português",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "ro",
+            "name": "Română",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "sk",
+            "name": "Slovenský jazyk",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "sl",
+            "name": "Slovenski jezik",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "sq",
+            "name": "Shqipe",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "sr",
+            "name": "Srpski",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "fi",
+            "name": "Suomi",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "sv",
+            "name": "Svenska",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "tr",
+            "name": "Türkçe",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "vi",
+            "name": "Tiếng Việt",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "ar",
+            "name": "العربية",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "bg",
+            "name": "Български",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "el",
+            "name": "Ελληνική γλώσσα",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "fa",
+            "name": "فارسی",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "he",
+            "name": "עברית",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "kk",
+            "name": "Қазақ тілі",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "ku",
+            "name": "کوردی",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "mk",
+            "name": "Македонски",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "mn",
+            "name": "Монгол хэл",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "ru",
+            "name": "Русский",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "th",
+            "name": "ภาษาไทย",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "uk",
+            "name": "Українська",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "hi",
+            "name": "हिन्दी",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "km",
+            "name": "កម្ពុជា",
+            "includeAlways": true
+        },
+        {
+            "languageCode": "si",
+            "name": "සිංහල",
+            "includeAlways": true
+        }
+    ]
+}

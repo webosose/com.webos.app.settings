@@ -1,0 +1,97 @@
+@v-spacing-cmr-margin-bottom: 18px;
+@import '~@enact/moonstone/styles/mixins.less';
+@import '~@enact/moonstone/styles/variables.less';
+@import '~@enact/moonstone/styles/rules.less';
+@import '~@enact/moonstone/styles/skin.less';
+@import '~@enact/moonstone/styles/text.less';
+
+.app {
+	// styles can be put here
+	background-color:transparent !important;
+	padding: 0;
+
+
+	.nav {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		width: 20%;
+		height: 100%;
+		background-color: rgba(15, 15, 15, .94);
+		text-align: center;
+		padding-top: 40px;
+		padding-bottom: 40px;
+
+		.navButton {
+			width: 100%;
+			width: 100%;
+			margin-top: 27px;
+			text-align: center;
+			.icon {
+				margin-left: auto;
+				margin-right: auto;
+				width: 120px;
+				line-height: 51px;
+				.button {
+					background-color: "red";
+				}
+			}
+			.caption {
+				//.moon-text-base(24px);
+				font-size: 24px !important;
+				font-weight: 700;
+				font-style: italic;
+				padding-top: 3px;
+				.moon-locale-non-latin({
+					font-style: normal;
+				});
+				:global(.enact-locale-ko) & {
+				    font-style: normal;
+				}
+			}
+		}
+	}
+	.chrome {
+		position: absolute;
+		right: 50%;
+		top: 0;
+		left: 0;
+		bottom: 0;
+	}
+	.scrim {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		display: block;
+	}
+	.panels {
+		position: absolute;
+		top: 0;
+		left: 20%;
+		width: 80%;
+		height: 100%;
+		background-color: rgba(26, 26, 26, .9);
+	}
+	.general-virtual-list-item-layout {
+		position: absolute;
+		width: 100%;
+	}
+	.general-virtual-list-container {
+		height: 100%;
+	}
+	.backButton {
+		position: absolute;
+		right: 10px;
+		top: 60px;
+	}
+}
+.notificationSpinner {
+	margin-top: 21px;
+	text-align: center;
+}
+.header{
+	padding-right : 100px;
+}

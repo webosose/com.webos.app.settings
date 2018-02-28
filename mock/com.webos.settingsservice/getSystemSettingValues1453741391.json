@@ -1,0 +1,277 @@
+{
+    "countryRegionList": [
+        {
+            "regionCode": "WAS",
+            "countries": [
+                {
+                    "fullName": "Saudi Arabia",
+                    "shortName": "SA",
+                    "alpha3": "SAU"
+                },
+                {
+                    "fullName": "Lebanon",
+                    "shortName": "LB",
+                    "alpha3": "LBN"
+                },
+                {
+                    "fullName": "Jordan",
+                    "shortName": "JO",
+                    "alpha3": "JOR"
+                },
+                {
+                    "fullName": "Iraq",
+                    "shortName": "IQ",
+                    "alpha3": "IRQ"
+                },
+                {
+                    "fullName": "UAE",
+                    "shortName": "AE",
+                    "alpha3": "ARE"
+                },
+                {
+                    "fullName": "Kuwait",
+                    "shortName": "KW",
+                    "alpha3": "KWT"
+                },
+                {
+                    "fullName": "Qatar",
+                    "shortName": "QA",
+                    "alpha3": "QAT"
+                },
+                {
+                    "fullName": "Bahrain",
+                    "shortName": "BH",
+                    "alpha3": "BHR"
+                },
+                {
+                    "fullName": "Oman",
+                    "shortName": "OM",
+                    "alpha3": "OMN"
+                },
+                {
+                    "fullName": "Yemen",
+                    "shortName": "YE",
+                    "alpha3": "YEM"
+                },
+                {
+                    "fullName": "Afghanistan",
+                    "shortName": "AF",
+                    "alpha3": "AFG"
+                }
+            ],
+            "representativeCountry": "ARE",
+            "regionName": "Middle East"
+        },
+        {
+            "regionCode": "NAF",
+            "countries": [
+                {
+                    "fullName": "Egypt",
+                    "shortName": "EG",
+                    "alpha3": "EGY"
+                },
+                {
+                    "fullName": "Tunisia",
+                    "shortName": "TN",
+                    "alpha3": "TUN"
+                },
+                {
+                    "fullName": "Libya",
+                    "shortName": "LY",
+                    "alpha3": "LBY"
+                }
+            ],
+            "representativeCountry": "TUN",
+            "regionName": "Northern Africa"
+        },
+        {
+            "regionCode": "EAF",
+            "countries": [
+                {
+                    "fullName": "Burundi",
+                    "shortName": "BI",
+                    "alpha3": "BDI"
+                },
+                {
+                    "fullName": "Kenya",
+                    "shortName": "KE",
+                    "alpha3": "KEN"
+                },
+                {
+                    "fullName": "Rwanda",
+                    "shortName": "RW",
+                    "alpha3": "RWA"
+                },
+                {
+                    "fullName": "Tanzania",
+                    "shortName": "TZ",
+                    "alpha3": "TZA"
+                },
+                {
+                    "fullName": "Uganda",
+                    "shortName": "UG",
+                    "alpha3": "UGA"
+                }
+            ],
+            "representativeCountry": "KEN",
+            "regionName": "Eastern Africa"
+        },
+        {
+            "regionCode": "WAF",
+            "countries": [
+                {
+                    "fullName": "Benin",
+                    "shortName": "BJ",
+                    "alpha3": "BEN"
+                },
+                {
+                    "fullName": "Gabon",
+                    "shortName": "GA",
+                    "alpha3": "GAB"
+                },
+                {
+                    "fullName": "Gambia",
+                    "shortName": "GM",
+                    "alpha3": "GMB"
+                },
+                {
+                    "fullName": "Cameroon",
+                    "shortName": "CM",
+                    "alpha3": "CMR"
+                },
+                {
+                    "fullName": "Cape Verde",
+                    "shortName": "CV",
+                    "alpha3": "CPV"
+                },
+                {
+                    "fullName": "Nigeria",
+                    "shortName": "NG",
+                    "alpha3": "NGA"
+                },
+                {
+                    "fullName": "Togo",
+                    "shortName": "TG",
+                    "alpha3": "TGO"
+                },
+                {
+                    "fullName": "Ghana",
+                    "shortName": "GH",
+                    "alpha3": "GHA"
+                },
+                {
+                    "fullName": "Guinea",
+                    "shortName": "GN",
+                    "alpha3": "GNB"
+                },
+                {
+                    "fullName": "IVC (Cote d’Ivoire)",
+                    "shortName": "CI",
+                    "alpha3": "CIV"
+                },
+                {
+                    "fullName": "Liberia",
+                    "shortName": "LR",
+                    "alpha3": "LBR"
+                },
+                {
+                    "fullName": "Mali",
+                    "shortName": "ML",
+                    "alpha3": "MLI"
+                },
+                {
+                    "fullName": "Senegal",
+                    "shortName": "SN",
+                    "alpha3": "SEN"
+                },
+                {
+                    "fullName": "Sierra Leone",
+                    "shortName": "SL",
+                    "alpha3": "SLE"
+                },
+                {
+                    "fullName": "Burkina Faso",
+                    "shortName": "BF",
+                    "alpha3": "BFA"
+                },
+                {
+                    "fullName": "Guinea Bissau",
+                    "shortName": "GW",
+                    "alpha3": "GNB"
+                },
+                {
+                    "fullName": "Niger",
+                    "shortName": "NE",
+                    "alpha3": "NER"
+                }
+            ],
+            "representativeCountry": "GHA",
+            "regionName": "Western Africa"
+        },
+        {
+            "regionCode": "SAF",
+            "countries": [
+                {
+                    "fullName": "Angola",
+                    "shortName": "AO",
+                    "alpha3": "AGO"
+                },
+                {
+                    "fullName": "Democratic Republic of the Congo",
+                    "shortName": "CD",
+                    "alpha3": "COD"
+                },
+                {
+                    "fullName": "Lesotho",
+                    "shortName": "LS",
+                    "alpha3": "LSO"
+                },
+                {
+                    "fullName": "Malawi",
+                    "shortName": "MW",
+                    "alpha3": "MWI"
+                },
+                {
+                    "fullName": "Zambia",
+                    "shortName": "ZM",
+                    "alpha3": "ZMB"
+                },
+                {
+                    "fullName": "Madagascar",
+                    "shortName": "MG",
+                    "alpha3": "MDG"
+                },
+                {
+                    "fullName": "Mauritius",
+                    "shortName": "MU",
+                    "alpha3": "MUS"
+                },
+                {
+                    "fullName": "Mozambique",
+                    "shortName": "MZ",
+                    "alpha3": "MOZ"
+                },
+                {
+                    "fullName": "Namibia",
+                    "shortName": "NA",
+                    "alpha3": "NAM"
+                },
+                {
+                    "fullName": "South Africa",
+                    "shortName": "ZA",
+                    "alpha3": "ZAF"
+                },
+                {
+                    "fullName": "Zimbabwe",
+                    "shortName": "ZW",
+                    "alpha3": "ZWE"
+                }
+            ],
+            "representativeCountry": "ZAF",
+            "regionName": "Southern Africa"
+        }
+    ],
+    "subscribed": false,
+    "method": "getSystemSettingValues",
+    "returnValue": true
+}
