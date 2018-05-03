@@ -46,10 +46,10 @@ class Network extends React.Component {
 		if (toString.call(e.value) !== '[object String]') {
 			return true;
 		}
-		const trimmedValue = e.value.trim();
-		if (unescape(encodeURI(trimmedValue)).length < 31) {
+		const value = e.value;
+		if (unescape(encodeURI(value)).length < 31) {
 			this.setState({
-				deviceName: e.value
+				deviceName: value
 			});
 		}
 	}
