@@ -25,7 +25,8 @@ class AddNetwork extends React.Component {
 				securityType: props.network.securityType,
 				password: '',
 				showPassword: false,
-				valid: false
+				valid: SecurityValidate.isValidSSID(props.network.ssid) &&
+					SecurityValidate.isValidPasskey(props.network.securityType, '')
 			};
 		} else {
 			this.state = {
