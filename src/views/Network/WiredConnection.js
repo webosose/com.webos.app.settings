@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-
+import Spotlight from '@enact/spotlight';
 import Button from '@enact/moonstone/Button';
 import BodyText from '@enact/moonstone/BodyText';
 import Divider from '@enact/moonstone/Divider';
@@ -34,7 +34,12 @@ class WiredConnection extends React.Component {
 		// this.props.editPanelSet(params);
 		this.pushPathWiredEdit();
 	}
-
+	componentDidMount () {
+		const currentContainer = Spotlight.getActiveContainer();
+		if ( currentContainer !== 'spotlightRootDecorator') {
+			Spotlight.focus(Spotlight.getActiveContainer());
+		}
+	}
 	render () {
 		const status = getConnectionStatus(this.props.wired);
 

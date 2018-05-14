@@ -54,6 +54,13 @@ class WiredEdit extends React.Component {
 		// this.onEditClick = this.onEditClick.bind(this);
 	}
 
+	componentDidMount () {
+		const currentContainer = Spotlight.getActiveContainer();
+		if ( currentContainer !== 'spotlightRootDecorator') {
+			Spotlight.focus(Spotlight.getActiveContainer());
+		}
+	}
+
 	componentWillReceiveProps (props) {
 		// TODO: How to handle incoming props while user is interacting with the form?
 		let status = 'NOT_CONNECTED';

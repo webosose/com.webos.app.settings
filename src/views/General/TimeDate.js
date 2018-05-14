@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-
+import Spotlight from '@enact/spotlight';
 import LS2Request from '@enact/webos/LS2Request';
 import SwitchItem from '@enact/moonstone/SwitchItem';
 import TimePicker from '@enact/moonstone/TimePicker';
@@ -43,6 +43,10 @@ class TimeDate extends React.Component {
 	}
 
 	componentDidMount () {
+		const currentContainer = Spotlight.getActiveContainer();
+		if ( currentContainer !== 'spotlightRootDecorator') {
+			Spotlight.focus(Spotlight.getActiveContainer());
+		}
 		this.regionList.sort();
 		this.defaultRegion.sort(function (a, b) {
 			if (a.displayName < b.displayName) {

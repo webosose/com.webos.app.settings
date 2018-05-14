@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-
+import Spotlight from '@enact/spotlight';
 import $L from '@enact/i18n/$L';
 import LabeledItem from '@enact/moonstone/LabeledItem';
 
@@ -17,6 +17,10 @@ class Language extends React.Component {
 		this.pushPathVKBLanguage = props.addPath.bind(this, 'Keyboard Languages');
 	}
 	componentDidMount () {
+		const currentContainer = Spotlight.getActiveContainer();
+		if ( currentContainer !== 'spotlightRootDecorator') {
+			Spotlight.focus(Spotlight.getActiveContainer());
+		}
 	}
 	setVkbLanguage (obj) {
 		let displayVkbLanguage = $L('Loading...');
