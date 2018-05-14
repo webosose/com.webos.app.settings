@@ -57,10 +57,10 @@ class Network extends React.Component {
 		let newValue = this.state.deviceName.trim();
 		if (newValue === '') {
 			newValue = this.props.deviceName;
-			this.setState({
-				deviceName: newValue
-			});
 		}
+		this.setState({
+			deviceName: newValue
+		});
 		param.category = 'network';
 		param.settings = {};
 		param.settings['deviceName'] = newValue;
