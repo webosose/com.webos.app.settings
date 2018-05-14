@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 
+import LS2Request from '@enact/webos/LS2Request';
 import Panels from '@enact/moonstone/Panels';
 import IconButton from '@enact/moonstone/IconButton';
 
@@ -19,20 +20,31 @@ class MainPanels extends React.Component {
 	constructor (props) {
 		super(props);
 
+		if (typeof window === 'object' && window.PalmSystem) {
+			window.PalmSystem.onclose = this.handleOnClose.bind(this);
+		}
+
 		if (typeof document !== 'undefined') {
+			const that = this;
 			document.addEventListener('webOSLocaleChange', function () {
 				if (typeof window === 'object') {
-					let newPath = '';
-					const originalPath = window.location.href;
-
-					if (typeof originalPath.split('?')[1] !== 'undefined' && originalPath.split('?')[1] === 'isUpdated') {
-						newPath = originalPath;
-					} else {
-						newPath = originalPath + '?isUpdated';
-					}
-					window.location.href = newPath;
+				
+					that.reloadForCountry = true;
+					window.close();
 				}
 			}, false);
+		}
+	}
+
+	handleOnClose () {
+		if (this.reloadForCountry) {
+			new LS2Request().send({
+				service: 'luna://com.webos.applicationManager/',
+				method: 'launch',
+				parameters: {
+					id: 'com.palm.app.settings'
+				}
+			});
 		}
 	}
 
