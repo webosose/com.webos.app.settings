@@ -5,15 +5,17 @@ import {connect} from 'react-redux';
 import $L from '@enact/i18n/$L';
 import LabeledItem from '@enact/moonstone/LabeledItem';
 
-import {ExpandableInputBase} from '@enact/moonstone/ExpandableInput';
+import {ExpandableInput} from '@enact/moonstone/ExpandableInput';
 import {Expandable} from '@enact/moonstone/ExpandableItem';
 
 import {addPath} from '../../actions';
 import {setSystemSettings} from '../../actions';
 
-import css from '../../style/main.less';
+import SettingsScroller from '../../components/SettingsScroller';
+import css from './Network.less';
+import mainCss from '../../style/main.less';
 
-const CustomExpandableInput = Expandable(ExpandableInputBase);
+//const CustomExpandableInput = Expandable(ExpandableInputBase);
 
 class Network extends React.Component {
 	constructor (props) {
@@ -87,11 +89,11 @@ class Network extends React.Component {
 	render () {
 		const deviceNameProps = this.setDeviceNameProps();
 		return (
-			<div>
-				<CustomExpandableInput {...deviceNameProps} className={css.vspacingCMR} data-component-id="deviceName" />
-				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathWiredConnection} label={(this.props.wiredOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="wiredConnection">{$L('Wired Connection (Ethernet)')}</LabeledItem>
-				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathWifiConnection} label={(this.props.wifiOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="WifiConnection">{$L('Wi-Fi Connection')}</LabeledItem>
-			</div>
+			<SettingsScroller className={css.scroller}>
+				<ExpandableInput {...deviceNameProps} className={mainCss.vspacingCMR} data-component-id="deviceName" containerId={'tvName'} />
+				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWiredConnection} label={(this.props.wiredOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="wiredConnection">{$L('Wired Connection (Ethernet)')}</LabeledItem>
+				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWifiConnection} label={(this.props.wifiOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="WifiConnection">{$L('Wi-Fi Connection')}</LabeledItem>
+			</SettingsScroller>
 		);
 	}
 }
