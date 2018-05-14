@@ -119,7 +119,7 @@ class AddNetwork extends React.Component {
 			};
 		}
 		const addHidden = {
-			...params,
+			...params.security,
 			hidden: true
 		};
 		this.props.connectingAp(addHidden);

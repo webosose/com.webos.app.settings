@@ -331,7 +331,7 @@ class WifiConnection extends React.Component {
 				if (connectingNetwork.hidden) {
 					viewModel = {
 						ssid: connectingNetwork.ssid,
-						securityType: (connectingNetwork.security && connectingNetwork.security.securityType) || 'none',
+						securityType: connectingNetwork.securityType || 'none',
 						retry: true
 					};
 					this.props.connectWifi({network: viewModel});
@@ -339,7 +339,7 @@ class WifiConnection extends React.Component {
 				} else if (connectingNetwork.securityType !== 'none') {
 					viewModel = {
 						ssid: connectingNetwork.ssid,
-						securityType: connectingNetwork.security.securityType,
+						securityType: connectingNetwork.securityType,
 						retry: true
 					};
 					this.props.connectWifi({network: viewModel});

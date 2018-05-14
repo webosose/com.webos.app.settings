@@ -67,7 +67,8 @@ class WifiSecurity extends React.Component {
 				}
 			}
 		};
-		this.props.connectingAp(params);
+		let {ssid,security:{securityType}} = params;
+		this.props.connectingAp({ssid,securityType});
 		this.props.connectingWifi(params);
 		this.props.removePath();
 	}
