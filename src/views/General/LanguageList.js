@@ -284,6 +284,7 @@ class LanguageList extends React.Component {
 					dataSize={this.state.selectedLanguages.length}
 					itemSize={ri.scale(60)}
 					component={this.state.selectedComponent}
+					focusableScrollbar
 				/>
 				<Notification
 					open={this.state.confirmPopupShowing}
