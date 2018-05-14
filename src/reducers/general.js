@@ -27,3 +27,11 @@ export const general = (state = {}, action) => {
 			return state;
 	}
 };
+export const uiMenuLanguage = (state = {}, action) => {
+	switch (action.type) {
+		case 'SET_UI_MENU_LANGUAGE':
+			return Object.assign({}, action.payload);
+		default:
+			return state;
+	}
+}

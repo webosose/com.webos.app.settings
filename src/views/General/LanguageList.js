@@ -14,6 +14,7 @@ import Button from '@enact/moonstone/Button';
 import {Panel} from '@enact/moonstone/Panels';
 
 import {setSystemSettings} from '../../actions';
+import {setUiMenuLanguage} from '../../actions/generalAction';
 import {getDefaultVkbLanguage} from './utils/GeneralUtils';
 
 import css from '../../App/App.less';
@@ -53,7 +54,7 @@ class LanguageListCheckboxItem extends React.Component {
 	}
 }
 
-class LanguageListRadioItem extends React.Component {
+class LanguageListRadioItem1 extends React.Component {
 	constructor (props) {
 		super(props);
 
@@ -73,7 +74,8 @@ class LanguageListRadioItem extends React.Component {
 	}
 
 	render () {
-		const {data, dataIndex, selectedLanguage, ...rest} = this.props;
+		const {data, dataIndex, selectedLanguage,uiMenuLanguage, ...rest} = this.props;
+		const spec = uiMenuLanguage.spec || selectedLanguage.spec;
 		delete rest.clickItem;
 
 		return (
@@ -81,7 +83,7 @@ class LanguageListRadioItem extends React.Component {
 				{...rest}
 				className={css['general-virtual-list-item-layout']}
 				data-index={dataIndex}
-				selected={selectedLanguage.spec === data.spec}
+				selected={spec === data.spec}
 				disabled={data.disabled}
 				onToggle={this.onClick}
 			>
@@ -91,7 +93,15 @@ class LanguageListRadioItem extends React.Component {
 	}
 
 }
+let LanguageListRadioItem = connect(function(state){
+	return {
+		uiMenuLanguage:state.uiMenuLanguage
+	}
+},function(dispatch){
+ return {
 
+ }
+})(LanguageListRadioItem1)
 class LanguageList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -124,6 +134,10 @@ class LanguageList extends React.Component {
 
 	saveLanguages (currentLanguage) {
 		if (this.props.mode === 'menuLanguage') {
+			this.props.setUiMenuLanguage({
+					spec:currentLanguage.spec,
+					displayValue:currentLanguage.displayValue
+			});
 			this.setState({
 				menu: currentLanguage.spec,
 				confirmPopupShowing: true
@@ -174,6 +188,7 @@ class LanguageList extends React.Component {
 	}
 
 	confirmPopupNo () {
+		this.props.setUiMenuLanguage({});
 		this.setState({
 			confirmPopupShowing: false
 		});
@@ -382,6 +397,9 @@ const mapStateToProps = ({intl, general}, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
 	setSystemSettings (param) {
 		dispatch(setSystemSettings(param));
+	},
+	setUiMenuLanguage(lang){
+		dispatch(setUiMenuLanguage(lang));
 	}
 });
 

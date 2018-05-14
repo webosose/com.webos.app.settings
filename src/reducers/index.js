@@ -1,13 +1,14 @@
 import {combineReducers} from 'redux';
 import {path, intl} from './reducer';
 import {network} from './network';
-import {general} from './general';
+import {general,uiMenuLanguage} from './general';
 
 const rootReducer = combineReducers({
 	path,
 	intl,
 	network,
-	general
+	general,
+	uiMenuLanguage
 });
 
 export default rootReducer;
