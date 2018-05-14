@@ -37,7 +37,8 @@ class TimeDate extends React.Component {
 			regionExpandableOpen: false,
 			regionSelected: -1,
 			timePickerOpen: false,
-			timezoneExpandableOpen: false
+			timezoneExpandableOpen: false,
+			timezoneSlected:this.props.timeZone.timezoneProps.selected
 		};
 	}
 
@@ -82,7 +83,13 @@ class TimeDate extends React.Component {
 			}
 		});
 	}
-
+	componentWillReceiveProps (nextProps) {
+		if(this.state.timezoneSlected !== nextProps.timeZone.timezoneProps.selected) {
+			this.setState({
+				timezoneSlected: nextProps.timeZone.timezoneProps.selected
+			});
+		}
+	}
 	componentWillUnmount () {
 		clearInterval(this.timerObj);
 		this.timerObj = null;
@@ -276,6 +283,9 @@ class TimeDate extends React.Component {
 		}
 
 		if (ev.data !== 'Custom') {
+			this.setState({
+				timezoneSlected: ev.selected
+			})
 			this.setTimezone(this.props.timeZone.timezoneList[ev.selected]);
 		}
 	}
@@ -309,7 +319,8 @@ class TimeDate extends React.Component {
 	setTimezone (value) {
 		this.props.setSystemSettings({
 			category: 'time',
-			settings: {timeZone: value}
+			settings: {timeZone: value},
+			component:"GENERAL"
 		});
 
 		this.props.setPreferences({timeZone: value});
@@ -406,8 +417,8 @@ class TimeDate extends React.Component {
 						onOpen={this.openTimezoneExpandable}
 						onClose={this.closeTimezoneExpandable}
 						open={this.state.timezoneExpandableOpen}
-						selected={-1}
-						{...this.props.timeZone.timezoneProps}
+						selected={this.state.timezoneSlected}
+						children={this.props.timeZone.timezoneProps.children}
 					/>
 				</div>
 			</Scroller>
@@ -423,7 +434,7 @@ TimeDate.propTypes = {
 	useNetworkTime: PropTypes.bool
 };
 
-const mapStateToProps = ({intl}) => {
+const mapStateToProps = ({intl,error}) => {
 	let {timeZone, timeZoneList, useNetworkTime} = intl;
 	let timezoneParam = {
 		timezone: {
@@ -434,7 +445,8 @@ const mapStateToProps = ({intl}) => {
 
 	return {
 		useNetworkTime: useNetworkTime,
-		timeZone: getTimeZoneList(timezoneParam)
+		timeZone: getTimeZoneList(timezoneParam),
+		error:error
 	};
 };
 

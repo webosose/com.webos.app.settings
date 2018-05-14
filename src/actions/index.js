@@ -80,8 +80,15 @@ function receiveSetSystemSettingsCountry () {
 		payload: true
 	};
 }
-
+function timeZoneUpdateFailure(value){
+	return {
+		type:"TIMEZONE_UPDATE_FAILURE",
+		errorObj:value
+	}
+}
 export const setSystemSettings = params => dispatch => {
+	let {component} = params;
+	delete params.component;
 	return new LS2Request().send({
 		service: 'luna://com.webos.settingsservice/',
 		method: 'setSystemSettings',
@@ -89,6 +96,11 @@ export const setSystemSettings = params => dispatch => {
 		onComplete: (res) => {
 			if (res && res.returnValue && params && params.category === 'option' && params.settings && params.settings.country) {
 				dispatch(receiveSetSystemSettingsCountry());
+			}
+		},
+		onFailure: (res) => {
+			if(component === "GENERAL") {
+					dispatch(timeZoneUpdateFailure({errorCode:res.errorCode,errorReason:res.errorText}));
 			}
 		}
 	});
