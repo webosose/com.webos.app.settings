@@ -19,6 +19,7 @@ class General extends React.Component {
 		this.pushPathLanguage = props.addPath.bind(this, 'Language');
 		this.pushPathTimeDate = props.addPath.bind(this, 'Time & Date');
 		this.getEffectiveBroadcastTime = null;
+		this.timerObj = null;
 		this.state = {
 			currentDate: null
 		};
@@ -38,11 +39,40 @@ class General extends React.Component {
 				this.setState({
 					currentDate: fmt.format(new Date(res.utc * 1000))
 				});
+				this.updateTimeInterval(res.utc)
 			}
 		});
 	}
-
+	updateTimeInterval(utc){
+		const fmt = new DateFmt({
+			type: 'datetime',
+			length: 'full',
+			date: 'dmwy'
+		});
+		if (this.timerObj === null) {
+			const updateTime = 60000;
+			const changedSeconds = 60;
+			let currentTime = utc;
+			const diffSeconds = changedSeconds - new Date(currentTime * 1000).getSeconds();
+			this.timerObj = setTimeout(() => {
+				currentTime = currentTime + diffSeconds;
+				this.setState({
+					currentDate: fmt.format(new Date((currentTime) * 1000))
+				});
+				this.timerObj = setInterval(()=>{
+					currentTime = currentTime + changedSeconds;
+					this.setState({
+						currentDate: fmt.format(new Date((currentTime) * 1000))
+					});
+				},updateTime);
+			}, diffSeconds*1000);
+		}
+	}
 	componentWillUnmount () {
+		if(this.timerObj !== null){
+			clearInterval(this.timerObj);
+			this.timerObj = null;
+		}
 		if (this.getEffectiveBroadcastTime !== null) {
 			this.getEffectiveBroadcastTime.cancel();
 		}
