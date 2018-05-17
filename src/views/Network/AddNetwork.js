@@ -119,8 +119,10 @@ class AddNetwork extends React.Component {
 			};
 		}
 		const addHidden = {
-			...params.security,
-			hidden: true
+			ssid: params.ssid,
+			wasCreatedWithJoinOther: params.wasCreatedWithJoinOther,
+			hidden: true,
+			...params.security
 		};
 		this.props.connectingAp(addHidden);
 		this.props.connectingWifi(params);
