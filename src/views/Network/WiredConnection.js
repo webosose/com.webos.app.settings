@@ -58,7 +58,7 @@ class WiredConnection extends React.Component {
 			return (
 				<div >
 					<Button small onClick={this.props.removePath} className={css.doneButton} data-component-id="done">{$L('Done')}</Button>
-					<BodyText>{$L('Connect your TV to your router or modem with an Ethernet cable to activate your wired network connection.')}</BodyText>
+					<BodyText>{$L('Connect your device to your router or modem with an Ethernet cable to activate your wired network connection.')}</BodyText>
 				</div>
 			);
 		}	else if (this.props.wired.state !== 'disconnected') {
