@@ -15,6 +15,7 @@
    "noSplashOnLaunch": true,
    "disableBackHistoryAPI": true,
    "supportQuickStart": false,
+   "requiredPermissions": ["settings", "networking", "applications"],
    "trustLevel": "trusted",
    "accessibility": {
       "supportsAudioGuidance": true
