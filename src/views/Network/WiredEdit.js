@@ -199,6 +199,12 @@ class WiredEdit extends React.Component {
 			}
 		}
 	}
+	keyDown(event){
+		console.log(event.keyCode)
+		if(event.keyCode === 9){
+			event.preventDefault();
+		}
+	}
 
 	render () {
 		const dismissOnEnter = true;
@@ -219,6 +225,7 @@ class WiredEdit extends React.Component {
 						disabled={this.state.wired.method === 'dhcp'}
 						onChange={this.onIPAddressChange}
 						onKeyUp={this.onIPAddressKeyUp}
+						onKeyDown={this.keyDown}
 						dismissOnEnter={dismissOnEnter}
 						data-component-id="ipAddress"
 					/>
@@ -228,6 +235,7 @@ class WiredEdit extends React.Component {
 						disabled={this.state.wired.method === 'dhcp'}
 						onChange={this.onSubnetMaskChange}
 						onKeyUp={this.onSubnetMaskKeyUp}
+						onKeyDown={this.keyDown}
 						dismissOnEnter={dismissOnEnter}
 						data-component-id="subnet"
 					/>
@@ -237,6 +245,7 @@ class WiredEdit extends React.Component {
 						disabled={this.state.wired.method === 'dhcp'}
 						onChange={this.onGatewayChange}
 						onKeyUp={this.onGatewayKeyUp}
+						onKeyDown={this.keyDown}
 						dismissOnEnter={dismissOnEnter}
 						data-component-id="gateway"
 					/>
@@ -246,6 +255,7 @@ class WiredEdit extends React.Component {
 						disabled={this.state.wired.method === 'dhcp'}
 						onChange={this.onDNSServerChange}
 						onKeyUp={this.onDNSServerKeyUp}
+						onKeyDown={this.keyDown}
 						dismissOnEnter={dismissOnEnter}
 						data-component-id="dnsserver"
 					/>
