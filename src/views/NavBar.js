@@ -14,23 +14,25 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+import React from 'react';
+import {connect} from 'react-redux';
 
-import $L from "@enact/i18n/$L";
-import kind from "@enact/core/kind";
+import $L from '@enact/i18n/$L';
+import kind from '@enact/core/kind';
 
-import { IconButton as IconButtonFactory } from "@enact/moonstone/IconButton";
+import {IconButtonFactory} from '@enact/moonstone/IconButton';
 
-import css from "../App/App.less";
-import cssIcon from "../style/main.less";
-import { setPath } from "../actions";
+import css from '../App/App.less';
+import cssIcon from '../style/main.less';
+import {setPath} from '../actions';
 
-// const IconButtonBase = IconButtonFactory({ css: cssIcon });
+const IconButtonBase = IconButtonFactory({css: cssIcon});
 const IconButton = kind({
-	name: "IconButton",
-	render: props => <IconButtonFactory {...props} className={cssIcon.iconButton} />
+	name: 'IconButton',
+	render: (props) => (
+		<IconButtonBase {...props} className={cssIcon.iconButton} />
+	)
 });
 
 const NavButton = props => {
@@ -46,31 +48,33 @@ const NavButton = props => {
 					{props.icon}
 				</IconButton>
 			</div>
-			<div className={css.caption}>{props.children}</div>
+			<div className={css.caption}>
+				{props.children}
+			</div>
 		</div>
 	);
 };
 class NavBar extends React.Component {
-	render() {
+	render () {
 		return (
 			<div className={this.props.className}>
 				<NavButton
 					icon="gear"
 					target="General"
-					selected={this.props.category === "General"}
+					selected={this.props.category === 'General'}
 					onSelect={this.props.setPath}
 					id="general"
 				>
-					{$L("General")}
+					{$L('General')}
 				</NavButton>
 				<NavButton
 					icon="ellipsis"
 					target="Network"
-					selected={this.props.category === "Network"}
+					selected={this.props.category === 'Network'}
 					onSelect={this.props.setPath}
 					id="network"
 				>
-					{$L("Network")}
+					{$L('Network')}
 				</NavButton>
 			</div>
 		);
@@ -92,17 +96,14 @@ NavButton.propTypes = {
 	target: PropTypes.string
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	category: state.path[0]
 });
 
-const mapDispatchToProps = dispatch => ({
-	setPath(path) {
+const mapDispatchToProps = (dispatch) => ({
+	setPath (path) {
 		dispatch(setPath(path));
 	}
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
