@@ -14,26 +14,26 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import PropTypes from 'prop-types';
-import React from 'react';
-import {connect} from 'react-redux';
+import PropTypes from "prop-types";
+import React from "react";
+import { connect } from "react-redux";
 
-import $L from '@enact/i18n/$L';
-import IString from '@enact/i18n/ilib/lib/IString';
-import ri from '@enact/ui/resolution';
-import Spinner from '@enact/moonstone/Spinner';
-import Notification from '@enact/moonstone/Notification';
-import VirtualList from '@enact/moonstone/VirtualList';
-import RadioItem from '@enact/moonstone/RadioItem';
-import CheckboxItem from '@enact/moonstone/CheckboxItem';
-import Button from '@enact/moonstone/Button';
-import {Panel} from '@enact/moonstone/Panels';
+import $L from "@enact/i18n/$L";
+import IString from "@enact/i18n/ilib/lib/IString";
+import ri from "@enact/ui/resolution";
+import Spinner from "@enact/moonstone/Spinner";
+import Notification from "@enact/moonstone/Notification";
+import VirtualList from "@enact/moonstone/VirtualList";
+import RadioItem from "@enact/moonstone/RadioItem";
+import CheckboxItem from "@enact/moonstone/CheckboxItem";
+import Button from "@enact/moonstone/Button";
+import { Panel } from "@enact/moonstone/Panels";
 
-import {setSystemSettings} from '../../actions';
-import {setUiMenuLanguage} from '../../actions/generalAction';
-import {getDefaultVkbLanguage} from './utils/GeneralUtils';
+import { setSystemSettings } from "../../actions";
+import { setUiMenuLanguage } from "../../actions/generalAction";
+import { getDefaultVkbLanguage } from "./utils/GeneralUtils";
 
-import css from '../../App/App.less';
+import css from "../../App/App.less";
 
 class LanguageListCheckboxItem extends React.Component {
 	constructor (props) {
@@ -58,7 +58,7 @@ class LanguageListCheckboxItem extends React.Component {
 		return (
 			<CheckboxItem
 				{...rest}
-				className={css['general-virtual-list-item-layout']}
+				className={css["general-virtual-list-item-layout"]}
 				data-index={dataIndex}
 				selected={selectedLanguage.spec.indexOf(data.spec) > -1}
 				disabled={defaultLanguages.indexOf(data.spec) > -1}
@@ -97,7 +97,7 @@ class LanguageListRadioItem1 extends React.Component {
 		return (
 			<RadioItem
 				{...rest}
-				className={css['general-virtual-list-item-layout']}
+				className={css["general-virtual-list-item-layout"]}
 				data-index={dataIndex}
 				selected={spec === data.spec}
 				disabled={data.disabled}
@@ -109,15 +109,16 @@ class LanguageListRadioItem1 extends React.Component {
 	}
 
 }
-let LanguageListRadioItem = connect(function(state){
-	return {
-		uiMenuLanguage:state.uiMenuLanguage
+let LanguageListRadioItem = connect(
+	function(state) {
+		return {
+			uiMenuLanguage: state.uiMenuLanguage
+		};
+	},
+	function(dispatch) {
+		return {};
 	}
-},function(dispatch){
- return {
-
- }
-})(LanguageListRadioItem1)
+)(LanguageListRadioItem1);
 class LanguageList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -134,9 +135,12 @@ class LanguageList extends React.Component {
 			confirmPopupShowing: false,
 			loadingPopupShowing:false,
 			removePopupShowing: false,
-			selectedLanguage: this.props.mode === 'menuLanguage' ? this.props.menuLanguage : this.props.vkbLanguage,
-			selectedLanguages: this.props.mode === 'menuLanguage' ? this.props.menuLanguages : this.props.vkbLanguages,
-			selectedComponent: this.props.mode === 'menuLanguage' ? this.radioItemComponent : this.checkboxItemComponent,
+			selectedLanguage:
+				this.props.mode === "menuLanguage" ? this.props.menuLanguage : this.props.vkbLanguage,
+			selectedLanguages:
+				this.props.mode === "menuLanguage" ? this.props.menuLanguages : this.props.vkbLanguages,
+			selectedComponent:
+				this.props.mode === "menuLanguage" ? this.radioItemComponent : this.checkboxItemComponent,
 			menu: this.props.menuLanguage.spec,
 			stt: this.props.sttLanguage.spec,
 			aud: this.props.audioLanguage.spec,
@@ -145,20 +149,18 @@ class LanguageList extends React.Component {
 		};
 	}
 
-	componentDidMount () {
-	}
 
-	saveLanguages (currentLanguage) {
-		if (this.props.mode === 'menuLanguage') {
+	saveLanguages(currentLanguage) {
+		if (this.props.mode === "menuLanguage") {
 			this.props.setUiMenuLanguage({
-					spec:currentLanguage.spec,
-					displayValue:currentLanguage.displayValue
+				spec: currentLanguage.spec,
+				displayValue: currentLanguage.displayValue
 			});
 			this.setState({
 				menu: currentLanguage.spec,
 				confirmPopupShowing: true
 			});
-		} else if (this.props.mode === 'vkbLanguage') {
+		} else if (this.props.mode === "vkbLanguage") {
 			let index = this.state.selectedLanguage.spec.indexOf(currentLanguage.spec);
 
 			// Save vkb Language
@@ -184,20 +186,20 @@ class LanguageList extends React.Component {
 
 	lunaSendSetSystemSettings = () => {
 		let info = {
-			'locales': {
-				'UI': this.state.menu,
-				'STT': this.state.stt,
-				'FMT': this.state.menu,
-				'NLP': this.state.stt,
-				'TV': this.state.menu,
-				'AUD': this.state.aud,
-				'AUD2': this.state.aud2
+			locales: {
+				UI: this.state.menu,
+				STT: this.state.stt,
+				FMT: this.state.menu,
+				NLP: this.state.stt,
+				TV: this.state.menu,
+				AUD: this.state.aud,
+				AUD2: this.state.aud2
 			},
-			'keyboards' : this.state.vkb
+			keyboards: this.state.vkb
 		};
 
-		this.props.setSystemSettings({settings: {localeInfo: info}});
-	}
+		this.props.setSystemSettings({ settings: { localeInfo: info } });
+	};
 
 	confirmPopupClose () {
 		this.confirmPopupNo();
@@ -221,33 +223,33 @@ class LanguageList extends React.Component {
 
 		// get vkb languages for selected menu language
 		if (this.state.vkb) {
-			let defaultLang = this.state.menu.split('-');
+			let defaultLang = this.state.menu.split("-");
 
 			switch (defaultLang) {
-				case 'as':	// keyboard does not support these languages. set it to Hindi
-				case 'bn':
-				case 'gu':
-				case 'kn':
-				case 'ml':
-				case 'mr':
-				case 'pa':
-				case 'ta':
-				case 'te':
-				case 'ur':
-					defaultLang = 'hi';
+				case "as": // keyboard does not support these languages. set it to Hindi
+				case "bn":
+				case "gu":
+				case "kn":
+				case "ml":
+				case "mr":
+				case "pa":
+				case "ta":
+				case "te":
+				case "ur":
+					defaultLang = "hi";
 					break;
-				case 'zh': // Chinese letters
-					if (this.state.menu.spec.indexOf('Hans') >= 0) {
-						defaultLang = 'zh-Hans';
+				case "zh": // Chinese letters
+					if (this.state.menu.spec.indexOf("Hans") >= 0) {
+						defaultLang = "zh-Hans";
 					} else {
-						defaultLang = 'zh-Hant';
+						defaultLang = "zh-Hant";
 					}
 					break;
-				case 'uz': // uzbek
-					if (this.state.menu.spec.indexOf('Latn') >= 0) {
-						defaultLang = 'uz-Latn';
+				case "uz": // uzbek
+					if (this.state.menu.spec.indexOf("Latn") >= 0) {
+						defaultLang = "uz-Latn";
 					} else {
-						defaultLang = 'uz-Cyrl';
+						defaultLang = "uz-Cyrl";
 					}
 					break;
 			}
@@ -261,7 +263,10 @@ class LanguageList extends React.Component {
 				}
 			}
 			if (this.props.vkbInit.fixedLangs.indexOf(defaultLang) < 0) {
-				if (this.state.vkb.indexOf(defaultLang) < 0 && this.props.vkbLanguages.find(x => x.spec === defaultLang)) {
+				if (
+					this.state.vkb.indexOf(defaultLang) < 0 &&
+					this.props.vkbLanguages.find(x => x.spec === defaultLang)
+				) {
 					this.state.vkb.splice(this.props.vkbInit.fixedLangs.length, 0, defaultLang); // add second default lang @ index{1}
 				}
 			}
@@ -282,82 +287,70 @@ class LanguageList extends React.Component {
 		});
 	}
 
-	checkboxItemComponent = ({data, index, key}) => {
+	checkboxItemComponent = ({ index }) => {
 		return (
 			<LanguageListCheckboxItem
-				key={key}
-				data={data[index]}
+				key={index}
+				data={this.state.selectedLanguages[index]}
 				dataIndex={index}
 				selectedLanguage={this.state.selectedLanguage}
 				defaultLanguages={this.props.vkbInit.fixedLangs}
 				clickItem={this.saveLanguages}
 			/>
 		);
-	}
+	};
 
-	radioItemComponent = ({data, index, key}) => {
+	radioItemComponent = ({ index }) => {
 		return (
 			<LanguageListRadioItem
-				key={key}
-				data={data[index]}
+				key={index}
+				data={this.state.selectedLanguages[index]}
 				dataIndex={index}
 				selectedLanguage={this.state.selectedLanguage}
 				clickItem={this.saveLanguages}
 			/>
 		);
-	}
+	};
 
 	render () {
 		return (
 			<Panel>
 				<VirtualList
-					data={this.state.selectedLanguages}
+					itemRenderer={this.state.selectedComponent}
 					dataSize={this.state.selectedLanguages.length}
 					itemSize={ri.scale(60)}
-					component={this.state.selectedComponent}
 					focusableScrollbar
 				/>
-				<Notification
-					open={this.state.confirmPopupShowing}
-					onClose={this.confirmPopupClose}
-				>
+				<Notification open={this.state.confirmPopupShowing} onClose={this.confirmPopupClose}>
 					<span>
-						{$L('The Settings application must reload to change the menu language. Do you want to continue?')}
+						{$L(
+							"The Settings application must reload to change the menu language. Do you want to continue?"
+						)}
 					</span>
 					<buttons>
-						<Button onClick={this.confirmPopupNo}>
-							{$L('No')}
-						</Button>
-						<Button onClick={this.confirmPopupYes}>
-							{$L('Yes')}
-						</Button>
+						<Button onClick={this.confirmPopupNo}>{$L("No")}</Button>
+						<Button onClick={this.confirmPopupYes}>{$L("Yes")}</Button>
 					</buttons>
 				</Notification>
-				<Notification
-					open={this.state.loadingPopupShowing}
-					onClose={this.loadingPopupClose}
-				>
-					<span>
-						{$L('Please wait while the Settings application reloads.')}
-					</span>
+				<Notification open={this.state.loadingPopupShowing} onClose={this.loadingPopupClose}>
+					<span>{$L("Please wait while the Settings application reloads.")}</span>
 					<div className={css.notificationSpinner}>
 						<Spinner />
 					</div>
 					<buttons>
-						<Button style={{display: 'none'}} />
+						<Button style={{ display: "none" }} />
 					</buttons>
 				</Notification>
-				<Notification
-					open={this.state.removePopupShowing}
-					onClose={this.removePopupClose}
-				>
+				<Notification open={this.state.removePopupShowing} onClose={this.removePopupClose}>
 					<span>
-						{new IString($L('You can select upto {n} keyboard languages only. De-select selected languages to add more langauge.')).format({n: (5)})}
+						{new IString(
+							$L(
+								"You can select upto {n} keyboard languages only. De-select selected languages to add more langauge."
+							)
+						).format({ n: 5 })}
 					</span>
 					<buttons>
-						<Button onClick={this.removePopupClose}>
-							{$L('OK')}
-						</Button>
+						<Button onClick={this.removePopupClose}>{$L("OK")}</Button>
 					</buttons>
 				</Notification>
 			</Panel>
@@ -380,7 +373,7 @@ LanguageList.propTypes = {
 };
 
 LanguageListRadioItem.propTypes = {
-	clickItem: React.PropTypes.func,
+	clickItem: PropTypes.func,
 	data: PropTypes.object,
 	dataIndex: PropTypes.number,
 	selectedLanguage: PropTypes.object,
@@ -388,7 +381,7 @@ LanguageListRadioItem.propTypes = {
 };
 
 LanguageListCheckboxItem.propTypes = {
-	clickItem: React.PropTypes.func,
+	clickItem: PropTypes.func,
 	data: PropTypes.object,
 	dataIndex: PropTypes.number,
 	defaultLanguages: PropTypes.array,
@@ -410,8 +403,8 @@ const mapStateToProps = ({intl, general}, ownProps) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	setSystemSettings (param) {
+const mapDispatchToProps = dispatch => ({
+	setSystemSettings(param) {
 		dispatch(setSystemSettings(param));
 	},
 	setUiMenuLanguage(lang){
@@ -419,4 +412,7 @@ const mapDispatchToProps = (dispatch) => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageList);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(LanguageList);

@@ -14,16 +14,16 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
-import kind from '@enact/core/kind';
-import {MarqueeText} from '@enact/moonstone/Marquee';
+import kind from "@enact/core/kind";
+import Marquee from "@enact/moonstone/Marquee";
 
-import css from './SplitItem.less';
+import css from "./SplitItem.less";
 
 const SpilitItem = kind({
-	name: 'SpilitItem',
+	name: "SpilitItem",
 
 	propTypes: {
 		children: PropTypes.string.isRequired,
@@ -32,8 +32,8 @@ const SpilitItem = kind({
 
 	render: ({label, children}) => (
 		<div className={css.splitItem}>
-			<MarqueeText className={css.label}>{label}</MarqueeText>
-			<MarqueeText className={css.content}>{children}</MarqueeText>
+			<Marquee className={css.label}>{label}</Marquee>
+			<Marquee className={css.content}>{children}</Marquee>
 		</div>
 	)
 

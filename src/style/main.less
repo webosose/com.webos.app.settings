@@ -19,9 +19,7 @@
 @v-spacing-cmr-margin-bottom: 9px;
 @import '~@enact/moonstone/styles/mixins.less';
 @import '~@enact/moonstone/styles/variables.less';
-@import '~@enact/moonstone/styles/rules.less';
 @import '~@enact/moonstone/styles/skin.less';
-@import '~@enact/moonstone/styles/text.less';
 @moon-accent: #cf0652;
 
 .vspacingCMR {
@@ -55,10 +53,7 @@
 	width: 84px;
 	.bg {
 		border: 3px solid;
-	}
-	.applySkins({
-		.bg {
-			border-color: rgba(191, 191, 191, .3);
+		border-color: rgba(191, 191, 191, .3);
 		}
 		&.selected {
 			.bg {
@@ -75,5 +70,5 @@
 				border-color: @moon-accent;
 			}
 		}
-	});
+	
 }
