@@ -1,13 +1,13 @@
 Open Source Software Package:
   - name: React
-    source: https://github.com/facebook/react
+    source: git://github.com/facebook/react
     license: MIT
   - name: React Redux
-    source: https://github.com/reduxjs/react-redux
+    source: git://github.com/reduxjs/react-redux
     license: MIT
   - name: Redux
-    source: https://github.com/reduxjs/redux
+    source: git://github.com/reduxjs/redux
     license: MIT
   - name: Redux Thunk
-    source: https://github.com/reduxjs/redux-thunk
+    source: git://github.com/reduxjs/redux-thunk
     license: MIT
