@@ -15,7 +15,7 @@
    "noSplashOnLaunch": true,
    "disableBackHistoryAPI": true,
    "supportQuickStart": false,
-   "requiredPermissions": ["settings", "networking", "applications"],
+   "requiredPermissions": ["applications.internal", "networkconnection.management", "networkconnection.query", "settings.management", "settings.query"],
    "trustLevel": "trusted",
    "accessibility": {
       "supportsAudioGuidance": true
