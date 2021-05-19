@@ -20,7 +20,7 @@
 	"repository": "",
 	"enact": {
 		"title": "Settings",
-		
+		"forceCSSModules": true,
 		"isomorphic": true,
 		"ri": {
 			"baseSize": 24
@@ -40,8 +40,8 @@
 		"@enact/ui": "^2.0.0",
 		"@enact/webos": "^2.0.0",
 		"prop-types": "^15.6.2",
-		"react": "^16.7.0",
-		"react-dom": "^16.7.0",
+		"react": "^16.14.0",
+		"react-dom": "^16.14.0",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
 		"redux-thunk": "^2.2.0"

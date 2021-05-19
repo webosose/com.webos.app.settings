@@ -33,44 +33,47 @@ import { makeNetworkListArray } from "../utils/NetworkCommon";
 
 const SpottableDiv = Spottable("div");
 
+require.context("../../../../assets/images/internet/", false, /\.png$/);
+require.context("../../../../assets/images", false, /\.png$/);
+
 const signalIcons = {
 	secure: [
-		require("../../../../assets/images/internet/ic_wifi_lock_1_n.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_2_n.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_3_n.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_4_n.png")
+		"assets/images/internet/ic_wifi_lock_1_n.png",
+		"assets/images/internet/ic_wifi_lock_2_n.png",
+		"assets/images/internet/ic_wifi_lock_3_n.png",
+		"assets/images/internet/ic_wifi_lock_4_n.png"
 	],
 	secureFocus: [
-		require("../../../../assets/images/internet/ic_wifi_lock_1_f.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_2_f.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_3_f.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_4_f.png")
+		"assets/images/internet/ic_wifi_lock_1_f.png",
+		"assets/images/internet/ic_wifi_lock_2_f.png",
+		"assets/images/internet/ic_wifi_lock_3_f.png",
+		"assets/images/internet/ic_wifi_lock_4_f.png"
 	],
 	secureFocusBno: [
-		require("../../../../assets/images/internet/ic_wifi_lock_1_f_bno.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_2_f_bno.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_3_f_bno.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_4_f_bno.png")
+		"assets/images/internet/ic_wifi_lock_1_f_bno.png",
+		"assets/images/internet/ic_wifi_lock_2_f_bno.png",
+		"assets/images/internet/ic_wifi_lock_3_f_bno.png",
+		"assets/images/internet/ic_wifi_lock_4_f_bno.png"
 	],
 	insecure: [
-		require("../../../../assets/images/internet/ic_wifi_1_n.png"),
-		require("../../../../assets/images/internet/ic_wifi_2_n.png"),
-		require("../../../../assets/images/internet/ic_wifi_3_n.png"),
-		require("../../../../assets/images/internet/ic_wifi_4_n.png")
+		"assets/images/internet/ic_wifi_1_n.png",
+		"assets/images/internet/ic_wifi_2_n.png",
+		"assets/images/internet/ic_wifi_3_n.png",
+		"assets/images/internet/ic_wifi_4_n.png"
 	],
 	insecureFocus: [
-		require("../../../../assets/images/internet/ic_wifi_1_f.png"),
-		require("../../../../assets/images/internet/ic_wifi_2_f.png"),
-		require("../../../../assets/images/internet/ic_wifi_3_f.png"),
-		require("../../../../assets/images/internet/ic_wifi_4_f.png")
+		"assets/images/internet/ic_wifi_1_f.png",
+		"assets/images/internet/ic_wifi_2_f.png",
+		"assets/images/internet/ic_wifi_3_f.png",
+		"assets/images/internet/ic_wifi_4_f.png"
 	],
 	insecureFocusBno: [
-		require("../../../../assets/images/internet/ic_wifi_lock_1_f_bno.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_2_f_bno.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_3_f_bno.png"),
-		require("../../../../assets/images/internet/ic_wifi_lock_4_f_bno.png")
+		"assets/images/internet/ic_wifi_lock_1_f_bno.png",
+		"assets/images/internet/ic_wifi_lock_2_f_bno.png",
+		"assets/images/internet/ic_wifi_lock_3_f_bno.png",
+		"assets/images/internet/ic_wifi_lock_4_f_bno.png"
 	],
-	disconnect: require("../../../../assets/images/ic_delete_f.png")
+	disconnect: "assets/images/ic_delete_f.png"
 };
 
 const BaseItem = kind({
