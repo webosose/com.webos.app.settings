@@ -18,7 +18,7 @@ import NameMapCity from "../../../constants/NameMapCity";
 import NameMapCountry from "../../../constants/NameMapCountry";
 
 export function getDefaultVkbLanguage(country, menuLanguage, vkbLanguages) {
-	let hasOptional = !country === "KOR" && !country === "JPN";
+	let hasOptional = country ? ( country !== "KOR" && country !== "JPN" ) : false;
 	let fixedLangs = ["en"];
 	switch (country) {
 		case "KOR":
