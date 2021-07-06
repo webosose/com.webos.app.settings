@@ -52,7 +52,7 @@ export const uiMenuLanguage = (state = {}, action) => {
 	}
 };
 export const error = (state = {}, action) => {
-	switch(action.type) {
+	switch (action.type) {
 		case 'TIMEZONE_UPDATE_FAILURE':
 			return Object.assign({}, state, action.errorObj);
 		default:

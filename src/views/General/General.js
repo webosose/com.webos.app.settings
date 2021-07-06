@@ -55,11 +55,22 @@ class General extends React.Component {
 				this.setState({
 					currentDate: fmt.format(new Date(res.utc * 1000))
 				});
-				this.updateTimeInterval(res.utc)
+				this.updateTimeInterval(res.utc);
 			}
 		});
 	}
-	updateTimeInterval(utc){
+
+	componentWillUnmount () {
+		if (this.timerObj !== null) {
+			clearInterval(this.timerObj);
+			this.timerObj = null;
+		}
+		if (this.getEffectiveBroadcastTime !== null) {
+			this.getEffectiveBroadcastTime.cancel();
+		}
+	}
+
+	updateTimeInterval (utc) {
 		const fmt = new DateFmt({
 			type: 'datetime',
 			length: 'full',
@@ -75,22 +86,13 @@ class General extends React.Component {
 				this.setState({
 					currentDate: fmt.format(new Date((currentTime) * 1000))
 				});
-				this.timerObj = setInterval(()=>{
+				this.timerObj = setInterval(() => {
 					currentTime = currentTime + changedSeconds;
 					this.setState({
 						currentDate: fmt.format(new Date((currentTime) * 1000))
 					});
-				},updateTime);
-			}, diffSeconds*1000);
-		}
-	}
-	componentWillUnmount () {
-		if(this.timerObj !== null){
-			clearInterval(this.timerObj);
-			this.timerObj = null;
-		}
-		if (this.getEffectiveBroadcastTime !== null) {
-			this.getEffectiveBroadcastTime.cancel();
+				}, updateTime);
+			}, diffSeconds * 1000);
 		}
 	}
 

@@ -19,7 +19,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import Button from '@enact/moonstone/Button';
-import Divider from '@enact/moonstone/Divider';
+import Divider from '@enact/moonstone/Heading';
 import $L from '@enact/i18n/$L';
 import css from '../../style/main.less';
 import {getIpInformation, getConnectionStatus} from './utils/NetworkCommon';
@@ -40,7 +40,7 @@ class Advanced extends React.Component {
 			this.props.removePath();
 		}
 	}
-	componentWillReceiveProps (nextProps) {
+	UNSAFE_componentWillReceiveProps (nextProps) {
 		this.setState({
 			status: getConnectionStatus(nextProps.wifi)
 		});

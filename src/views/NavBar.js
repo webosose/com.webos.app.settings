@@ -14,27 +14,31 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+import React, {useCallback} from 'react';
+import {connect} from 'react-redux';
 
-import $L from "@enact/i18n/$L";
-import kind from "@enact/core/kind";
+import $L from '@enact/i18n/$L';
+import kind from '@enact/core/kind';
 
-import { IconButton as IconButtonFactory } from "@enact/moonstone/IconButton";
+import {IconButton as IconButtonFactory} from '@enact/moonstone/IconButton';
 
-import css from "../App/App.less";
-import cssIcon from "../style/main.less";
-import { setPath } from "../actions";
+import css from '../App/App.less';
+import cssIcon from '../style/main.less';
+import {setPath} from '../actions';
 
 // const IconButtonBase = IconButtonFactory({ css: cssIcon });
 const IconButton = kind({
-	name: "IconButton",
+	name: 'IconButton',
 	render: props => <IconButtonFactory {...props} className={cssIcon.iconButton} />
 });
 
 const NavButton = props => {
-	const clickHandler = () => props.onSelect(props.target);
+	// const clickHandler = () => props.onSelect(props.target);
+	const {target, onSelect} = props;
+	const clickHandler = useCallback(() => {
+		onSelect(target);
+	}, [target, onSelect]);
 	return (
 		<div className={css.navButton} data-component-id={props.id}>
 			<div className={css.icon}>
@@ -51,26 +55,26 @@ const NavButton = props => {
 	);
 };
 class NavBar extends React.Component {
-	render() {
+	render () {
 		return (
 			<div className={this.props.className}>
 				<NavButton
 					icon="gear"
 					target="General"
-					selected={this.props.category === "General"}
+					selected={this.props.category === 'General'}
 					onSelect={this.props.setPath}
 					id="general"
 				>
-					{$L("General")}
+					{$L('General')}
 				</NavButton>
 				<NavButton
 					icon="ellipsis"
 					target="Network"
-					selected={this.props.category === "Network"}
+					selected={this.props.category === 'Network'}
 					onSelect={this.props.setPath}
 					id="network"
 				>
-					{$L("Network")}
+					{$L('Network')}
 				</NavButton>
 			</div>
 		);
@@ -97,7 +101,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	setPath(path) {
+	setPath (path) {
 		dispatch(setPath(path));
 	}
 });

@@ -14,36 +14,36 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import NameMapCity from "../../../constants/NameMapCity";
-import NameMapCountry from "../../../constants/NameMapCountry";
+import NameMapCity from '../../../constants/NameMapCity';
+import NameMapCountry from '../../../constants/NameMapCountry';
 
-export function getDefaultVkbLanguage(country, menuLanguage, vkbLanguages) {
-	let hasOptional = country ? ( country !== "KOR" && country !== "JPN" ) : false;
-	let fixedLangs = ["en"];
+export function getDefaultVkbLanguage (country, menuLanguage, vkbLanguages) {
+	let hasOptional = country ? ( country !== 'KOR' && country !== 'JPN' ) : false;
+	let fixedLangs = ['en'];
 	switch (country) {
-		case "KOR":
-			fixedLangs.push("ko");
+		case 'KOR':
+			fixedLangs.push('ko');
 			break;
-		case "CHN":
-			fixedLangs.push("zh-Hans");
+		case 'CHN':
+			fixedLangs.push('zh-Hans');
 			break;
-		case "HKG":
-		case "TWN":
-			fixedLangs.push("zh-Hant");
+		case 'HKG':
+		case 'TWN':
+			fixedLangs.push('zh-Hant');
 			break;
-		case "JPN":
-			fixedLangs.push("ja");
+		case 'JPN':
+			fixedLangs.push('ja');
 			break;
 	}
 
-	let menuLangCodes = menuLanguage.spec.split("-");
+	let menuLangCodes = menuLanguage.spec.split('-');
 	if (menuLangCodes.length > 2) {
-		menuLangCodes[1] = menuLangCodes[0] + "-" + menuLangCodes[1];
+		menuLangCodes[1] = menuLangCodes[0] + '-' + menuLangCodes[1];
 	} else {
 		menuLangCodes.pop();
 	}
 
-	let optional = "",
+	let optional = '',
 		arr = [];
 	for (let i = 0; i < fixedLangs.length; i++) {
 		if (fixedLangs.indexOf(arr[i]) < 0 && vkbLanguages.find(x => x.spec === fixedLangs[i])) {
@@ -69,9 +69,9 @@ export const getTimeZoneList = ({timezone}) => {
 	};
 
 	if (timezone.selected.ZoneID) {
-		let zone = timezone.selected.ZoneID.split("/")[0];
+		let zone = timezone.selected.ZoneID.split('/')[0];
 		for (let i = 0; i < timezone.values.length; i++) {
-			if (zone === timezone.values[i].ZoneID.split("/")[0]) {
+			if (zone === timezone.values[i].ZoneID.split('/')[0]) {
 				if (timezone.values[i].City) {
 					timezone.values[i].displayName = NameMapCity(timezone.values[i].City);
 				} else {

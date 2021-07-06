@@ -15,7 +15,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import PropTypes from 'prop-types';
-import React from 'react';
+// import React from 'react';
 import $L from '@enact/i18n/$L';
 import kind from '@enact/core/kind';
 

@@ -16,7 +16,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-//import PureRenderMixin from 'react-addons-pure-render-mixin';
+// import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import Scroller from '@enact/moonstone/Scroller';
 import Spotlight from '@enact/spotlight';
@@ -32,7 +32,7 @@ class SettingsScroller extends React.Component {
 	constructor (props) {
 		super(props);
 
-		//this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+		// this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 		this.uniqueId = incrementId('settingsScroller');
 	}
 

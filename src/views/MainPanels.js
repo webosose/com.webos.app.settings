@@ -52,6 +52,14 @@ class MainPanels extends React.Component {
 		}
 	}
 
+	componentDidMount () {
+		this.props.getTimeZone();
+		this.props.getCountry();
+		this.props.getCountryValues();
+		this.props.getCountryRegionValues();
+		this.props.getTimeZoneValues();
+	}
+
 	handleOnClose () {
 		if (this.reloadForCountry) {
 			new LS2Request().send({
@@ -62,14 +70,6 @@ class MainPanels extends React.Component {
 				}
 			});
 		}
-	}
-
-	componentDidMount () {
-		this.props.getTimeZone();
-		this.props.getCountry();
-		this.props.getCountryValues();
-		this.props.getCountryRegionValues();
-		this.props.getTimeZoneValues();
 	}
 
 	render () {

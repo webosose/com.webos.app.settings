@@ -96,11 +96,11 @@ function receiveSetSystemSettingsCountry () {
 		payload: true
 	};
 }
-function timeZoneUpdateFailure(value){
+function timeZoneUpdateFailure (value) {
 	return {
-		type:"TIMEZONE_UPDATE_FAILURE",
+		type:'TIMEZONE_UPDATE_FAILURE',
 		errorObj:value
-	}
+	};
 }
 export const setSystemSettings = params => dispatch => {
 	let {component} = params;
@@ -115,8 +115,8 @@ export const setSystemSettings = params => dispatch => {
 			}
 		},
 		onFailure: (res) => {
-			if(component === "GENERAL") {
-					dispatch(timeZoneUpdateFailure({errorCode:res.errorCode,errorReason:res.errorText}));
+			if (component === 'GENERAL') {
+				dispatch(timeZoneUpdateFailure({errorCode:res.errorCode, errorReason:res.errorText}));
 			}
 		}
 	});

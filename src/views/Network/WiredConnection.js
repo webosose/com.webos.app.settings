@@ -14,32 +14,40 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
-import Spotlight from "@enact/spotlight";
-import Button from "@enact/moonstone/Button";
-import BodyText from "@enact/moonstone/BodyText";
-import Divider from "@enact/moonstone/Divider";
+import PropTypes from 'prop-types';
+import React from 'react';
+import {connect} from 'react-redux';
+import Spotlight from '@enact/spotlight';
+import Button from '@enact/moonstone/Button';
+import BodyText from '@enact/moonstone/BodyText';
+import Divider from '@enact/moonstone/Heading';
 
-import $L from "@enact/i18n/$L";
+import $L from '@enact/i18n/$L';
 
-import css from "../../style/main.less";
-import { getIpInformation, getConnectionStatus } from "./utils/NetworkCommon";
-import SplitItem from "./controls/SplitItem";
-import { addPath, removePath } from "../../actions";
-import ConnectionStatus from "./controls/ConnectionStatus";
+import css from '../../style/main.less';
+import {getIpInformation, getConnectionStatus} from './utils/NetworkCommon';
+import SplitItem from './controls/SplitItem';
+import {addPath, removePath} from '../../actions';
+import ConnectionStatus from './controls/ConnectionStatus';
 
 class WiredConnection extends React.Component {
 	constructor (props) {
 		super(props);
 		this.onEditClick = this.onEditClick.bind(this);
 		// this.pushEditPanel = props.pushPath.bind(this, 'Edit');
-		this.pushPathWiredEdit = props.addPath.bind(this, "Wired Edit");
+		this.pushPathWiredEdit = props.addPath.bind(this, 'Wired Edit');
 		this.state = {
-			ipSelection: "ipv4"
+			ipSelection: 'ipv4'
 		};
 	}
+
+	componentDidMount () {
+		const currentContainer = Spotlight.getActiveContainer();
+		if (currentContainer !== 'spotlightRootDecorator') {
+			Spotlight.focus(Spotlight.getActiveContainer());
+		}
+	}
+
 	onEditClick () {
 		/*
 		const params = {
@@ -50,31 +58,26 @@ class WiredConnection extends React.Component {
 		// this.props.editPanelSet(params);
 		this.pushPathWiredEdit();
 	}
-	componentDidMount () {
-		const currentContainer = Spotlight.getActiveContainer();
-		if (currentContainer !== "spotlightRootDecorator") {
-			Spotlight.focus(Spotlight.getActiveContainer());
-		}
-	}
+
 	render () {
 		const status = getConnectionStatus(this.props.wired);
 
-		let ipMode = $L("IP");
+		let ipMode = $L('IP');
 		if (this.props.wired && this.props.wired.method) {
 			const method = this.props.wired.method;
-			if (method === "manual") {
-				ipMode = $L("IP (Manual)");
-			} else if (method === "dhcp") {
-				ipMode = $L("IP (Automatic)");
+			if (method === 'manual') {
+				ipMode = $L('IP (Manual)');
+			} else if (method === 'dhcp') {
+				ipMode = $L('IP (Automatic)');
 			}
 		}
 
-		const { ipAddress, subnet, gateway, dns } = getIpInformation(
+		const {ipAddress, subnet, gateway, dns} = getIpInformation(
 			this.props.wired,
 			this.state.ipSelection,
 			this.props.supportIPv6
 		);
-		if (this.props.wired.state === "disconnected") {
+		if (this.props.wired.state === 'disconnected') {
 			return (
 				<div>
 					<Button
@@ -83,48 +86,48 @@ class WiredConnection extends React.Component {
 						className={css.doneButton}
 						data-component-id="done"
 					>
-						{$L("Done")}
+						{$L('Done')}
 					</Button>
 					<BodyText>
 						{$L(
-							"Connect your device to your router or modem with an Ethernet cable to activate your wired network connection."
+							'Connect your device to your router or modem with an Ethernet cable to activate your wired network connection.'
 						)}
 					</BodyText>
 				</div>
 			);
-		} else if (this.props.wired.state !== "disconnected") {
+		} else if (this.props.wired.state !== 'disconnected') {
 			return (
 				<div>
 					<ConnectionStatus mode="wired" status={status} data-component-id="connectionStatus" />
 					<Divider>{ipMode}</Divider>
-					<SplitItem label={$L("IP Address")} data-component-id="ipAddress">
-						{ipAddress || ""}
+					<SplitItem label={$L('IP Address')} data-component-id="ipAddress">
+						{ipAddress || ''}
 					</SplitItem>
 					<SplitItem
 						label={
-							this.state.ipSelection === "ipv4" ? $L("Subnet Mask") : $L("Subnet prefix length")
+							this.state.ipSelection === 'ipv4' ? $L('Subnet Mask') : $L('Subnet prefix length')
 						}
 						data-component-id="subnetMask"
 					>
-						{subnet || ""}
+						{subnet || ''}
 					</SplitItem>
-					<SplitItem label={$L("Gateway")} data-component-id="gateway">
-						{gateway || ""}
+					<SplitItem label={$L('Gateway')} data-component-id="gateway">
+						{gateway || ''}
 					</SplitItem>
-					<SplitItem label={$L("DNS Server")} data-component-id="dnsServer">
-						{dns || ""}
+					<SplitItem label={$L('DNS Server')} data-component-id="dnsServer">
+						{dns || ''}
 					</SplitItem>
-					<SplitItem label={$L("MAC Address")} data-component-id="macAddress">
+					<SplitItem label={$L('MAC Address')} data-component-id="macAddress">
 						{this.props.wiredMac}
 					</SplitItem>
-					{this.state.ipSelection === "ipv4" && (
+					{this.state.ipSelection === 'ipv4' && (
 						<Button
 							small
 							onClick={this.onEditClick}
 							className={css.networkEditButton}
 							data-component-id="edit"
 						>
-							{$L("Edit")}
+							{$L('Edit')}
 						</Button>
 					)}
 				</div>
@@ -146,13 +149,13 @@ const mapStateToProps = ({network, intl}) => {
 	const {country} = intl;
 	return {
 		wired: wired,
-		supportIPv6: country === "JPN",
-		wiredMac: (wiredInfo && wiredInfo.macAddress) || ""
+		supportIPv6: country === 'JPN',
+		wiredMac: (wiredInfo && wiredInfo.macAddress) || ''
 	};
 };
 
 const mapDispatchToProps = dispatch => ({
-	addPath(path) {
+	addPath (path) {
 		dispatch(addPath(path));
 	},
 	removePath () {

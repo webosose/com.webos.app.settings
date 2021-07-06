@@ -14,29 +14,29 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+import React from 'react';
+import {connect} from 'react-redux';
 
-import $L from "@enact/i18n/$L";
-import IString from "@enact/i18n/ilib/lib/IString";
+import $L from '@enact/i18n/$L';
+import IString from '@enact/i18n/ilib/lib/IString';
 
-import Button from "@enact/moonstone/Button";
-import Notification from "@enact/moonstone/Notification";
-import Divider from "@enact/moonstone/Divider";
-import Item from "@enact/moonstone/Item";
-import VirtualList from "@enact/moonstone/VirtualList";
-import Spinner from "@enact/moonstone/Spinner";
+import Button from '@enact/moonstone/Button';
+import Notification from '@enact/moonstone/Notification';
+import Divider from '@enact/moonstone/Heading';
+import Item from '@enact/moonstone/Item';
+import VirtualList from '@enact/moonstone/VirtualList';
+import Spinner from '@enact/moonstone/Spinner';
 
-import ri from "@enact/ui/resolution";
-import LS2Request from "@enact/webos/LS2Request";
+import ri from '@enact/ui/resolution';
+import LS2Request from '@enact/webos/LS2Request';
 
-import css from "./WifiConnection.less";
-import mainCss from "../../style/main.less";
+import css from './WifiConnection.less';
+import mainCss from '../../style/main.less';
 
-import isNumeric from "../../utils/isNumeric";
+import isNumeric from '../../utils/isNumeric';
 
-import { addPath } from "../../actions";
+import {addPath} from '../../actions';
 import {
 	findWifiNetworks,
 	connectingWifi,
@@ -45,14 +45,14 @@ import {
 	connectWifi,
 	deleteWifiProfile,
 	clearErrorStatus
-} from "../../actions/networkAction";
-import { makeNetworkListArray, findMsgByErrorCode } from "./utils/NetworkCommon";
-import WirelessItem from "./controls/WirelessItem";
-import { SpotlightContainerDecorator } from "@enact/spotlight/SpotlightContainerDecorator";
+} from '../../actions/networkAction';
+import {makeNetworkListArray, findMsgByErrorCode} from './utils/NetworkCommon';
+import WirelessItem from './controls/WirelessItem';
+import {SpotlightContainerDecorator} from '@enact/spotlight/SpotlightContainerDecorator';
 
 const SpotlightContainer = SpotlightContainerDecorator(
-	{ preserveId: true, enterTo: "last-focused" },
-	"div"
+	{preserveId: true, enterTo: 'last-focused'},
+	'div'
 );
 let _foundNetworks = false;
 const wpsTimeout = 120000;
@@ -66,7 +66,7 @@ class TimerNotification extends React.Component {
 		this.Timertime = null;
 	}
 
-	componentWillReceiveProps ({open}) {
+	UNSAFE_componentWillReceiveProps ({open}) {
 		if (open) {
 			this.setState({
 				showNotification: true
@@ -120,7 +120,7 @@ class WifiConnection extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			wifiEnabled: "not_yet",
+			wifiEnabled: 'not_yet',
 			wifiNetworks: [],
 			wifiNetworksLength: [],
 			wpsPBCShowing: false,
@@ -129,25 +129,25 @@ class WifiConnection extends React.Component {
 			errorPopupStatus: {}
 		};
 		this.addHiddenNetwork = this.addHiddenNetwork.bind(this);
-		this.pushPathAddNetwork = props.addPath.bind(this, "Add Network");
-		this.pushPathAdvanced = props.addPath.bind(this, "Advanced");
+		this.pushPathAddNetwork = props.addPath.bind(this, 'Add Network');
+		this.pushPathAdvanced = props.addPath.bind(this, 'Advanced');
 		this.wpsPBCClicked = this.wpsPBCClicked.bind(this);
 		this.wpsPINClicked = this.wpsPINClicked.bind(this);
 		this.cancelWPS = this.cancelWPS.bind(this);
 
-		this.cancelError = this.handleErrorPopupAction.bind(this, "cancel");
-		this.retryError = this.handleErrorPopupAction.bind(this, "retry");
+		this.cancelError = this.handleErrorPopupAction.bind(this, 'cancel');
+		this.retryError = this.handleErrorPopupAction.bind(this, 'retry');
 
 		this.firstClicked = false;
 	}
 
-	componentWillReceiveProps (nextProps) {
+	UNSAFE_componentWillReceiveProps (nextProps) {
 		const wifiNetworks = nextProps.wifiNetworks;
 		const newNetworkList = [];
 		let newState = {};
 		let connectingConnectedNetwork = null;
 		for (let i = 0; i < wifiNetworks.length; i++) {
-			if (connectingConnectedNetwork === null && wifiNetworks[i].status !== "NOT_CONNECTED") {
+			if (connectingConnectedNetwork === null && wifiNetworks[i].status !== 'NOT_CONNECTED') {
 				if (this.firstClicked) {
 					this.scrollTo({index: 0, animate: false, focus: true});
 					this.firstClicked = false;
@@ -159,8 +159,8 @@ class WifiConnection extends React.Component {
 		if (this.state.wpsPBCShowing || this.state.wpsPinShowing) {
 			for (let i = 0; i < wifiNetworks.length; i++) {
 				if (
-					typeof wifiNetworks[i].status !== "undefined" &&
-					wifiNetworks[i].status === "CONNECTED"
+					typeof wifiNetworks[i].status !== 'undefined' &&
+					wifiNetworks[i].status === 'CONNECTED'
 				) {
 					// Hide WPS dialog
 					newState = {
@@ -176,15 +176,15 @@ class WifiConnection extends React.Component {
 		const parseNetworkError = nextProps.parseNetworkError;
 		if (parseNetworkError) {
 			if (
-				typeof parseNetworkError.errorText === "string" &&
+				typeof parseNetworkError.errorText === 'string' &&
 				parseNetworkError.errorText.length > 0
 			) {
-				if (parseNetworkError.errorText !== "NO_ERROR") {
+				if (parseNetworkError.errorText !== 'NO_ERROR') {
 					const connectingNetwork = nextProps.connectingNetwork;
 					if (connectingNetwork) {
 						if (connectingNetwork.ssid) {
 							let showRetry = true;
-							if (connectingNetwork.securityType === "none") {
+							if (connectingNetwork.securityType === 'none') {
 								showRetry = false;
 							}
 							newState = {
@@ -246,25 +246,25 @@ class WifiConnection extends React.Component {
 	};
 
 	wirelessItemClicked = network => {
-		if (network.status === "CONNECTING") {
+		if (network.status === 'CONNECTING') {
 			return true;
 		}
 		this.firstClicked = true;
-		if (network.status === "CONNECTED" && isNumeric(network.profileId)) {
+		if (network.status === 'CONNECTED' && isNumeric(network.profileId)) {
 			this.props.deleteWifiProfile({
 				profileId: network.profileId
 			});
-		} else if (network.status === "NOT_CONNECTED") {
-			if (!network.profileId && network.securityType !== "none") {
-				this.props.connectWifi({ network });
-				this.props.addPath("Wi-Fi Security");
+		} else if (network.status === 'NOT_CONNECTED') {
+			if (!network.profileId && network.securityType !== 'none') {
+				this.props.connectWifi({network});
+				this.props.addPath('Wi-Fi Security');
 			} else {
 				this.connectNetwork(network);
 			}
 		}
 	};
 
-	setWirelessItem = ({ index }) => {
+	setWirelessItem = ({index}) => {
 		return (
 			<WirelessItem
 				key={index}
@@ -275,9 +275,9 @@ class WifiConnection extends React.Component {
 		);
 	};
 
-	spinnerProps() {
+	spinnerProps () {
 		return {
-			children: $L("Searching..."),
+			children: $L('Searching...'),
 			centered: true,
 			className: css.wirelessSpinner
 		};
@@ -295,8 +295,8 @@ class WifiConnection extends React.Component {
 
 	wpsPBCClicked () {
 		new LS2Request().send({
-			service: "palm://com.palm.wifi",
-			method: "startwps",
+			service: 'palm://com.palm.wifi',
+			method: 'startwps',
 			parameters: {},
 			onComplete: res => {
 				if (res && res.returnValue) {
@@ -311,14 +311,14 @@ class WifiConnection extends React.Component {
 
 	wpsPINClicked () {
 		new LS2Request().send({
-			service: "palm://com.palm.wifi",
-			method: "createwpspin",
+			service: 'palm://com.palm.wifi',
+			method: 'createwpspin',
 			parameters: {},
 			onComplete: pinRes => {
 				if (pinRes && pinRes.returnValue && pinRes.wpspin) {
 					new LS2Request().send({
-						service: "palm://com.palm.wifi",
-						method: "startwps",
+						service: 'palm://com.palm.wifi',
+						method: 'startwps',
 						parameters: {
 							wpsPin: pinRes.wpspin
 						},
@@ -339,8 +339,8 @@ class WifiConnection extends React.Component {
 
 	cancelWPS () {
 		new LS2Request().send({
-			service: "palm://com.palm.wifi",
-			method: "cancelwps",
+			service: 'palm://com.palm.wifi',
+			method: 'cancelwps',
 			parameters: {}
 		});
 		this.setState({
@@ -349,27 +349,27 @@ class WifiConnection extends React.Component {
 		});
 	}
 
-	handleErrorPopupAction(action) {
-		if (action === "retry") {
-			const { connectingNetwork } = this.props;
+	handleErrorPopupAction (action) {
+		if (action === 'retry') {
+			const {connectingNetwork} = this.props;
 			if (connectingNetwork !== null) {
 				let viewModel = null;
 				if (connectingNetwork.hidden) {
 					viewModel = {
 						ssid: connectingNetwork.ssid,
-						securityType: connectingNetwork.securityType || "none",
+						securityType: connectingNetwork.securityType || 'none',
 						retry: true
 					};
-					this.props.connectWifi({ network: viewModel });
-					this.props.addPath("Add Network");
-				} else if (connectingNetwork.securityType !== "none") {
+					this.props.connectWifi({network: viewModel});
+					this.props.addPath('Add Network');
+				} else if (connectingNetwork.securityType !== 'none') {
 					viewModel = {
 						ssid: connectingNetwork.ssid,
 						securityType: connectingNetwork.securityType,
 						retry: true
 					};
-					this.props.connectWifi({ network: viewModel });
-					this.props.addPath("Wi-Fi Security");
+					this.props.connectWifi({network: viewModel});
+					this.props.addPath('Wi-Fi Security');
 				}
 			}
 		}
@@ -393,8 +393,8 @@ class WifiConnection extends React.Component {
 		});
 	};
 
-	wifiConnectedProps() {
-		if (this.props.wifiState === "connected") {
+	wifiConnectedProps () {
+		if (this.props.wifiState === 'connected') {
 			return true;
 		} else {
 			return false;
@@ -423,21 +423,21 @@ class WifiConnection extends React.Component {
 						onClick={this.addHiddenNetwork}
 						data-component-id="addNetwork"
 					>
-						{$L("Add a hidden wireless network")}
+						{$L('Add a hidden wireless network')}
 					</Item>
 					<Item
 						className={mainCss.vspacingCMR}
 						onClick={this.wpsPBCClicked}
 						data-component-id="connectWPSPBC"
 					>
-						{$L("Connect via WPS PBC")}
+						{$L('Connect via WPS PBC')}
 					</Item>
 					<Item
 						className={mainCss.vspacingCMR}
 						onClick={this.wpsPINClicked}
 						data-component-id="connectWPSPin"
 					>
-						{$L("Connect via WPS PIN")}
+						{$L('Connect via WPS PIN')}
 					</Item>
 					<Item
 						className={mainCss.vspacingCMR}
@@ -445,7 +445,7 @@ class WifiConnection extends React.Component {
 						onClick={this.pushPathAdvanced}
 						data-component-id="advancedWifiSettings"
 					>
-						{$L("Advanced Wi-Fi Settings")}
+						{$L('Advanced Wi-Fi Settings')}
 					</Item>
 				</SpotlightContainer>
 				<TimerNotification
@@ -453,9 +453,9 @@ class WifiConnection extends React.Component {
 					onClose={this.cancelWPS}
 					time={wpsTimeout}
 				>
-					<span>{$L("Press the WPS button on your wireless router now.")}</span>
+					<span>{$L('Press the WPS button on your wireless router now.')}</span>
 					<buttons>
-						<Button onClick={this.cancelWPS}>{$L("Cancel")}</Button>
+						<Button onClick={this.cancelWPS}>{$L('Cancel')}</Button>
 					</buttons>
 				</TimerNotification>
 				<TimerNotification
@@ -465,24 +465,24 @@ class WifiConnection extends React.Component {
 				>
 					<span
 						aria-label={
-							this.state.wpsPin
-								? new IString($L("PIN: {pin}")).format({
-										pin: this.state.wpsPin
-											.split("")
-											.toString()
-											.replace(/,/g, " ")
-								  }) + "\u0020"
-								: $L("PIN: ")
+							this.state.wpsPin ?
+								new IString($L('PIN: {pin}')).format({
+									pin: this.state.wpsPin
+										.split('')
+										.toString()
+										.replace(/,/g, ' ')
+								}) + '\u0020' :
+								$L('PIN: ')
 						}
 					>
-						{this.state.wpsPin
-							? new IString($L("PIN: {pin}")).format({ pin: this.state.wpsPin })
-							: $L("PIN: ")}
+						{this.state.wpsPin ?
+							new IString($L('PIN: {pin}')).format({pin: this.state.wpsPin}) :
+							$L('PIN: ')}
 					</span>
 					<br />
 					<span>{$L("Enter the PIN in your router's settings.")}</span>
 					<buttons>
-						<Button onClick={this.cancelWPS}>{$L("Cancel")}</Button>
+						<Button onClick={this.cancelWPS}>{$L('Cancel')}</Button>
 					</buttons>
 				</TimerNotification>
 				<Notification open={this.state.showErrorDialog} onClose={this.onErrorNotiClosed}>
@@ -498,12 +498,12 @@ class WifiConnection extends React.Component {
 					</span>
 					{this.state.errorPopupStatus.showRetry ? (
 						<buttons>
-							<Button onClick={this.cancelError}>{$L("Cancel")}</Button>
-							<Button onClick={this.retryError}>{$L("Retry")}</Button>
+							<Button onClick={this.cancelError}>{$L('Cancel')}</Button>
+							<Button onClick={this.retryError}>{$L('Retry')}</Button>
 						</buttons>
 					) : (
 						<buttons>
-							<Button onClick={this.cancelError}>{$L("Cancel")}</Button>
+							<Button onClick={this.cancelError}>{$L('Cancel')}</Button>
 						</buttons>
 					)}
 				</Notification>
@@ -533,7 +533,7 @@ const mapStateToProps = ({network}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	addPath(path) {
+	addPath (path) {
 		dispatch(addPath(path));
 	},
 	findWifiNetworks () {

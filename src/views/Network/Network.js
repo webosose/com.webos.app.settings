@@ -22,7 +22,7 @@ import $L from '@enact/i18n/$L';
 import LabeledItem from '@enact/moonstone/LabeledItem';
 
 import {ExpandableInput} from '@enact/moonstone/ExpandableInput';
-import {Expandable} from '@enact/moonstone/ExpandableItem';
+// import {Expandable} from '@enact/moonstone/ExpandableItem';
 
 import {addPath} from '../../actions';
 import {setSystemSettings} from '../../actions';
@@ -31,7 +31,7 @@ import SettingsScroller from '../../components/SettingsScroller';
 import css from './Network.less';
 import mainCss from '../../style/main.less';
 
-//const CustomExpandableInput = Expandable(ExpandableInputBase);
+// const CustomExpandableInput = Expandable(ExpandableInputBase);
 
 class Network extends React.Component {
 	constructor (props) {
@@ -50,7 +50,7 @@ class Network extends React.Component {
 		this.pushPathWifiConnection = props.addPath.bind(this, 'Wi-Fi Connection');
 	}
 
-	componentWillReceiveProps (nextProps) {
+	UNSAFE_componentWillReceiveProps (nextProps) {
 		if (this.nameOpened) {
 			this.setState({
 				deviceName: nextProps.deviceName
@@ -72,7 +72,8 @@ class Network extends React.Component {
 
 	deviceNameClosed () {
 		let param = {};
-		let newValue = this.state.deviceName.trim();
+		let {deviceName:newValue} = this.state;
+		newValue = newValue.trim();
 		if (newValue === '') {
 			newValue = this.props.deviceName;
 		}
@@ -88,7 +89,7 @@ class Network extends React.Component {
 
 	deviceNameOpened = () => {
 		this.nameOpened = true;
-	}
+	};
 
 	setDeviceNameProps () {
 		return {

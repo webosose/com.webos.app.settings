@@ -103,8 +103,8 @@ class TimeDate extends React.Component {
 			}
 		});
 	}
-	componentWillReceiveProps (nextProps) {
-		if(this.state.timezoneSlected !== nextProps.timeZone.timezoneProps.selected) {
+	UNSAFE_componentWillReceiveProps (nextProps) {
+		if (this.state.timezoneSlected !== nextProps.timeZone.timezoneProps.selected) {
 			this.setState({
 				timezoneSlected: nextProps.timeZone.timezoneProps.selected
 			});
@@ -200,7 +200,7 @@ class TimeDate extends React.Component {
 			supportDST: 0,
 			ZoneID: 'Pacific/Guam'
 		}
-	]
+	];
 
 	regionList = [ // Region string is converted to the following string.
 		$L('Africa'),
@@ -211,7 +211,7 @@ class TimeDate extends React.Component {
 		$L('Europe'),
 		$L('Indian'), // The Indian Ocean
 		$L('Pacific') // The Pacific Ocean
-	]
+	];
 
 	onChange (mode, event) {
 		if (mode === 'date') {
@@ -237,53 +237,53 @@ class TimeDate extends React.Component {
 
 	closeDatePicker = () => {
 		this.setState({datePickerOpen: false});
-	}
+	};
 
 	closeRegionExpandable = () => {
 		this.setState({
 			regionExpandableOpen: false
 		});
-	}
+	};
 
 	closeTimePicker = () => {
 		this.setState({
 			timePickerOpen: false
 		});
-	}
+	};
 
 	closeTimezoneExpandable = () => {
 		this.setState({
 			timezoneExpandableOpen: false
 		});
-	}
+	};
 
 	openDatePicker = () => {
 		this.setState({
 			datePickerOpen: true,
 			timePickerOpen: false
 		});
-	}
+	};
 
 	openRegionExpandable = () => {
 		this.setState({
 			regionExpandableOpen: true,
 			timezoneExpandableOpen: false
 		});
-	}
+	};
 
 	openTimePicker = () => {
 		this.setState({
 			timePickerOpen: true,
 			datePickerOpen: false
 		});
-	}
+	};
 
 	openTimezoneExpandable = () => {
 		this.setState({
 			regionExpandableOpen: false,
 			timezoneExpandableOpen: true
 		});
-	}
+	};
 
 	selectRegion = (ev) => {
 		if (ev.selected === null) {
@@ -295,7 +295,7 @@ class TimeDate extends React.Component {
 		});
 
 		this.setTimezone(this.defaultRegion[ev.selected]);
-	}
+	};
 
 	selectTimezone = (ev) => {
 		if (ev.selected === null) {
@@ -305,10 +305,10 @@ class TimeDate extends React.Component {
 		if (ev.data !== 'Custom') {
 			this.setState({
 				timezoneSlected: ev.selected
-			})
+			});
 			this.setTimezone(this.props.timeZone.timezoneList[ev.selected]);
 		}
-	}
+	};
 
 	setAutomatic = () => {
 		this.setState({
@@ -320,7 +320,7 @@ class TimeDate extends React.Component {
 
 		this.props.setSystemSettings({category: 'time', settings: {autoClock: val ? 'on' : 'off'}});
 		this.props.setPreferences({useNetworkTime: val});
-	}
+	};
 
 	setClock = (miliSeconds) => {
 		let adjustedUtc = this.state.currentUtc + miliSeconds;
@@ -334,13 +334,13 @@ class TimeDate extends React.Component {
 				currentDate: new Date(adjustedUtc)
 			});
 		}
-	}
+	};
 
 	setTimezone (value) {
 		this.props.setSystemSettings({
 			category: 'time',
 			settings: {timeZone: value},
-			component:"GENERAL"
+			component:'GENERAL'
 		});
 
 		this.props.setPreferences({timeZone: value});
@@ -371,12 +371,13 @@ class TimeDate extends React.Component {
 		this.props.setSystemSettings(param);
 	}
 
+
 	render () {
 		let region = {
 			'children': this.regionList,
 			'selected': this.state.regionSelected
 		};
-
+		const ExpObject = {children:this.props.timeZone.timezoneProps.children};
 		return (
 			<Scroller>
 				<div>
@@ -438,7 +439,7 @@ class TimeDate extends React.Component {
 						onClose={this.closeTimezoneExpandable}
 						open={this.state.timezoneExpandableOpen}
 						selected={this.state.timezoneSlected}
-						children={this.props.timeZone.timezoneProps.children}
+						{...ExpObject}
 					/>
 				</div>
 			</Scroller>
@@ -454,7 +455,7 @@ TimeDate.propTypes = {
 	useNetworkTime: PropTypes.bool
 };
 
-const mapStateToProps = ({intl,error}) => {
+const mapStateToProps = ({intl, error}) => {
 	let {timeZone, timeZoneList, useNetworkTime} = intl;
 	let timezoneParam = {
 		timezone: {

@@ -100,7 +100,7 @@ export const getLanguages = () => dispatch => {
 export const setUiMenuLanguage = language => ({
 	type: 'SET_UI_MENU_LANGUAGE',
 	payload:language
-})
+});
 
 function receiveLanguageList (res, dispatch) {
 	let payload = {};

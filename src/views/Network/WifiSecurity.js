@@ -14,33 +14,33 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+import React from 'react';
+import {connect} from 'react-redux';
 
-import $L from "@enact/i18n/$L";
+import $L from '@enact/i18n/$L';
 
-import CheckboxItem from "@enact/moonstone/CheckboxItem";
-import Button from "@enact/moonstone/Button";
-import Marquee from "@enact/moonstone/Marquee";
-import Input from "@enact/moonstone/Input";
+import CheckboxItem from '@enact/moonstone/CheckboxItem';
+import Button from '@enact/moonstone/Button';
+import Marquee from '@enact/moonstone/Marquee';
+import Input from '@enact/moonstone/Input';
 
-import { connectingWifi, connectingAp } from "../../actions/networkAction";
-import { removePath } from "../../actions";
-import css from "./WifiSecurity.less";
-import SecurityValidate from "./SecurityValidate";
+import {connectingWifi, connectingAp} from '../../actions/networkAction';
+import {removePath} from '../../actions';
+import css from './WifiSecurity.less';
+import SecurityValidate from './SecurityValidate';
 
 class CustomInput extends React.Component {
 	componentDidMount () {
 		const inputComponent = document.querySelector("[data-component-id='myInput'");
 		if (inputComponent) {
-			const inputTag = inputComponent.querySelector("input");
+			const inputTag = inputComponent.querySelector('input');
 			inputTag.click();
 		}
 	}
 
-	render() {
-		const { ...rest } = this.props;
+	render () {
+		const {...rest} = this.props;
 		return <Input data-component-id="myInput" {...rest} />;
 	}
 }
@@ -49,7 +49,7 @@ class WifiSecurity extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			password: "",
+			password: '',
 			showPassword: false,
 			valid: false
 		};
@@ -59,9 +59,10 @@ class WifiSecurity extends React.Component {
 	}
 
 	onShowPasswordToggle () {
-		this.setState({
-			showPassword: !this.state.showPassword
-		});
+		this.setState(prevState => ({showPassword: !prevState.showPassword}));
+		// this.setState({
+		// 	showPassword: !this.state.showPassword
+		// });
 	}
 
 	onInputChange (event) {
@@ -83,15 +84,15 @@ class WifiSecurity extends React.Component {
 		};
 		let {
 			ssid,
-			security: { securityType }
+			security: {securityType}
 		} = params;
-		this.props.connectingAp({ ssid, securityType });
+		this.props.connectingAp({ssid, securityType});
 		this.props.connectingWifi(params);
 		this.props.removePath();
 	}
 
 	handleOnkeyUp = ev => {
-		if (ev.keyCode === 13 && ev.target.tagName === "INPUT" && this.state.valid) {
+		if (ev.keyCode === 13 && ev.target.tagName === 'INPUT' && this.state.valid) {
 			ev.target.blur();
 			this.onConnectClick();
 		}
@@ -101,7 +102,7 @@ class WifiSecurity extends React.Component {
 		return {
 			onChange: this.onInputChange,
 			onKeyUp: this.handleOnkeyUp,
-			type: this.state.showPassword ? "text" : "password",
+			type: this.state.showPassword ? 'text' : 'password',
 			dismissOnEnter: true,
 			value: this.state.password
 		};
@@ -111,7 +112,7 @@ class WifiSecurity extends React.Component {
 		return {
 			onClick: this.onShowPasswordToggle,
 			selected: this.state.showPassword,
-			children: $L("Show Password")
+			children: $L('Show Password')
 		};
 	}
 
@@ -120,7 +121,7 @@ class WifiSecurity extends React.Component {
 			small: true,
 			onClick: this.onConnectClick,
 			disabled: !this.state.valid,
-			children: $L("Connect")
+			children: $L('Connect')
 		};
 	}
 
@@ -132,22 +133,22 @@ class WifiSecurity extends React.Component {
 		return (
 			<div>
 				<div className={css.row}>
-					<Marquee className={css.label} marqueeOn={"render"}>
-						{$L("Network")}
+					<Marquee className={css.label} marqueeOn={'render'}>
+						{$L('Network')}
 					</Marquee>
-					<Marquee data-component-id={"wifiSsid"} className={css.item} marqueeOn={"render"}>
+					<Marquee data-component-id={'wifiSsid'} className={css.item} marqueeOn={'render'}>
 						{this.props.network.displayName || this.props.network.ssid}
 					</Marquee>
 				</div>
 				<div className={css.row}>
-					<Marquee className={css.label}>{$L("Password")}</Marquee>
+					<Marquee className={css.label}>{$L('Password')}</Marquee>
 					<div className={css.item}>
 						<CustomInput {...passwordInputProps} data-component-id="passwordInput" />
 					</div>
 				</div>
 				<CheckboxItem {...showPasswordProps} />
 				<div className={css.center}>
-					<Button data-component-id={"wifiConnectBtn"} {...connectButtonProps} />
+					<Button data-component-id={'wifiConnectBtn'} {...connectButtonProps} />
 				</div>
 			</div>
 		);
@@ -166,7 +167,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	connectingWifi(params) {
+	connectingWifi (params) {
 		dispatch(connectingWifi(params));
 	},
 	removePath () {

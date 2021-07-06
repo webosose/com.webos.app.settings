@@ -20,7 +20,7 @@ import {connect} from 'react-redux';
 
 import CheckboxItem from '@enact/moonstone/CheckboxItem';
 import Button from '@enact/moonstone/Button';
-import Divider from '@enact/moonstone/Divider';
+import Divider from '@enact/moonstone/Heading';
 import Spotlight from '@enact/spotlight';
 import $L from '@enact/i18n/$L';
 import css from '../../style/main.less';
@@ -75,7 +75,7 @@ class WifiEdit extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps (props) {
+	UNSAFE_componentWillReceiveProps (props) {
 		// TODO: How to handle incoming props while user is interacting with the form?
 		let status = 'NOT_CONNECTED';
 		if (props.wifi && props.wifi.state === 'connected') {
@@ -94,12 +94,12 @@ class WifiEdit extends React.Component {
 		if (this.state.wifi.method === 'manual') {
 			this.connectAutomatic();
 		}
-		this.setState({
+		this.setState(prevState => ({
 			wifi: {
-				...this.state.wifi,
+				...prevState.wifi,
 				method: this.props.wifi.method === 'dhcp' ? 'manual' : 'dhcp'
 			}
-		});
+		}));
 	}
 
 	connect (manual) {
@@ -135,12 +135,13 @@ class WifiEdit extends React.Component {
 		this.props.setDns(dnsParams);
 	}
 	onInputChange (inputName, event) {
-		this.setState(this.validateState({
-			wifi: {
-				...this.state.wifi,
-				[inputName]: event.value
-			}
-		}));
+		this.setState(prevState => (
+			this.validateState({
+				wifi: {
+					...prevState.wifi,
+					[inputName]: event.value
+				}
+			})));
 	}
 
 	validateState (state) {
@@ -221,7 +222,7 @@ class WifiEdit extends React.Component {
 				>
 					{$L('Set Automatically')}
 				</CheckboxItem>
-				<div  className={css.networkEditPosition}>
+				<div className={css.networkEditPosition}>
 					<SplitInput
 						label={$L('IP Address')}
 						value={this.state.wifi.ipAddress}
