@@ -33,7 +33,7 @@ const panelMap = {
 	'Language': <Language key="Language" />,
 	'Menu Language': <LanguageList mode="menuLanguage" />,
 	'Keyboard Languages': <LanguageList mode="vkbLanguage" />,
-	'Time & Date': <TimeDate />
+	'Time & Date': <TimeDate  />
 };
 
 class GeneralPanel extends React.Component {
@@ -74,4 +74,4 @@ const mapDispatchToProps = (dispatch) => ({
 	}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GeneralPanel);
+export default connect(mapStateToProps,mapDispatchToProps)(GeneralPanel);

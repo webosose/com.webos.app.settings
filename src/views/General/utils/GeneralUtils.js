@@ -68,7 +68,7 @@ export const getTimeZoneList = ({timezone}) => {
 		}
 	};
 
-	if (timezone.selected.ZoneID) {
+	if (timezone.selected && timezone.values && timezone.selected.ZoneID) {
 		let zone = timezone.selected.ZoneID.split('/')[0];
 		for (let i = 0; i < timezone.values.length; i++) {
 			if (zone === timezone.values[i].ZoneID.split('/')[0]) {
@@ -101,8 +101,8 @@ export const getTimeZoneList = ({timezone}) => {
 				}
 			}
 		}
+		retProps.loaded = true;
 	}
-
 	return retProps;
 };
 

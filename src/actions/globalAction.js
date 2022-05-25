@@ -16,8 +16,9 @@
 
 import {EndPoints} from '../store/service';
 import {lunaRequest} from './index';
+import {getTimeZoneList} from '../views/General/utils/GeneralUtils';
 
-export const getTimeZone = () => dispatch => {
+export const getTimeZone = (dispatch,getState) => {
 	let params = {
 		service: EndPoints.systemService,
 		method: 'getPreferences',
@@ -27,7 +28,19 @@ export const getTimeZone = () => dispatch => {
 		},
 		type: 'GLOBAL_RECEIVE_PREFERENCES'
 	};
-	lunaRequest(params, dispatch);
+	// lunaRequest(params, dispatch);
+	lunaRequest(params, dispatch,(payload)=>{
+		let timezoneParam = {
+			timezone: {
+				selected: payload.timeZone,
+				values: getState().intl.timeZoneList
+			}
+		};
+		dispatch({
+			type:"UPDATE_ZONE_VALUE",
+			payload:getTimeZoneList(timezoneParam)
+		});
+	});
 };
 
 export const getCountry = () => dispatch => {
@@ -70,7 +83,7 @@ export const getCountryRegionValues = () => dispatch => {
 	lunaRequest(params, dispatch);
 };
 
-export const getTimeZoneValues = () => dispatch => {
+export const getTimeZoneValues = ()=> (dispatch,getState) => {
 	let params = {
 		service: EndPoints.systemService,
 		method: 'getPreferenceValues',
@@ -79,5 +92,9 @@ export const getTimeZoneValues = () => dispatch => {
 		},
 		type: 'GLOBAL_RECEIVE_PREFERENCE_VALUES'
 	};
-	lunaRequest(params, dispatch);
+	// lunaRequest(params, dispatch);
+	lunaRequest(params, dispatch,()=>{
+		getTimeZone(dispatch,getState)
+	})
 };
+

@@ -15,13 +15,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {combineReducers} from 'redux';
-import {path, intl} from './reducer';
+import {path, intl,timeZoneData} from './reducer';
 import {network} from './network';
 import {general, uiMenuLanguage, error} from './general';
 
 const rootReducer = combineReducers({
 	path,
 	intl,
+	timeZoneData,
 	network,
 	general,
 	uiMenuLanguage,

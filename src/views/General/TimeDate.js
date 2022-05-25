@@ -45,7 +45,6 @@ class TimeDate extends React.Component {
 		this.onChangeTime = this.onChange.bind(this, 'time');
 
 		this.timerObj = null;
-
 		this.state = {
 			currentUtc: null,
 			currentDate: null,
@@ -455,18 +454,11 @@ TimeDate.propTypes = {
 	useNetworkTime: PropTypes.bool
 };
 
-const mapStateToProps = ({intl, error}) => {
-	let {timeZone, timeZoneList, useNetworkTime} = intl;
-	let timezoneParam = {
-		timezone: {
-			selected: timeZone,
-			values: timeZoneList
-		}
-	};
-
+const mapStateToProps = ({intl, error, timeZoneData}) => {
+	let {useNetworkTime} = intl;
 	return {
 		useNetworkTime: useNetworkTime,
-		timeZone: getTimeZoneList(timezoneParam),
+		timeZone:  timeZoneData,
 		error:error
 	};
 };

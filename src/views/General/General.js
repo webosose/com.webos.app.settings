@@ -100,7 +100,7 @@ class General extends React.Component {
 		return (
 			<div>
 				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathLanguage} label={this.props && this.props.menuLanguage ? this.props.menuLanguage : $L('Loading...')} data-component-id="language">{$L('Language')}</LabeledItem>
-				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathTimeDate} label={this.state.currentDate ? this.state.currentDate : $L('Loading...')} data-component-id="timeDate">{$L('Time & Date')}</LabeledItem>
+				<LabeledItem className={css.vspacingCMR} disabled={!this.props.timeDataLoaded } onClick={this.pushPathTimeDate} label={this.state.currentDate ? this.state.currentDate : $L('Loading...')} data-component-id="timeDate">{$L('Time & Date')}</LabeledItem>
 				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathSystemInformation} label={this.props.deviceName ? this.props.deviceName : $L('Loading...')} data-component-id="systemInformation">{$L('System Information')}</LabeledItem>
 			</div>
 		);
@@ -113,10 +113,14 @@ General.propTypes = {
 	menuLanguage: PropTypes.string
 };
 
-const mapStateToProps = (state) => ({
-	deviceName: state && state.general && state.general.deviceName,
-	menuLanguage: state && state.general && state.general.menuLanguage && state.general.menuLanguage.displayValue
-});
+const mapStateToProps = (state) => {
+	return {
+		deviceName: state && state.general && state.general.deviceName,
+		menuLanguage: state && state.general && state.general.menuLanguage && state.general.menuLanguage.displayValue,
+		timeDataLoaded:  state.timeZoneData.loaded
+	}
+}
+//);
 
 const mapDispatchToProps = (dispatch) => ({
 	addPath (path) {

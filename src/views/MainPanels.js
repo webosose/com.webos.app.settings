@@ -29,7 +29,6 @@ import NavBar from './NavBar';
 
 import {removePath} from '../actions';
 import {getTimeZone, getCountry, getCountryValues, getCountryRegionValues, getTimeZoneValues} from '../actions/globalAction';
-
 const panelMap = ['General', 'Network'];
 
 class MainPanels extends React.Component {
@@ -53,7 +52,7 @@ class MainPanels extends React.Component {
 	}
 
 	componentDidMount () {
-		this.props.getTimeZone();
+		// this.props.getTimeZone();
 		this.props.getCountry();
 		this.props.getCountryValues();
 		this.props.getCountryRegionValues();

@@ -67,3 +67,12 @@ export const intl = (state = {}, action) => {
 			return state;
 	}
 };
+
+export const timeZoneData = (state={},action) => {
+	switch (action.type) {
+		case 'UPDATE_ZONE_VALUE':
+			return Object.assign({}, state, action.payload);
+		default:
+			return state;
+	}
+}

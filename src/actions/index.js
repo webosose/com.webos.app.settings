@@ -51,9 +51,8 @@ export const removePath = () => {
 /* ******************************************************************************************* */
 /* Luna Request */
 /* ******************************************************************************************* */
-export const lunaRequest = (params, dispatch) => {
+export const lunaRequest = (params, dispatch,resolve) => {
 	const {service, method, param, handleLunaResponses, type, args} = params;
-
 	return new LS2Request().send({
 		service,
 		method,
@@ -64,12 +63,16 @@ export const lunaRequest = (params, dispatch) => {
 			delete res.method;
 			delete res.subscribed;
 			delete res.category;
-
 			let payload = res;
 			if (handleLunaResponses) {
 				payload = handleLunaResponses(res, args);
 			}
-
+			// console.log("method::"+service+"/"+method+" :: "+JSON.stringify(param))
+			if(resolve && type === 'GLOBAL_RECEIVE_PREFERENCES'){
+				resolve(payload);
+			}else if(resolve){
+				resolve();
+			}
 			if (type) {
 				return dispatch({
 					type,
