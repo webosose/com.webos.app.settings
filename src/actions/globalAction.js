@@ -30,16 +30,18 @@ export const getTimeZone = (dispatch,getState) => {
 	};
 	// lunaRequest(params, dispatch);
 	lunaRequest(params, dispatch,(payload)=>{
-		let timezoneParam = {
-			timezone: {
-				selected: payload.timeZone,
-				values: getState().intl.timeZoneList
-			}
-		};
-		dispatch({
-			type:"UPDATE_ZONE_VALUE",
-			payload:getTimeZoneList(timezoneParam)
-		});
+		if(payload.timeZone){
+			let timezoneParam = {
+				timezone: {
+					selected: payload.timeZone,
+					values: getState().intl.timeZoneList
+				}
+			};
+			dispatch({
+				type:"UPDATE_ZONE_VALUE",
+				payload:getTimeZoneList(timezoneParam)
+			});
+		}
 	});
 };
 
