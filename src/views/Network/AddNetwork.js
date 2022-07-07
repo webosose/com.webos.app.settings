@@ -29,7 +29,7 @@ import Marquee from '@enact/moonstone/Marquee';
 import {connectingWifi, connectingAp} from '../../actions/networkAction';
 import {removePath} from '../../actions';
 
-import css from './AddNetwork.less';
+import css from './AddNetwork.module.less';
 import SecurityValidate from './SecurityValidate';
 
 class AddNetwork extends React.Component {

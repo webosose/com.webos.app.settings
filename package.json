@@ -20,7 +20,6 @@
 	"repository": "",
 	"enact": {
 		"title": "Settings",
-		"forceCSSModules": true,
 		"isomorphic": true,
 		"ri": {
 			"baseSize": 24
@@ -33,17 +32,17 @@
 		"extends": "enact/strict"
 	},
   "dependencies": {
-    "@enact/core": "^4.0.3",
-    "@enact/i18n": "^4.0.3",
-    "@enact/moonstone": "^4.0.1",
-    "@enact/spotlight": "^4.0.3",
-    "@enact/ui": "^4.0.3",
-    "@enact/webos": "^4.0.3",
+	"@enact/core": "^4.5.0",
+	"@enact/i18n": "^4.5.0",
+	"@enact/spotlight": "^4.5.0",
+	"@enact/ui": "^4.5.0",
+	"@enact/webos": "^4.5.0",
+    "@enact/moonstone": "^4.5.0",
     "prop-types": "^15.6.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^5.1.2",
-    "redux": "^3.7.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.0",
     "redux-thunk": "^2.3.0"
   }
 }

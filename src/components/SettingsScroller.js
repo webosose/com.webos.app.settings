@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import Scroller from '@enact/moonstone/Scroller';
 import Spotlight from '@enact/spotlight';
 
-import css from '../style/main.less';
+import css from '../style/main.module.less';
 
 let maximumCount = 100;	// I don't think it will be exceeded but for safety...
 let _count = 0;

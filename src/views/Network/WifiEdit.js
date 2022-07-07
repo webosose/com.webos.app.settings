@@ -23,7 +23,7 @@ import Button from '@enact/moonstone/Button';
 import Divider from '@enact/moonstone/Heading';
 import Spotlight from '@enact/spotlight';
 import $L from '@enact/i18n/$L';
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 import SplitInput from './controls/SplitInput';
 import ConnectionStatus from './controls/ConnectionStatus';
 import {setDns, setIpv4} from '../../actions';

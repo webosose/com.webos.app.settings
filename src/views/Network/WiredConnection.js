@@ -24,7 +24,7 @@ import Divider from '@enact/moonstone/Heading';
 
 import $L from '@enact/i18n/$L';
 
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 import {getIpInformation, getConnectionStatus} from './utils/NetworkCommon';
 import SplitItem from './controls/SplitItem';
 import {addPath, removePath} from '../../actions';

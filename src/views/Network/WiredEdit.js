@@ -22,7 +22,7 @@ import CheckboxItem from '@enact/moonstone/CheckboxItem';
 import Button from '@enact/moonstone/Button';
 import Spotlight from '@enact/spotlight';
 import $L from '@enact/i18n/$L';
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 // import {getIpInformation} from './utils/NetworkCommon';
 import SplitInput from './controls/SplitInput';
 

@@ -23,8 +23,8 @@ import kind from '@enact/core/kind';
 
 import {IconButton as IconButtonFactory} from '@enact/moonstone/IconButton';
 
-import css from '../App/App.less';
-import cssIcon from '../style/main.less';
+import css from '../App/App.module.less';
+import cssIcon from '../style/main.module.less';
 import {setPath} from '../actions';
 
 // const IconButtonBase = IconButtonFactory({ css: cssIcon });

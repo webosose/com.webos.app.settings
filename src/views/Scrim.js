@@ -16,7 +16,7 @@
 
 import React from 'react';
 
-import css from '../App/App.less';
+import css from '../App/App.module.less';
 
 class Scrim extends React.Component {
 	constructor (props) {

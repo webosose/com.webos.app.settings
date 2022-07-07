@@ -25,7 +25,7 @@ import $L from '@enact/i18n/$L';
 
 import {addPath} from '../../actions';
 
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 
 class General extends React.Component {
 	constructor (props) {

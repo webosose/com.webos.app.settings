@@ -17,7 +17,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Panel, Header} from '@enact/moonstone/Panels';
-import css from '../App/App.less';
+import css from '../App/App.module.less';
 import $L from '@enact/i18n/$L';
 
 class MainPanel extends React.Component {

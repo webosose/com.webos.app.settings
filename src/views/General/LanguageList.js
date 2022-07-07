@@ -33,7 +33,7 @@ import {setSystemSettings} from '../../actions';
 import {setUiMenuLanguage} from '../../actions/generalAction';
 import {getDefaultVkbLanguage} from './utils/GeneralUtils';
 
-import css from '../../App/App.less';
+import css from '../../App/App.module.less';
 
 class LanguageListCheckboxItem extends React.Component {
 	constructor (props) {

@@ -21,7 +21,7 @@ import {connect} from 'react-redux';
 import Button from '@enact/moonstone/Button';
 import Divider from '@enact/moonstone/Heading';
 import $L from '@enact/i18n/$L';
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 import {getIpInformation, getConnectionStatus} from './utils/NetworkCommon';
 import ConnectionStatus from './controls/ConnectionStatus';
 import SplitItem from './controls/SplitItem';

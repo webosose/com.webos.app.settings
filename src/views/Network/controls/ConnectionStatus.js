@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 import $L from '@enact/i18n/$L';
 import kind from '@enact/core/kind';
 
-import css from './ConnectionStatus.less';
+import css from './ConnectionStatus.module.less';
 
 const ConnectionStatus = kind({
 	name: 'ConnectionStatus',

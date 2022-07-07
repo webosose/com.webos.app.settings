@@ -23,7 +23,7 @@ import LabeledItem from '@enact/moonstone/LabeledItem';
 
 import {addPath} from '../../actions';
 
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 
 class Language extends React.Component {
 	constructor (props) {

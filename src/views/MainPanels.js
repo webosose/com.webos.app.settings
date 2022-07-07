@@ -22,7 +22,7 @@ import LS2Request from '@enact/webos/LS2Request';
 import Panels from '@enact/moonstone/Panels';
 import IconButton from '@enact/moonstone/IconButton';
 
-import css from '../App/App.less';
+import css from '../App/App.module.less';
 import GeneralPanel from '../views/General/GeneralPanel';
 import NetworkPanel from '../views/Network/NetworkPanel';
 import NavBar from './NavBar';
@@ -30,6 +30,7 @@ import NavBar from './NavBar';
 import {removePath} from '../actions';
 import {getTimeZone, getCountry, getCountryValues, getCountryRegionValues, getTimeZoneValues} from '../actions/globalAction';
 const panelMap = ['General', 'Network'];
+
 
 class MainPanels extends React.Component {
 	constructor (props) {

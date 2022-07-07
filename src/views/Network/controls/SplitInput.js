@@ -20,7 +20,7 @@ import React from 'react';
 import Input from '@enact/moonstone/Input';
 import Item from '@enact/moonstone/Item';
 
-import css from './SplitInput.less';
+import css from './SplitInput.module.less';
 
 class SplitInput extends React.Component {
 	render () {

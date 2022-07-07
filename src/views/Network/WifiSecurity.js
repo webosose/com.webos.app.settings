@@ -27,7 +27,7 @@ import Input from '@enact/moonstone/Input';
 
 import {connectingWifi, connectingAp} from '../../actions/networkAction';
 import {removePath} from '../../actions';
-import css from './WifiSecurity.less';
+import css from './WifiSecurity.module.less';
 import SecurityValidate from './SecurityValidate';
 
 class CustomInput extends React.Component {

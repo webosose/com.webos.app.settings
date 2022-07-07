@@ -21,7 +21,7 @@ import {connect} from 'react-redux';
 import $L from '@enact/i18n/$L';
 import LabeledItem from '@enact/moonstone/LabeledItem';
 
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 import {getInfo} from '../../actions/networkAction';
 
 class SystemInformation extends React.Component {

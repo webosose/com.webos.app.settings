@@ -17,28 +17,23 @@
 */
 
 @import '~@enact/moonstone/styles/variables.less';
-@import '../../../style/main.less';
+@import "../../../style/main.module.less";
 
-.splitItem {
-	width: 100%;
-	height: @moon-item-height-large;
+.splitInput {
 	clear: both;
-	padding: 3px 12px;
+	height: 85px;
 
 	& .label {
-		width: 47%;
+		width: 45%;
 		float: left;
 		.moon-text-base(@moon-item-font-size-large);
-		line-height: 1.7em;
+		line-height: 2.275em;
 	}
 
-	& .content {
-		width: 50%;
+	& .input {
+		width: 55%;
 		float: right;
-		.moon-body-text;
-		opacity: 0.4;
-		line-height: 1.7em;
-		font-size: @moon-item-font-size-large;
+		margin: 0;
 	}
 	.vspacingCMR;
 }

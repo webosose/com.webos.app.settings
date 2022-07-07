@@ -28,8 +28,8 @@ import {addPath} from '../../actions';
 import {setSystemSettings} from '../../actions';
 
 import SettingsScroller from '../../components/SettingsScroller';
-import css from './Network.less';
-import mainCss from '../../style/main.less';
+import css from './Network.module.less';
+import mainCss from '../../style/main.module.less';
 
 // const CustomExpandableInput = Expandable(ExpandableInputBase);
 

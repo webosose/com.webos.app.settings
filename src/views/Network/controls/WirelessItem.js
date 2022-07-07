@@ -23,7 +23,7 @@ import kind from '@enact/core/kind';
 import Icon from '@enact/moonstone/Icon';
 import Spinner from '@enact/moonstone/Spinner';
 
-import css from './WirelessItem.less';
+import css from './WirelessItem.module.less';
 
 import Spottable from '@enact/spotlight/Spottable';
 

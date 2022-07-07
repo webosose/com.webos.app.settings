@@ -25,10 +25,10 @@ import DatePicker from '@enact/moonstone/DatePicker';
 import ExpandableList from '@enact/moonstone/ExpandableList';
 import $L from '@enact/i18n/$L';
 
-import css from '../../style/main.less';
+import css from '../../style/main.module.less';
 import {setSystemSettings, setPreferences, setSystemTime} from '../../actions';
 
-import {getTimeZoneList, debounce} from './utils/GeneralUtils';
+import {debounce} from './utils/GeneralUtils';
 import {Scroller} from '@enact/moonstone/Scroller';
 
 const

@@ -20,7 +20,7 @@ import MoonstoneDecorator from '@enact/moonstone/MoonstoneDecorator';
 
 import MainPanels from '../views/MainPanels';
 import Scrim from '../views/Scrim';
-import css from './App.less';
+import css from './App.module.less';
 
 const App = kind({
 	name: 'App',

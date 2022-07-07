@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 import kind from '@enact/core/kind';
 import Marquee from '@enact/moonstone/Marquee';
 
-import css from './SplitItem.less';
+import css from './SplitItem.module.less';
 
 const SpilitItem = kind({
 	name: 'SpilitItem',

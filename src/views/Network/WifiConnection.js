@@ -32,7 +32,7 @@ import ri from '@enact/ui/resolution';
 import LS2Request from '@enact/webos/LS2Request';
 
 import css from './WifiConnection.less';
-import mainCss from '../../style/main.less';
+import mainCss from '../../style/main.module.less';
 
 import isNumeric from '../../utils/isNumeric';
 
