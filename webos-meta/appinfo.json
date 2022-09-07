@@ -7,6 +7,8 @@
    "title": "Settings",
    "sysAssetsBasePath": "assets",
    "icon": "icon.png",
+   "miniicon": "icon-mini.png",
+   "largeIcon": "icon-large.png",
    "uiRevision": 2,
    "transparent": true,
    "defaultWindowType": "overlay",
