@@ -76,7 +76,7 @@ class TimeDate extends React.Component {
 		this.getEffectiveBroadcastTime = new LS2Request().send({
 			service: 'luna://com.palm.systemservice/time',
 			method: 'getSystemTime',
-			parameters: {subscribe: true},
+			parameters: {subscribe: false},
 			onSuccess: (res) => {
 				this.setState({
 					currentUtc: res.utc * 1000,
