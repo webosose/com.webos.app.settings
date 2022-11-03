@@ -16,7 +16,7 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import LS2Request from '@enact/webos/LS2Request';
 import Panels from '@enact/moonstone/Panels';
@@ -27,13 +27,13 @@ import GeneralPanel from '../views/General/GeneralPanel';
 import NetworkPanel from '../views/Network/NetworkPanel';
 import NavBar from './NavBar';
 
-import {removePath} from '../actions';
-import {getTimeZone, getCountry, getCountryValues, getCountryRegionValues, getTimeZoneValues} from '../actions/globalAction';
+import { removePath } from '../actions';
+import { getTimeZone, getCountry, getCountryValues, getCountryRegionValues, getTimeZoneValues } from '../actions/globalAction';
 const panelMap = ['General', 'Network'];
 
 
 class MainPanels extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		if (typeof window === 'object' && window.PalmSystem) {
@@ -52,7 +52,7 @@ class MainPanels extends React.Component {
 		}
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		// this.props.getTimeZone();
 		this.props.getCountry();
 		this.props.getCountryValues();
@@ -60,19 +60,30 @@ class MainPanels extends React.Component {
 		this.props.getTimeZoneValues();
 	}
 
-	handleOnClose () {
+	handleOnClose() {
+
+		const displayAffinity = JSON.parse(window.PalmSystem.launchParams).displayAffinity
+
+		console.log("displayAffinity is =========> ", displayAffinity)
 		if (this.reloadForCountry) {
 			new LS2Request().send({
 				service: 'luna://com.webos.applicationManager/',
 				method: 'launch',
 				parameters: {
-					id: 'com.palm.app.settings'
-				}
+					id: 'com.palm.app.settings',
+					params: { displayAffinity: displayAffinity }
+				},
+				onSuccess: function (inResponse) {
+					console.log('Successfully launched ======>', inResponse);
+				},
+				onFailure: function (inError) {
+					console.log('Failed to launch ======>', inError);
+				},
 			});
 		}
 	}
 
-	render () {
+	render() {
 		return (
 			<div className={css.chrome}>
 				<NavBar className={css.nav} />
@@ -105,28 +116,28 @@ MainPanels.propTypes = {
 	removePath: PropTypes.func
 };
 
-const mapStateToProps = ({path}) => ({
+const mapStateToProps = ({ path }) => ({
 	category: path[0],
 	path: path
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	removePath () {
+	removePath() {
 		dispatch(removePath());
 	},
-	getTimeZone () {
+	getTimeZone() {
 		dispatch(getTimeZone());
 	},
-	getCountry () {
+	getCountry() {
 		dispatch(getCountry());
 	},
-	getCountryValues () {
+	getCountryValues() {
 		dispatch(getCountryValues());
 	},
-	getCountryRegionValues () {
+	getCountryRegionValues() {
 		dispatch(getCountryRegionValues());
 	},
-	getTimeZoneValues () {
+	getTimeZoneValues() {
 		dispatch(getTimeZoneValues());
 	}
 });
