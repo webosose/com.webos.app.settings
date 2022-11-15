@@ -16,28 +16,62 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Spotlight from '@enact/spotlight';
 import LS2Request from '@enact/webos/LS2Request';
-import SwitchItem from '@enact/moonstone/SwitchItem';
-import TimePicker from '@enact/moonstone/TimePicker';
-import DatePicker from '@enact/moonstone/DatePicker';
-import ExpandableList from '@enact/moonstone/ExpandableList';
+// import SwitchItem from '@enact/moonstone/SwitchItem';
+import SwitchItem from '@enact/sandstone/SwitchItem';
+// import TimePicker from '@enact/moonstone/TimePicker';
+import TimePicker from '@enact/sandstone/TimePicker';
+// import DatePicker from '@enact/moonstone/DatePicker';
+import DatePicker from '@enact/sandstone/DatePicker';
+// import ExpandableList from '@enact/moonstone/ExpandableList';
+// import ExpandableList from '@enact/sandstone/ExpandableList';
 import $L from '@enact/i18n/$L';
 
 import css from '../../style/main.module.less';
-import {setSystemSettings, setPreferences, setSystemTime} from '../../actions';
+import { setSystemSettings, setPreferences, setSystemTime } from '../../actions';
 
-import {debounce} from './utils/GeneralUtils';
-import {Scroller} from '@enact/moonstone/Scroller';
+import { debounce } from './utils/GeneralUtils';
+// import { Scroller } from '@enact/moonstone/Scroller';
+import { Scroller } from '@enact/sandstone/Scroller';
+import LabeledItem from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
+import VirtualList from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
+import RadioItem from '@enact/sandstone/RadioItem';
 
 const
 	maxYear = 2037,
 	minYear = 2017,
 	updateTime = 60000;
 
+class RadioItemList extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		const { data, dataIndex, selectedItem, onClick, ...rest } = this.props;
+		delete rest.clickItem;
+
+		return (
+			<RadioItem
+				{...rest}
+				className={css['general-virtual-list-item-layout']}
+				data-index={dataIndex}
+				selected={dataIndex === selectedItem}
+				onClick={onClick}
+			>
+				{data}
+			</RadioItem>
+		);
+	}
+
+}
+
 class TimeDate extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		// debouncer for pickers...
@@ -53,13 +87,18 @@ class TimeDate extends React.Component {
 			regionSelected: -1,
 			timePickerOpen: false,
 			timezoneExpandableOpen: false,
-			timezoneSlected:this.props.timeZone.timezoneProps.selected
+			timezoneSelected: this.props.timeZone.timezoneProps.selected,
+			showDetails: null,
+			timeOpen: false,
+			dateOpen: false,
+			regionOpen: false,
+			timeZoneOpen: false
 		};
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		const currentContainer = Spotlight.getActiveContainer();
-		if ( currentContainer !== 'spotlightRootDecorator') {
+		if (currentContainer !== 'spotlightRootDecorator') {
 			Spotlight.focus(Spotlight.getActiveContainer());
 		}
 		this.regionList.sort();
@@ -76,7 +115,7 @@ class TimeDate extends React.Component {
 		this.getEffectiveBroadcastTime = new LS2Request().send({
 			service: 'luna://com.palm.systemservice/time',
 			method: 'getSystemTime',
-			parameters: {subscribe: false},
+			parameters: { subscribe: false },
 			onSuccess: (res) => {
 				this.setState({
 					currentUtc: res.utc * 1000,
@@ -101,15 +140,17 @@ class TimeDate extends React.Component {
 				}
 			}
 		});
+		this.setDisplayTime()
 	}
-	UNSAFE_componentWillReceiveProps (nextProps) {
-		if (this.state.timezoneSlected !== nextProps.timeZone.timezoneProps.selected) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
+		if (this.state.timezoneSelected !== nextProps.timeZone.timezoneProps.selected) {
 			this.setState({
-				timezoneSlected: nextProps.timeZone.timezoneProps.selected
+				timezoneSelected: nextProps.timeZone.timezoneProps.selected
 			});
+			this.setDisplayTime()
 		}
 	}
-	componentWillUnmount () {
+	componentWillUnmount() {
 		clearInterval(this.timerObj);
 		this.timerObj = null;
 		this.getEffectiveBroadcastTime.cancel();
@@ -212,10 +253,10 @@ class TimeDate extends React.Component {
 		$L('Pacific') // The Pacific Ocean
 	];
 
-	onChange (mode, event) {
+	onChange(mode, event) {
 		if (mode === 'date') {
 			let myDate = new Date(event.value);
-			this.setState({currentDate: myDate});
+			this.setState({ currentDate: myDate });
 
 			let obj = {};
 			obj.val = event.value;
@@ -224,18 +265,17 @@ class TimeDate extends React.Component {
 			return debounce(this.updateTimeDate, 1000, this, [obj]);
 		} else if (mode === 'time') {
 			let myDate = new Date(event.value);
-			this.setState({currentDate: myDate});
+			this.setState({ currentDate: myDate });
 
 			let obj = {};
 			obj.val = event.value;
 			obj.type = 'time';
-
 			return debounce(this.updateTimeDate, 1000, this, [obj]);
 		}
 	}
 
 	closeDatePicker = () => {
-		this.setState({datePickerOpen: false});
+		this.setState({ datePickerOpen: false });
 	};
 
 	closeRegionExpandable = () => {
@@ -285,15 +325,11 @@ class TimeDate extends React.Component {
 	};
 
 	selectRegion = (ev) => {
-		if (ev.selected === null) {
-			return;
-		}
-
 		this.setState({
-			regionSelected: this.regionList.indexOf(ev.data)
+			regionSelected: ev,
+			regionOpen: false
 		});
-
-		this.setTimezone(this.defaultRegion[ev.selected]);
+		this.setTimezone(this.defaultRegion[ev]);
 	};
 
 	selectTimezone = (ev) => {
@@ -303,7 +339,8 @@ class TimeDate extends React.Component {
 
 		if (ev.data !== 'Custom') {
 			this.setState({
-				timezoneSlected: ev.selected
+				timezoneSelected: ev.selected,
+				timeZoneOpen: false,
 			});
 			this.setTimezone(this.props.timeZone.timezoneList[ev.selected]);
 		}
@@ -317,8 +354,8 @@ class TimeDate extends React.Component {
 
 		let val = !this.props.useNetworkTime;
 
-		this.props.setSystemSettings({category: 'time', settings: {autoClock: val ? 'on' : 'off'}});
-		this.props.setPreferences({useNetworkTime: val});
+		this.props.setSystemSettings({ category: 'time', settings: { autoClock: val ? 'on' : 'off' } });
+		this.props.setPreferences({ useNetworkTime: val });
 	};
 
 	setClock = (miliSeconds) => {
@@ -335,17 +372,17 @@ class TimeDate extends React.Component {
 		}
 	};
 
-	setTimezone (value) {
+	setTimezone(value) {
 		this.props.setSystemSettings({
 			category: 'time',
-			settings: {timeZone: value},
-			component:'GENERAL'
+			settings: { timeZone: value },
+			component: 'GENERAL'
 		});
 
-		this.props.setPreferences({timeZone: value});
+		this.props.setPreferences({ timeZone: value });
 	}
 
-	updateTimeDate ({val, type}) {
+	updateTimeDate({ val, type }) {
 		let newTime = val;
 		let newDate = val;
 		let newTimeDate = new Date();
@@ -368,15 +405,80 @@ class TimeDate extends React.Component {
 		param.utc = Math.floor(newTimeDate.getTime() / 1000);
 		this.props.setSystemTime(param);
 		this.props.setSystemSettings(param);
+		this.setDisplayTime(newTime)
 	}
 
+	setDisplayTime = (newTime) => {
+		let dt = newTime ? newTime : new Date();
+		let hours = dt.getHours(); // gives the value in 24 hours format
+		let AmOrPm = hours >= 12 ? 'pm' : 'am';
+		hours = (hours % 12) || 12;
+		let minutes = dt.getMinutes();
+		let displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+		let finalTime = hours + ":" + displayMinutes + " " + AmOrPm;
+		this.setState({
+			displayTime: finalTime
+		})
+		this.setDisplayDate(newTime)
+	}
 
-	render () {
-		let region = {
-			'children': this.regionList,
-			'selected': this.state.regionSelected
-		};
-		const ExpObject = {children:this.props.timeZone.timezoneProps.children};
+	setDisplayDate = (newTime) => {
+		let newDate = newTime ? newTime : new Date()
+		return this.setState({
+			displayDate: newDate
+		})
+	}
+
+	toggleDetails = (data) => {
+		if (data === "time") {
+			this.setState({
+				timeOpen: !this.state.timeOpen,   //eslint-disable-line react/no-access-state-in-setstate
+				dateOpen: false,
+			})
+		} else if (data === "date") {
+			this.setState({
+				timeOpen: false,
+				dateOpen: !this.state.dateOpen,   //eslint-disable-line react/no-access-state-in-setstate
+			})
+		} else if (data === "region") {
+			this.setState({
+				regionOpen: !this.state.regionOpen,   //eslint-disable-line react/no-access-state-in-setstate
+				timeZoneOpen: false
+			})
+		} else if (data === "timeZone") {
+			this.setState({
+				regionOpen: false,
+				timeZoneOpen: !this.state.timeZoneOpen    //eslint-disable-line react/no-access-state-in-setstate
+			})
+		}
+	}
+
+	RegionListRadioItemComponent = ({ index }) => {
+		return (
+			<RadioItemList
+				key={index}
+				data={this.regionList[index]}
+				dataIndex={index}
+				selectedItem={this.state.regionSelected}
+				onClick={() => this.selectRegion(index)}   //eslint-disable-line react/jsx-no-bind
+			/>
+		);
+	};
+
+	TimeZoneListRadioItemComponent = ({ index }) => {
+		return (
+			<RadioItemList
+				key={index}
+				data={this.props.timeZone.timezoneProps.children[index]}
+				dataIndex={index}
+				selectedItem={this.state.timezoneSelected}
+				onClick={this.selectTimezone}
+			/>
+		);
+	};
+
+
+	render() {
 		return (
 			<Scroller>
 				<div>
@@ -388,7 +490,16 @@ class TimeDate extends React.Component {
 					>
 						{$L('Set Automatically')}
 					</SwitchItem>
-					<TimePicker
+
+					<LabeledItem
+						onClick={() => this.toggleDetails("time")}  //eslint-disable-line react/jsx-no-bind
+						slotAfter={this.state.timeOpen ? <Icon data-testid={'nextPanelIcon'}>arrowsmallup</Icon> : <Icon data-testid={'nextPanelIcon'}>arrowsmalldown</Icon>}
+						className={css.vspacingCMR}
+						label={this.state.displayTime}
+						disabled={this.props.useNetworkTime}>{$L('Time')}
+					</LabeledItem>
+
+					{this.state.timeOpen && <TimePicker
 						className={css.vspacingCMR}
 						title={$L('Time')}
 						noneText={$L('Set the current time manually.')}
@@ -399,11 +510,19 @@ class TimeDate extends React.Component {
 						onClose={this.closeTimePicker}
 						onChange={this.onChangeTime}
 						noLabels
-					/>
-					<DatePicker
+					/>}
+
+					<LabeledItem
+						onClick={() => this.toggleDetails("date")}   //eslint-disable-line react/jsx-no-bind
+						slotAfter={this.state.dateOpen ? <Icon data-testid={'nextPanelIcon'}>arrowsmallup</Icon> : <Icon data-testid={'nextPanelIcon'}>arrowsmalldown</Icon>}
+						className={css.vspacingCMR}
+						label={this.state.displayDate && this.state.displayDate.toString().slice(0, 16)}
+						disabled={this.props.useNetworkTime}>{$L('Date')}</LabeledItem>
+
+					{this.state.dateOpen && <DatePicker
 						className={css.vspacingCMR}
 						title={$L('Date')}
-						noneText={$L('Set the current time manually.')}
+						noneText={$L('Set the current date manually.')}
 						minYear={minYear}
 						maxYear={maxYear}
 						disabled={this.props.useNetworkTime}
@@ -414,32 +533,35 @@ class TimeDate extends React.Component {
 						onChange={this.onChangeDate}
 						noLabels
 					/>
-					<ExpandableList
+					}
+
+					<LabeledItem
+						onClick={() => this.toggleDetails("region")}   //eslint-disable-line react/jsx-no-bind
+						slotAfter={this.state.regionOpen ? <Icon data-testid={'nextPanelIcon'}>arrowsmallup</Icon> : <Icon data-testid={'nextPanelIcon'}>arrowsmalldown</Icon>}
 						className={css.vspacingCMR}
-						title={$L('Region')}
-						noneText={$L('Loading...')}
-						select={'single'}
-						closeOnSelect
-						onSelect={this.selectRegion}
-						onOpen={this.openRegionExpandable}
-						onClose={this.closeRegionExpandable}
-						open={this.state.regionExpandableOpen}
-						selected={-1}
-						{...region}
-					/>
-					<ExpandableList
+						label={this.defaultRegion[this.state.regionSelected] && this.defaultRegion[this.state.regionSelected].displayName}
+					>{$L('Region')}</LabeledItem>
+
+					{this.state.regionOpen && <VirtualList
+						itemRenderer={this.RegionListRadioItemComponent}
+						dataSize={this.regionList.length}
+						itemSize={ri.scale(100)}
+						focusableScrollbar
+					/>}
+
+					<LabeledItem
+						onClick={() => this.toggleDetails("timeZone")}   //eslint-disable-line react/jsx-no-bind
+						slotAfter={this.state.timeZoneOpen ? <Icon data-testid={'nextPanelIcon'}>arrowsmallup</Icon> : <Icon data-testid={'nextPanelIcon'}>arrowsmalldown</Icon>}
 						className={css.vspacingCMR}
-						title={$L('Timezone')}
-						noneText={$L('Loading...')}
-						select={'single'}
-						closeOnSelect
-						onSelect={this.selectTimezone}
-						onOpen={this.openTimezoneExpandable}
-						onClose={this.closeTimezoneExpandable}
-						open={this.state.timezoneExpandableOpen}
-						selected={this.state.timezoneSlected}
-						{...ExpObject}
-					/>
+						label={this.props.timeZone.timezoneProps.children[this.state.timezoneSelected]}
+					>{$L('TimeZone')}</LabeledItem>
+
+					{this.state.timeZoneOpen && <VirtualList
+						itemRenderer={this.TimeZoneListRadioItemComponent}
+						dataSize={this.props.timeZone.timezoneProps.children.length}
+						itemSize={ri.scale(100)}
+						focusableScrollbar
+					/>}
 				</div>
 			</Scroller>
 		);
@@ -454,23 +576,23 @@ TimeDate.propTypes = {
 	useNetworkTime: PropTypes.bool
 };
 
-const mapStateToProps = ({intl, error, timeZoneData}) => {
-	let {useNetworkTime} = intl;
+const mapStateToProps = ({ intl, error, timeZoneData }) => {
+	let { useNetworkTime } = intl;
 	return {
 		useNetworkTime: useNetworkTime,
-		timeZone:  timeZoneData,
-		error:error
+		timeZone: timeZoneData,
+		error: error
 	};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	setSystemSettings (param) {
+	setSystemSettings(param) {
 		dispatch(setSystemSettings(param));
 	},
-	setPreferences (param) {
+	setPreferences(param) {
 		dispatch(setPreferences(param));
 	},
-	setSystemTime (param) {
+	setSystemTime(param) {
 		dispatch(setSystemTime(param));
 	}
 });

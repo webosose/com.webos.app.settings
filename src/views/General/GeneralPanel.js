@@ -17,14 +17,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-
 import MainPanel from '../../components/MainPanel';
 import General from './General';
 import SystemInformation from './SystemInformation';
 import Language from './Language';
 import LanguageList from './LanguageList';
 import TimeDate from './TimeDate';
-
 import {getLanguages, getDeviceName, getWebOsVersion} from '../../actions/generalAction';
 
 const panelMap = {

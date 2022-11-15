@@ -19,10 +19,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Spotlight from '@enact/spotlight';
 import $L from '@enact/i18n/$L';
-import LabeledItem from '@enact/moonstone/LabeledItem';
-
+import LabeledItem from '@enact/sandstone/Item';
 import {addPath} from '../../actions';
-
 import css from '../../style/main.module.less';
 
 class Language extends React.Component {

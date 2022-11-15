@@ -16,40 +16,44 @@
  SPDX-License-Identifier: Apache-2.0
 */
 
-@import '~@enact/moonstone/styles/skin.less';
+@import '~@enact/sandstone/styles/skin.less';
 
-	.row {
-		width: 100%;
-		clear: both;
-		margin: 30px 9px;
-		height: 56px;
-		display: flex;
-		align-items: center;
+.row {
+	width: 100%;
+	clear: both;
+	margin: 30px 40px;
+	height: 100px;
+	display: flex;
+	align-items: center;
 
-		& > .label {
-			width: 40%;
+	&>.label {
+		width: 40%;
+		line-height: 1.7em;
+	}
+
+	&>.item {
+		width: 55%;
+
+		& * {
+			max-width: 100%;
+		}
+
+		&>span {
+			opacity: 0.4;
 			line-height: 1.7em;
+			margin: 0 0 0 9px;
+			padding: 0 24px;
+			font-weight: normal;
 		}
-
-		& > .item {
-			width: 55%;
-
-			& * {
-				max-width: 100%;
-			}
-
-			& > span {
-				opacity: 0.4;
-				line-height: 1.7em;
-				margin: 0 0 0 9px;
-				padding: 0 24px;
-				font-weight: normal;
-			}
-		}
-
 	}
 
-	.center {
-		text-align: center;
-		margin-top: 12px;
-	}
+}
+
+.center {
+	text-align: center;
+	margin-top: 12px;
+}
+
+.CheckboxItem { 
+	margin: 0 0.75rem 0.625rem 0rem
+}

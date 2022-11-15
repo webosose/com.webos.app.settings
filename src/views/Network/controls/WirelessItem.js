@@ -19,16 +19,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
 import kind from '@enact/core/kind';
-
-import Icon from '@enact/moonstone/Icon';
-import Spinner from '@enact/moonstone/Spinner';
-
+import Icon from '@enact/sandstone/Icon';
+import Spinner from '@enact/sandstone/Spinner';
 import css from './WirelessItem.module.less';
-
 import Spottable from '@enact/spotlight/Spottable';
-
-import {MarqueeController} from '@enact/moonstone/Marquee';
-import Marquee from '@enact/moonstone/Marquee';
+import {MarqueeController} from '@enact/sandstone/Marquee';
+import Marquee from '@enact/sandstone/Marquee';
 import {makeNetworkListArray} from '../utils/NetworkCommon';
 
 const SpottableDiv = Spottable('div');
@@ -94,7 +90,7 @@ const BaseItem = kind({
 		const classes = classNames(css.wirelessItem, className);
 		return (
 			<SpottableDiv aria-hidden className={classes} {...rest}>
-				<Icon className={css.check} style={{opacity: status === 'CONNECTED' ? 1 : 0}}>
+				<Icon size={'small'} className={css.check} style={{opacity: status === 'CONNECTED' ? 1 : 0}}>
 					check
 				</Icon>
 				<Marquee className={css.label}>{displayName || ssid}</Marquee>
@@ -107,7 +103,7 @@ const BaseItem = kind({
 							signalIcons[iconStatus][strength]}
 					</Icon>
 				) : (
-					<Spinner className={css.spinner} />
+					<Spinner size='small' className={css.spinner} />
 				)}
 			</SpottableDiv>
 		);

@@ -16,10 +16,8 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import Input from '@enact/moonstone/Input';
-import Item from '@enact/moonstone/Item';
-
+import Input from '@enact/sandstone/Input';
+import Item from '@enact/sandstone/Item';
 import css from './SplitInput.module.less';
 
 class SplitInput extends React.Component {
@@ -30,7 +28,7 @@ class SplitInput extends React.Component {
 					<Item spotlightDisabled marqueeOn={'render'} className={css.label}>
 						{label}
 					</Item>
-					<Input className={css.input} {...rest} />
+					<Input className={css.input} {...rest} popupType="overlay" size='small' autoFocus />
 				</div>
 			);
 		})(this.props);

@@ -16,20 +16,20 @@
  SPDX-License-Identifier: Apache-2.0
 */
 
-@import '~@enact/moonstone/styles/skin.less';
+@import '~@enact/sandstone/styles/skin.less';
 
 .applySkins({
-	.wifiList {
-		height: 390px;
-		margin: 9px 0 21px 0;
-		background: transparent;
-	}
 	.wirelessSpinner {
 		top: 210px !important;
 	}
+
 	.wifiDivder {
 		height: 3px;
-		min-height: 3px;
+		min-height: 30px;
 		margin-top: 0px;
 	}
 });
+
+div [data-component-id="wifiList"]{
+	height: 16rem;
+}

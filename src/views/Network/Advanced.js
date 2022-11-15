@@ -16,19 +16,18 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
-
-import Button from '@enact/moonstone/Button';
-import Divider from '@enact/moonstone/Heading';
+import { connect } from 'react-redux';
+import Button from '@enact/sandstone/Button';
+import Divider from '@enact/sandstone/Heading';
 import $L from '@enact/i18n/$L';
 import css from '../../style/main.module.less';
-import {getIpInformation, getConnectionStatus} from './utils/NetworkCommon';
+import { getIpInformation, getConnectionStatus } from './utils/NetworkCommon';
 import ConnectionStatus from './controls/ConnectionStatus';
 import SplitItem from './controls/SplitItem';
-import {addPath, removePath} from '../../actions';
+import { addPath, removePath } from '../../actions';
 
 class Advanced extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.onEditClick = this.onEditClick.bind(this);
 		this.pushPathWifiEdit = props.addPath.bind(this, 'Edit');
@@ -40,18 +39,18 @@ class Advanced extends React.Component {
 			this.props.removePath();
 		}
 	}
-	UNSAFE_componentWillReceiveProps (nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		this.setState({
 			status: getConnectionStatus(nextProps.wifi)
 		});
 	}
-	componentDidUpdate (prevProps, prevState) {
+	componentDidUpdate(prevProps, prevState) {
 		if (prevState.status !== 'NOT_CONNECTED' && this.state.status === 'NOT_CONNECTED') {
 			this.props.removePath();
 		}
 	}
 
-	onEditClick () {
+	onEditClick() {
 		/*
 		const params = {
 			interfaceName: 'wired',
@@ -62,8 +61,8 @@ class Advanced extends React.Component {
 		this.pushPathWifiEdit();
 	}
 
-	render () {
-		const {ipAddress, subnet, gateway, dns} = getIpInformation(this.props.wifi, this.state.ipSelection, this.props.supportIPv6);
+	render() {
+		const { ipAddress, subnet, gateway, dns } = getIpInformation(this.props.wifi, this.state.ipSelection, this.props.supportIPv6);
 		let ipMode = $L('IP');
 
 		if (this.props.wifi.method === 'manual') {
@@ -81,7 +80,7 @@ class Advanced extends React.Component {
 				<SplitItem label={$L('Gateway')} data-component-id="gateway">{gateway || ''}</SplitItem>
 				<SplitItem label={$L('DNS Server')} data-component-id="dnsServer">{dns || ''}</SplitItem>
 				<SplitItem label={$L('MAC Address')} data-component-id="macAddress">{this.props.wifiMac}</SplitItem>
-				{this.state.ipSelection === 'ipv4' && <Button small onClick={this.onEditClick} className={css.networkEditButton} data-component-id="edit">{$L('Edit')}</Button>}
+				{this.state.ipSelection === 'ipv4' && <Button size="small" onClick={this.onEditClick} className={css.networkEditButton} data-component-id="edit" >{$L('Edit')}</Button>}
 			</div>
 		);
 	}
@@ -95,9 +94,9 @@ Advanced.propTypes = {
 	wifiMac: PropTypes.string
 };
 
-const mapStateToProps = ({network, intl}) => {
-	const {wifi, wifiInfo} = network;
-	const {country} = intl;
+const mapStateToProps = ({ network, intl }) => {
+	const { wifi, wifiInfo } = network;
+	const { country } = intl;
 	return {
 		wifi: wifi,
 		supportIPv6: country === 'JPN',
@@ -106,10 +105,10 @@ const mapStateToProps = ({network, intl}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	addPath (path) {
+	addPath(path) {
 		dispatch(addPath(path));
 	},
-	removePath () {
+	removePath() {
 		dispatch(removePath());
 	}
 });

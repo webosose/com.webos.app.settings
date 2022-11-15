@@ -16,7 +16,7 @@
  SPDX-License-Identifier: Apache-2.0
 */
 
-@import '~@enact/moonstone/styles/variables.less';
+@import '~@enact/sandstone/styles/variables.less';
 @import "../../../style/main.module.less";
 
 .splitInput {
@@ -24,16 +24,17 @@
 	height: 85px;
 
 	& .label {
-		width: 45%;
+		width: 40%;
 		float: left;
-		.moon-text-base(@moon-item-font-size-large);
+		font-size: 1.5rem;
 		line-height: 2.275em;
 	}
 
 	& .input {
-		width: 55%;
+		width: 50%;
 		float: right;
 		margin: 0;
+		position: absolute
 	}
 	.vspacingCMR;
 }

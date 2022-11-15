@@ -19,8 +19,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import LS2Request from '@enact/webos/LS2Request';
-import Panels from '@enact/moonstone/Panels';
-import IconButton from '@enact/moonstone/IconButton';
+import Panels from '@enact/sandstone/Panels';
+import IconButton from '@enact/sandstone/Icon';
 
 import css from '../App/App.module.less';
 import GeneralPanel from '../views/General/GeneralPanel';
@@ -87,9 +87,9 @@ class MainPanels extends React.Component {
 		return (
 			<div className={css.chrome}>
 				<NavBar className={css.nav} />
-				<Panels className={css.panels} noCloseButton index={panelMap.indexOf(this.props.category)}>
+				<Panels className={css.panels} noCloseButton index={panelMap.indexOf(this.props.category)} noAnimation>
 					<GeneralPanel path={this.props.path} data-component-id="general" />
-					<NetworkPanel path={this.props.path} data-component-id="network" />
+					<NetworkPanel path={this.props.path} data-component-id="network"/>
 				</Panels>
 				<IconButton
 					backgroundOpacity={'transparent'}

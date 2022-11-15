@@ -14,10 +14,8 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-// import React from 'react';
 import kind from '@enact/core/kind';
-import MoonstoneDecorator from '@enact/moonstone/MoonstoneDecorator';
-
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import MainPanels from '../views/MainPanels';
 import Scrim from '../views/Scrim';
 import css from './App.module.less';
@@ -38,4 +36,4 @@ const App = kind({
 	)
 });
 
-export default MoonstoneDecorator(App);
+export default ThemeDecorator(App);

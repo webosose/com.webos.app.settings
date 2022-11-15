@@ -15,11 +15,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import PropTypes from 'prop-types';
-// import React from "react";
-
 import kind from '@enact/core/kind';
-import Marquee from '@enact/moonstone/Marquee';
-
+import Marquee from '@enact/sandstone/Marquee';
 import css from './SplitItem.module.less';
 
 const SpilitItem = kind({

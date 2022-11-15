@@ -16,9 +16,10 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {Panel, Header} from '@enact/moonstone/Panels';
+import {Panel, Header} from '@enact/sandstone/Panels';
 import css from '../App/App.module.less';
 import $L from '@enact/i18n/$L';
+import Divider from '@enact/sandstone/Heading';
 
 class MainPanel extends React.Component {
 	updateBreadcrumb () {
@@ -35,15 +36,17 @@ class MainPanel extends React.Component {
 			titleLabel = 'Edit';
 		}
 		return (
-			<Panel>
+			<Panel className={css.panelAlignment} css={css}>
 				<Header
 					marqueeOn={'render'}
 					className={css.header}
+					css={css}
 					title={$L(titleLabel).toUpperCase()}
-					titleBelow={this.updateBreadcrumb()}
+					subtitle={this.updateBreadcrumb()}
 				>
 					{this.props.headerChildren}
 				</Header>
+				<Divider showLine className={css.header_seperator}></Divider>
 				{this.props.children}
 			</Panel>
 		);

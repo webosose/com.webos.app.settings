@@ -17,14 +17,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-
 import DateFmt from '@enact/i18n/ilib/lib/DateFmt';
-import LabeledItem from '@enact/moonstone/LabeledItem';
+import LabeledItem from '@enact/sandstone/Item';
 import LS2Request from '@enact/webos/LS2Request';
 import $L from '@enact/i18n/$L';
-
 import {addPath} from '../../actions';
-
 import css from '../../style/main.module.less';
 
 class General extends React.Component {
@@ -98,8 +95,8 @@ class General extends React.Component {
 
 	render () {
 		return (
-			<div>
-				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathLanguage} label={this.props && this.props.menuLanguage ? this.props.menuLanguage : $L('Loading...')} data-component-id="language">{$L('Language')}</LabeledItem>
+			<div className={css.PanelAlignment}>
+				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathLanguage} label={this.props && this.props.menuLanguage ? this.props.menuLanguage : $L('Loading...')} data-component-id="language" >{$L('Language')}</LabeledItem>
 				<LabeledItem className={css.vspacingCMR} disabled={!this.props.timeDataLoaded } onClick={this.pushPathTimeDate} label={this.state.currentDate ? this.state.currentDate : $L('Loading...')} data-component-id="timeDate">{$L('Time & Date')}</LabeledItem>
 				<LabeledItem className={css.vspacingCMR} onClick={this.pushPathSystemInformation} label={this.props.deviceName ? this.props.deviceName : $L('Loading...')} data-component-id="systemInformation">{$L('System Information')}</LabeledItem>
 			</div>
@@ -120,7 +117,6 @@ const mapStateToProps = (state) => {
 		timeDataLoaded:  state.timeZoneData.loaded
 	}
 }
-//);
 
 const mapDispatchToProps = (dispatch) => ({
 	addPath (path) {

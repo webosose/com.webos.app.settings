@@ -17,25 +17,33 @@
 */
 
 @v-spacing-cmr-margin-bottom: 9px;
-@import '~@enact/moonstone/styles/mixins.less';
-@import '~@enact/moonstone/styles/variables.less';
-@import '~@enact/moonstone/styles/skin.less';
+@import '~@enact/sandstone/styles/mixins.less';
+@import '~@enact/sandstone/styles/variables.less';
+@import '~@enact/sandstone/styles/skin.less';
 @moon-accent: #cf0652;
 
 .vspacingCMR {
 	margin-bottom: @v-spacing-cmr-margin-bottom;
+
 	> :last-child {
 		margin-bottom: 0px;
 	}
+
 	.labeleditem {
 		margin-bottom: 1000px;
 	}
 }
 
-.networkEditButton {
-	margin-top: 21px;
+.networkConnectButton {
+	float: right;
+	margin-top: 85px !important;
 	margin-right: 30px;
-	float:right;
+}
+
+.networkEditButton {
+	float: right;
+	margin-top: 21px ;
+	margin-right: 80px !important;
 }
 
 .networkEditPosition {
@@ -43,7 +51,7 @@
 	top: 12px;
 }
 
-.doneButton{
+.doneButton {
 	margin-top: -160px;
 	margin-left: 600px;
 }
@@ -51,24 +59,28 @@
 .iconButton {
 	height: 84px;
 	width: 84px;
+	position: relative;
+	right: 3%;
 	.bg {
 		border: 3px solid;
 		border-color: rgba(191, 191, 191, .3);
+	}
+
+	&.selected {
+		.bg {
+			border-color: @moon-accent;
 		}
-		&.selected {
-			.bg {
-				border-color: @moon-accent;
-			}
-			&:global(.spottable):focus {
-				.bg {
-					border-color: @moon-accent;
-				}
-			}
-		}
+
 		&:global(.spottable):focus {
 			.bg {
 				border-color: @moon-accent;
 			}
 		}
-	
+	}
+
+	&:global(.spottable):focus {
+		.bg {
+			border-color: @moon-accent;
+		}
+	}
 }

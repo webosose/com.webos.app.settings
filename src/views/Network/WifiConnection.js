@@ -16,27 +16,21 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import $L from '@enact/i18n/$L';
 import IString from '@enact/i18n/ilib/lib/IString';
-
-import Button from '@enact/moonstone/Button';
-import Notification from '@enact/moonstone/Notification';
-import Divider from '@enact/moonstone/Heading';
-import Item from '@enact/moonstone/Item';
-import VirtualList from '@enact/moonstone/VirtualList';
-import Spinner from '@enact/moonstone/Spinner';
-
+import Button from '@enact/sandstone/Button';
+import Alert from '@enact/sandstone/Alert';
+import Item from '@enact/sandstone/Item';
+import VirtualList from '@enact/sandstone/VirtualList';
+import Spinner from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
 import LS2Request from '@enact/webos/LS2Request';
-
 import css from './WifiConnection.less';
 import mainCss from '../../style/main.module.less';
-
 import isNumeric from '../../utils/isNumeric';
-
-import {addPath} from '../../actions';
+import { addPath } from '../../actions';
 import {
 	findWifiNetworks,
 	connectingWifi,
@@ -46,19 +40,19 @@ import {
 	deleteWifiProfile,
 	clearErrorStatus
 } from '../../actions/networkAction';
-import {makeNetworkListArray, findMsgByErrorCode} from './utils/NetworkCommon';
+import { makeNetworkListArray, findMsgByErrorCode } from './utils/NetworkCommon';
 import WirelessItem from './controls/WirelessItem';
-import {SpotlightContainerDecorator} from '@enact/spotlight/SpotlightContainerDecorator';
+import { SpotlightContainerDecorator } from '@enact/spotlight/SpotlightContainerDecorator';
 
 const SpotlightContainer = SpotlightContainerDecorator(
-	{preserveId: true, enterTo: 'last-focused'},
+	{ preserveId: true, enterTo: 'last-focused' },
 	'div'
 );
 let _foundNetworks = false;
 const wpsTimeout = 120000;
 
 class TimerNotification extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			showNotification: false
@@ -66,12 +60,12 @@ class TimerNotification extends React.Component {
 		this.Timertime = null;
 	}
 
-	UNSAFE_componentWillReceiveProps ({open}) {
+	UNSAFE_componentWillReceiveProps({ open }) {
 		if (open) {
 			this.setState({
 				showNotification: true
 			});
-			if (this.Timertime === null)  {
+			if (this.Timertime === null) {
 				this.Timertime = setTimeout(() => this.closeNotification(), this.props.time);
 			}
 		} else if (this.Timertime) {
@@ -83,7 +77,7 @@ class TimerNotification extends React.Component {
 		}
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		if (this.Timertime) {
 			clearTimeout(this.Timertime);
 			this.Timertime = null;
@@ -101,12 +95,12 @@ class TimerNotification extends React.Component {
 		}
 	};
 
-	render () {
-		return (({...rest}) => {
+	render() {
+		return (({ ...rest }) => {
 			delete rest.remainTime;
 			delete rest.open;
 			delete rest.time;
-			return <Notification {...rest} open={this.state.showNotification} />;
+			return <Alert {...rest} open={this.state.showNotification} type="overlay" />
 		})(this.props);
 	}
 }
@@ -117,7 +111,7 @@ TimerNotification.propTypes = {
 };
 
 class WifiConnection extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			wifiEnabled: 'not_yet',
@@ -141,7 +135,7 @@ class WifiConnection extends React.Component {
 		this.firstClicked = false;
 	}
 
-	UNSAFE_componentWillReceiveProps (nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		const wifiNetworks = nextProps.wifiNetworks;
 		const newNetworkList = [];
 		let newState = {};
@@ -149,7 +143,7 @@ class WifiConnection extends React.Component {
 		for (let i = 0; i < wifiNetworks.length; i++) {
 			if (connectingConnectedNetwork === null && wifiNetworks[i].status !== 'NOT_CONNECTED') {
 				if (this.firstClicked) {
-					this.scrollTo({index: 0, animate: false, focus: true});
+					this.scrollTo({ index: 0, animate: false, focus: true });
 					this.firstClicked = false;
 				}
 				connectingConnectedNetwork = wifiNetworks[i].networkInfo;
@@ -212,7 +206,7 @@ class WifiConnection extends React.Component {
 		this.setState(newState);
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		_foundNetworks = false;
 		this.firstClicked = false;
 	}
@@ -256,7 +250,7 @@ class WifiConnection extends React.Component {
 			});
 		} else if (network.status === 'NOT_CONNECTED') {
 			if (!network.profileId && network.securityType !== 'none') {
-				this.props.connectWifi({network});
+				this.props.connectWifi({ network });
 				this.props.addPath('Wi-Fi Security');
 			} else {
 				this.connectNetwork(network);
@@ -264,7 +258,7 @@ class WifiConnection extends React.Component {
 		}
 	};
 
-	setWirelessItem = ({index}) => {
+	setWirelessItem = ({ index }) => {
 		return (
 			<WirelessItem
 				key={index}
@@ -275,7 +269,7 @@ class WifiConnection extends React.Component {
 		);
 	};
 
-	spinnerProps () {
+	spinnerProps() {
 		return {
 			children: $L('Searching...'),
 			centered: true,
@@ -283,9 +277,8 @@ class WifiConnection extends React.Component {
 		};
 	}
 
-	wifiNetworksProps () {
+	wifiNetworksProps() {
 		return {
-			className: css.wifiList,
 			dataSize: this.state.wifiNetworksLength.length,
 			itemSize: ri.scale(78),
 			itemRenderer: this.setWirelessItem,
@@ -293,7 +286,7 @@ class WifiConnection extends React.Component {
 		};
 	}
 
-	wpsPBCClicked () {
+	wpsPBCClicked() {
 		new LS2Request().send({
 			service: 'palm://com.palm.wifi',
 			method: 'startwps',
@@ -309,7 +302,7 @@ class WifiConnection extends React.Component {
 		});
 	}
 
-	wpsPINClicked () {
+	wpsPINClicked() {
 		new LS2Request().send({
 			service: 'palm://com.palm.wifi',
 			method: 'createwpspin',
@@ -337,7 +330,7 @@ class WifiConnection extends React.Component {
 		});
 	}
 
-	cancelWPS () {
+	cancelWPS() {
 		new LS2Request().send({
 			service: 'palm://com.palm.wifi',
 			method: 'cancelwps',
@@ -349,9 +342,9 @@ class WifiConnection extends React.Component {
 		});
 	}
 
-	handleErrorPopupAction (action) {
+	handleErrorPopupAction(action) {
 		if (action === 'retry') {
-			const {connectingNetwork} = this.props;
+			const { connectingNetwork } = this.props;
 			if (connectingNetwork !== null) {
 				let viewModel = null;
 				if (connectingNetwork.hidden) {
@@ -360,7 +353,7 @@ class WifiConnection extends React.Component {
 						securityType: connectingNetwork.securityType || 'none',
 						retry: true
 					};
-					this.props.connectWifi({network: viewModel});
+					this.props.connectWifi({ network: viewModel });
 					this.props.addPath('Add Network');
 				} else if (connectingNetwork.securityType !== 'none') {
 					viewModel = {
@@ -368,7 +361,7 @@ class WifiConnection extends React.Component {
 						securityType: connectingNetwork.securityType,
 						retry: true
 					};
-					this.props.connectWifi({network: viewModel});
+					this.props.connectWifi({ network: viewModel });
 					this.props.addPath('Wi-Fi Security');
 				}
 			}
@@ -393,7 +386,7 @@ class WifiConnection extends React.Component {
 		});
 	};
 
-	wifiConnectedProps () {
+	wifiConnectedProps() {
 		if (this.props.wifiState === 'connected') {
 			return true;
 		} else {
@@ -401,12 +394,12 @@ class WifiConnection extends React.Component {
 		}
 	}
 
-	addHiddenNetwork () {
-		this.props.connectWifi({network: {}});
+	addHiddenNetwork() {
+		this.props.connectWifi({ network: {} });
 		this.pushPathAddNetwork();
 	}
 
-	render () {
+	render() {
 		this.initAction();
 		const wifiNetworksProps = this.wifiNetworksProps();
 		const spinnerProps = this.spinnerProps();
@@ -416,7 +409,6 @@ class WifiConnection extends React.Component {
 			<div>
 				{this.state.showSpinner && <Spinner {...spinnerProps} />}
 				<VirtualList data-component-id="wifiList" {...wifiNetworksProps} focusableScrollbar />
-				<Divider className={css.wifiDivder} />
 				<SpotlightContainer containerId="networkStatic">
 					<Item
 						className={mainCss.vspacingCMR}
@@ -476,7 +468,7 @@ class WifiConnection extends React.Component {
 						}
 					>
 						{this.state.wpsPin ?
-							new IString($L('PIN: {pin}')).format({pin: this.state.wpsPin}) :
+							new IString($L('PIN: {pin}')).format({ pin: this.state.wpsPin }) :
 							$L('PIN: ')}
 					</span>
 					<br />
@@ -485,7 +477,7 @@ class WifiConnection extends React.Component {
 						<Button onClick={this.cancelWPS}>{$L('Cancel')}</Button>
 					</buttons>
 				</TimerNotification>
-				<Notification open={this.state.showErrorDialog} onClose={this.onErrorNotiClosed}>
+				<Alert open={this.state.showErrorDialog} onClose={this.onErrorNotiClosed} type="overlay">
 					<span>
 						{errorMessage.map((line, index) => {
 							return (
@@ -498,15 +490,15 @@ class WifiConnection extends React.Component {
 					</span>
 					{this.state.errorPopupStatus.showRetry ? (
 						<buttons>
-							<Button onClick={this.cancelError}>{$L('Cancel')}</Button>
 							<Button onClick={this.retryError}>{$L('Retry')}</Button>
+							<Button onClick={this.cancelError}>{$L('Cancel')}</Button>
 						</buttons>
 					) : (
 						<buttons>
 							<Button onClick={this.cancelError}>{$L('Cancel')}</Button>
 						</buttons>
 					)}
-				</Notification>
+				</Alert>
 			</div>
 		);
 	}
@@ -525,7 +517,7 @@ WifiConnection.propTypes = {
 	wifiState: PropTypes.string
 };
 
-const mapStateToProps = ({network}) => ({
+const mapStateToProps = ({ network }) => ({
 	wifiNetworks: makeNetworkListArray(network.wifiNetworks) || [],
 	wifiState: network.wifi && network.wifi.state,
 	parseNetworkError: network.parseNetworkError,
@@ -533,28 +525,28 @@ const mapStateToProps = ({network}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	addPath (path) {
+	addPath(path) {
 		dispatch(addPath(path));
 	},
-	findWifiNetworks () {
+	findWifiNetworks() {
 		dispatch(findWifiNetworks());
 	},
-	connectingWifi (params) {
+	connectingWifi(params) {
 		dispatch(connectingWifi(params));
 	},
-	connectingAp (params) {
+	connectingAp(params) {
 		dispatch(connectingAp(params));
 	},
-	releaseAp () {
+	releaseAp() {
 		dispatch(releaseAp());
 	},
-	connectWifi (params) {
+	connectWifi(params) {
 		dispatch(connectWifi(params));
 	},
-	deleteWifiProfile (params) {
+	deleteWifiProfile(params) {
 		dispatch(deleteWifiProfile(params));
 	},
-	clearErrorStatus () {
+	clearErrorStatus() {
 		dispatch(clearErrorStatus());
 	}
 });

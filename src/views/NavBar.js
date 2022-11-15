@@ -15,33 +15,28 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import PropTypes from 'prop-types';
-import React, {useCallback} from 'react';
-import {connect} from 'react-redux';
-
+import React, { useCallback } from 'react';
+import { connect } from 'react-redux';
 import $L from '@enact/i18n/$L';
 import kind from '@enact/core/kind';
-
-import {IconButton as IconButtonFactory} from '@enact/moonstone/IconButton';
-
+import IconButtonFactory from '@enact/sandstone/Icon';
 import css from '../App/App.module.less';
 import cssIcon from '../style/main.module.less';
-import {setPath} from '../actions';
+import { setPath } from '../actions';
 
-// const IconButtonBase = IconButtonFactory({ css: cssIcon });
 const IconButton = kind({
 	name: 'IconButton',
 	render: props => <IconButtonFactory {...props} className={cssIcon.iconButton} />
 });
 
 const NavButton = props => {
-	// const clickHandler = () => props.onSelect(props.target);
-	const {target, onSelect} = props;
+	const { target, onSelect } = props;
 	const clickHandler = useCallback(() => {
 		onSelect(target);
 	}, [target, onSelect]);
 	return (
 		<div className={css.navButton} data-component-id={props.id}>
-			<div className={css.icon}>
+			<div className={props.selected ? css.icon_selected : css.icon}>
 				<IconButton
 					onClick={clickHandler}
 					backgroundOpacity="transparent"
@@ -55,7 +50,7 @@ const NavButton = props => {
 	);
 };
 class NavBar extends React.Component {
-	render () {
+	render() {
 		return (
 			<div className={this.props.className}>
 				<NavButton
@@ -101,7 +96,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	setPath (path) {
+	setPath(path) {
 		dispatch(setPath(path));
 	}
 });

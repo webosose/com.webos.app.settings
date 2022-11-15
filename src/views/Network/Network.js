@@ -16,25 +16,28 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import $L from '@enact/i18n/$L';
-import LabeledItem from '@enact/moonstone/LabeledItem';
+// import LabeledItem from '@enact/moonstone/LabeledItem';
+import LabeledItem from '@enact/sandstone/Item';
 
-import {ExpandableInput} from '@enact/moonstone/ExpandableInput';
+// import {ExpandableInput} from '@enact/moonstone/ExpandableInput';
 // import {Expandable} from '@enact/moonstone/ExpandableItem';
 
-import {addPath} from '../../actions';
-import {setSystemSettings} from '../../actions';
+import { addPath } from '../../actions';
+import { setSystemSettings } from '../../actions';
 
 import SettingsScroller from '../../components/SettingsScroller';
 import css from './Network.module.less';
 import mainCss from '../../style/main.module.less';
+import Icon from '@enact/sandstone/Icon';
+import Input from '@enact/sandstone/Input';
 
 // const CustomExpandableInput = Expandable(ExpandableInputBase);
 
 class Network extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		this.state = {
@@ -50,7 +53,7 @@ class Network extends React.Component {
 		this.pushPathWifiConnection = props.addPath.bind(this, 'Wi-Fi Connection');
 	}
 
-	UNSAFE_componentWillReceiveProps (nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		if (this.nameOpened) {
 			this.setState({
 				deviceName: nextProps.deviceName
@@ -58,7 +61,7 @@ class Network extends React.Component {
 		}
 	}
 
-	deviceNameInputChange (e) {
+	deviceNameInputChange(e) {
 		if (toString.call(e.value) !== '[object String]') {
 			return true;
 		}
@@ -70,9 +73,9 @@ class Network extends React.Component {
 		}
 	}
 
-	deviceNameClosed () {
+	deviceNameClosed() {
 		let param = {};
-		let {deviceName:newValue} = this.state;
+		let { deviceName: newValue } = this.state;
 		newValue = newValue.trim();
 		if (newValue === '') {
 			newValue = this.props.deviceName;
@@ -91,23 +94,25 @@ class Network extends React.Component {
 		this.nameOpened = true;
 	};
 
-	setDeviceNameProps () {
+	deviceNameClicked = () => {
+		this.setState({ deviceNameOpened: !this.state.deviceNameOpened }
+		)
+	}
+
+	setDeviceNameProps() {
 		return {
-			title: $L('Device Name'),
-			value: this.state.deviceName,
-			onChange: this.deviceNameInputChange,
-			onClose: this.deviceNameClosed,
-			onOpen: this.deviceNameOpened,
+			onClick: this.deviceNameClicked,
 			placeholder: $L('Loading...')
 		};
 	}
 
 
-	render () {
+	render() {
 		const deviceNameProps = this.setDeviceNameProps();
 		return (
 			<SettingsScroller className={css.scroller}>
-				<ExpandableInput {...deviceNameProps} className={mainCss.vspacingCMR} data-component-id="deviceName" containerId={'tvName'} />
+				<LabeledItem {...deviceNameProps} className={mainCss.vspacingCMR} label={this.state.deviceName ? this.state.deviceName : $L('Loading...')} slotAfter={this.state.deviceNameOpened ? <Icon>arrowsmallup</Icon> : <Icon>arrowsmalldown</Icon>}>{$L('Device Name')}</LabeledItem>
+				{this.state.deviceNameOpened && <Input size='small' popupType="overlay" dismissOnEnter onClose={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />}
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWiredConnection} label={(this.props.wiredOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="wiredConnection">{$L('Wired Connection (Ethernet)')}</LabeledItem>
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWifiConnection} label={(this.props.wifiOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="WifiConnection">{$L('Wi-Fi Connection')}</LabeledItem>
 			</SettingsScroller>
@@ -125,7 +130,7 @@ Network.propTypes = {
 	wiredOnInternet: PropTypes.string
 };
 
-const mapStateToProps = ({network, general}) => ({
+const mapStateToProps = ({ network, general }) => ({
 	deviceName: general.deviceName,
 	ipAddress: network.wired && network.wired.ipAddress,
 	state: network.wifi && network.wifi.state,
@@ -134,10 +139,10 @@ const mapStateToProps = ({network, general}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	addPath (path) {
+	addPath(path) {
 		dispatch(addPath(path));
 	},
-	setSystemSettings (params) {
+	setSystemSettings(params) {
 		dispatch(setSystemSettings(params));
 	}
 });

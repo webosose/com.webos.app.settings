@@ -19,7 +19,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import $L from '@enact/i18n/$L';
-import LabeledItem from '@enact/moonstone/LabeledItem';
+// import LabeledItem from '@enact/moonstone/LabeledItem';
+import LabeledItem from '@enact/sandstone/Item';
 
 import css from '../../style/main.module.less';
 import {getInfo} from '../../actions/networkAction';

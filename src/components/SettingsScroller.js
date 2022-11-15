@@ -17,10 +17,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
-
-import Scroller from '@enact/moonstone/Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 import Spotlight from '@enact/spotlight';
-
 import css from '../style/main.module.less';
 
 let maximumCount = 100;	// I don't think it will be exceeded but for safety...

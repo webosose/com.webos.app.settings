@@ -16,29 +16,29 @@
  SPDX-License-Identifier: Apache-2.0
 */
 
-@import '~@enact/moonstone/styles/variables.less';
+@import '~@enact/sandstone/styles/variables.less';
 @import '../../../style/main.module.less';
 
 .splitItem {
 	width: 100%;
-	height: @moon-item-height-large;
+	height: 3.5rem;
 	clear: both;
 	padding: 3px 12px;
 
 	& .label {
 		width: 47%;
 		float: left;
-		.moon-text-base(@moon-item-font-size-large);
+		font-size: 1.5rem;
 		line-height: 1.7em;
 	}
 
 	& .content {
 		width: 50%;
 		float: right;
-		.moon-body-text;
+		.sand-body-text;
 		opacity: 0.4;
 		line-height: 1.7em;
-		font-size: @moon-item-font-size-large;
+		font-size: 1.5rem;
 	}
 	.vspacingCMR;
 }

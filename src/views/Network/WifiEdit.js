@@ -16,24 +16,23 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
-
-import CheckboxItem from '@enact/moonstone/CheckboxItem';
-import Button from '@enact/moonstone/Button';
-import Divider from '@enact/moonstone/Heading';
+import { connect } from 'react-redux';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Button from '@enact/sandstone/Button';
+import Divider from '@enact/sandstone/Heading';
 import Spotlight from '@enact/spotlight';
 import $L from '@enact/i18n/$L';
 import css from '../../style/main.module.less';
 import SplitInput from './controls/SplitInput';
 import ConnectionStatus from './controls/ConnectionStatus';
-import {setDns, setIpv4} from '../../actions';
+import { setDns, setIpv4 } from '../../actions';
 
 if (typeof window === 'object') {
 	window.Spotlight = Spotlight;
 }
 
 class WifiEdit extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		this.regExps = {
@@ -43,14 +42,14 @@ class WifiEdit extends React.Component {
 			subnetPrefixLength: new RegExp('^([1-9]|[1-9][0-9]|1[0-1][0-9]|12[0-7])$')
 		};
 
-		let state = {wifi: props.wifi, valid: true};
+		let state = { wifi: props.wifi, valid: true };
 
 		let status = 'NOT_CONNECTED';
 		if (props.wifi && props.wifi.state === 'connected') {
 			status = (props.wifi.onInternet === 'yes' ? 'ON_INTERNET' : 'CONNECTED');
 		}
 
-		this.state = {...state, status};
+		this.state = { ...state, status };
 
 		this.onDHCPToggle = this.onDHCPToggle.bind(this);
 		this.onIPAddressChange = this.onInputChange.bind(this, 'ipAddress');
@@ -68,14 +67,14 @@ class WifiEdit extends React.Component {
 		// this.onEditClick = this.onEditClick.bind(this);
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		const currentContainer = Spotlight.getActiveContainer();
-		if ( currentContainer !== 'spotlightRootDecorator') {
+		if (currentContainer !== 'spotlightRootDecorator') {
 			Spotlight.focus(Spotlight.getActiveContainer());
 		}
 	}
 
-	UNSAFE_componentWillReceiveProps (props) {
+	UNSAFE_componentWillReceiveProps(props) {
 		// TODO: How to handle incoming props while user is interacting with the form?
 		let status = 'NOT_CONNECTED';
 		if (props.wifi && props.wifi.state === 'connected') {
@@ -90,7 +89,7 @@ class WifiEdit extends React.Component {
 		}));
 	}
 
-	onDHCPToggle () {
+	onDHCPToggle() {
 		if (this.state.wifi.method === 'manual') {
 			this.connectAutomatic();
 		}
@@ -102,7 +101,7 @@ class WifiEdit extends React.Component {
 		}));
 	}
 
-	connect (manual) {
+	connect(manual) {
 		this.setState({
 			status: 'CONNECTING'
 		});
@@ -134,7 +133,7 @@ class WifiEdit extends React.Component {
 		this.props.setIpv4(ipParams);
 		this.props.setDns(dnsParams);
 	}
-	onInputChange (inputName, event) {
+	onInputChange(inputName, event) {
 		this.setState(prevState => (
 			this.validateState({
 				wifi: {
@@ -144,7 +143,7 @@ class WifiEdit extends React.Component {
 			})));
 	}
 
-	validateState (state) {
+	validateState(state) {
 		let newState = {
 			...state,
 			valid: true
@@ -165,7 +164,7 @@ class WifiEdit extends React.Component {
 		return newState;
 	}
 
-	forceFocusToInput (element) {
+	forceFocusToInput(element) {
 		const node = document.querySelector(element);
 		if (node) {
 			const input = node.querySelector('INPUT');
@@ -175,7 +174,7 @@ class WifiEdit extends React.Component {
 		}
 	}
 
-	keyUpHandler (name, event) {
+	keyUpHandler(name, event) {
 		if (event.keyCode === 13 && event.target.tagName === 'INPUT') {
 			switch (name) {
 				case 'ipAddress': {
@@ -191,7 +190,7 @@ class WifiEdit extends React.Component {
 					break;
 				}
 				case 'dnsserver': {
-					setTimeout( () => {
+					setTimeout(() => {
 						Spotlight.focus('[data-component-id=connectButton]');
 					}, 0);
 					if (this.state.valid) {
@@ -202,7 +201,7 @@ class WifiEdit extends React.Component {
 		}
 	}
 
-	render () {
+	render() {
 		const dismissOnEnter = true;
 		let ipMode = $L('IP');
 
@@ -263,7 +262,8 @@ class WifiEdit extends React.Component {
 						disabled={this.state.wifi.method === 'dhcp' || !this.state.valid}
 						onClick={this.connectManual}
 						data-component-id="connectButton"
-						className={css.networkEditButton}
+						className={css.networkConnectButton}
+						size="small"
 					>
 						{$L('Connect')}
 					</Button>
@@ -281,9 +281,9 @@ WifiEdit.propTypes = {
 	wifiMac: PropTypes.string
 };
 
-const mapStateToProps = ({network, intl}) => {
-	const {wifi, wifiInfo} = network;
-	const {country} = intl;
+const mapStateToProps = ({ network, intl }) => {
+	const { wifi, wifiInfo } = network;
+	const { country } = intl;
 	return {
 		wifi: wifi,
 		supportIPv6: country === 'JPN',
@@ -292,10 +292,10 @@ const mapStateToProps = ({network, intl}) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	setIpv4 (params) {
+	setIpv4(params) {
 		dispatch(setIpv4(params));
 	},
-	setDns (params) {
+	setDns(params) {
 		dispatch(setDns(params));
 	}
 });

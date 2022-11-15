@@ -17,14 +17,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-
 import $L from '@enact/i18n/$L';
-
-import CheckboxItem from '@enact/moonstone/CheckboxItem';
-import Button from '@enact/moonstone/Button';
-import Marquee from '@enact/moonstone/Marquee';
-import Input from '@enact/moonstone/Input';
-
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Button from '@enact/sandstone/Button';
+import Marquee from '@enact/sandstone/Marquee';
+import Input from '@enact/sandstone/Input';
 import {connectingWifi, connectingAp} from '../../actions/networkAction';
 import {removePath} from '../../actions';
 import css from './WifiSecurity.module.less';
@@ -41,7 +38,7 @@ class CustomInput extends React.Component {
 
 	render () {
 		const {...rest} = this.props;
-		return <Input data-component-id="myInput" {...rest} />;
+		return <Input data-component-id="myInput" {...rest} popupType="overlay"/>;
 	}
 }
 
@@ -146,7 +143,7 @@ class WifiSecurity extends React.Component {
 						<CustomInput {...passwordInputProps} data-component-id="passwordInput" />
 					</div>
 				</div>
-				<CheckboxItem {...showPasswordProps} />
+				<CheckboxItem {...showPasswordProps} className ={css.CheckboxItem} css={css}/>
 				<div className={css.center}>
 					<Button data-component-id={'wifiConnectBtn'} {...connectButtonProps} />
 				</div>

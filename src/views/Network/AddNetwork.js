@@ -16,24 +16,19 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import {connect} from 'react-redux';
-
+import { connect } from 'react-redux';
 import $L from '@enact/i18n/$L';
-
-import CheckboxItem from '@enact/moonstone/CheckboxItem';
-import Button from '@enact/moonstone/Button';
-import Input from '@enact/moonstone/Input';
-import ExpandableList from '@enact/moonstone/ExpandableList';
-import Marquee from '@enact/moonstone/Marquee';
-
-import {connectingWifi, connectingAp} from '../../actions/networkAction';
-import {removePath} from '../../actions';
-
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Button from '@enact/sandstone/Button';
+import Input from '@enact/sandstone/Input';
+import Marquee from '@enact/sandstone/Marquee';
+import { connectingWifi, connectingAp } from '../../actions/networkAction';
+import { removePath } from '../../actions';
 import css from './AddNetwork.module.less';
 import SecurityValidate from './SecurityValidate';
 
 class AddNetwork extends React.Component {
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		if (props.network && props.network.retry) {
 			this.state = {
@@ -75,7 +70,7 @@ class AddNetwork extends React.Component {
 		this.makeSecurityList = this.makeSecurityList.bind(this);
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		const node = document.querySelector('[data-component-id=namefield]');
 		if (node) {
 			const input = node.querySelector('input');
@@ -87,14 +82,11 @@ class AddNetwork extends React.Component {
 		}
 	}
 
-	onShowPasswordToggle () {
-		this.setState(prevState => ({showPassword: !prevState.showPassword}));
-		// this.setState({
-		// 	showPassword: !this.state.showPassword
-		// });
+	onShowPasswordToggle() {
+		this.setState(prevState => ({ showPassword: !prevState.showPassword }));
 	}
 
-	onInputChange (input, event) {
+	onInputChange(input, event) {
 		if (!(input === 'name' && event.value.length > 32)) {
 			const state = {
 				name: this.state.name,
@@ -106,7 +98,7 @@ class AddNetwork extends React.Component {
 		}
 	}
 
-	makeSecurityList () {
+	makeSecurityList() {
 		const array = [];
 		for (let item in this.securityTypes) {
 			array.push(this.securityTypes[item]);
@@ -114,7 +106,7 @@ class AddNetwork extends React.Component {
 		return array;
 	}
 
-	validateState (newState) {
+	validateState(newState) {
 		const state = {
 			...newState,
 			valid:
@@ -124,7 +116,7 @@ class AddNetwork extends React.Component {
 		this.setState(state);
 	}
 
-	onConnectClick () {
+	onConnectClick() {
 		let params = {
 			ssid: this.state.name,
 			wasCreatedWithJoinOther: true
@@ -148,7 +140,7 @@ class AddNetwork extends React.Component {
 		this.props.removePath();
 	}
 
-	onSecuritySelect (event) {
+	onSecuritySelect(event) {
 		if (event.selected === null) {
 			return;
 		}
@@ -159,19 +151,6 @@ class AddNetwork extends React.Component {
 		});
 	}
 
-	securityTypeProps () {
-		const list = this.makeSecurityList();
-		return {
-			title: $L('Security'),
-			noneText: $L('Loading...'),
-			select: 'single',
-			selected: this.securityIndex[this.state.securityType],
-			onSelect: this.onSecuritySelect,
-			closeOnSelect: true,
-			children: list
-		};
-	}
-
 	handleOnkeyUp = ev => {
 		if (ev.keyCode === 13 && ev.target.tagName === 'INPUT' && this.state.valid) {
 			ev.target.blur();
@@ -179,7 +158,7 @@ class AddNetwork extends React.Component {
 		}
 	};
 
-	showPasswordProps () {
+	showPasswordProps() {
 		return {
 			onClick: this.onShowPasswordToggle,
 			selected: this.state.showPassword,
@@ -187,7 +166,7 @@ class AddNetwork extends React.Component {
 		};
 	}
 
-	nameInputProps () {
+	nameInputProps() {
 		return {
 			onChange: this.onNameChange,
 			dismissOnEnter: true,
@@ -196,7 +175,7 @@ class AddNetwork extends React.Component {
 		};
 	}
 
-	passwordInputProps () {
+	passwordInputProps() {
 		return {
 			onChange: this.onPasswordChange,
 			dismissOnEnter: true,
@@ -206,18 +185,16 @@ class AddNetwork extends React.Component {
 		};
 	}
 
-	connectButtonProps () {
+	connectButtonProps() {
 		return {
 			onClick: this.onConnectClick,
 			disabled: !this.state.valid,
 			children: $L('Connect'),
-			small: true
 		};
 	}
 
-	render () {
+	render() {
 		const nameInputProps = this.nameInputProps();
-		const securityTypeProps = this.securityTypeProps();
 		const passwordInputProps = this.passwordInputProps();
 		const showPasswordProps = this.showPasswordProps();
 		const connectButtonProps = this.connectButtonProps();
@@ -227,15 +204,14 @@ class AddNetwork extends React.Component {
 				<div className={css.row}>
 					<Marquee className={css.label}>{$L('Network Name')}</Marquee>
 					<div className={css.item}>
-						<Input {...nameInputProps} data-component-id="namefield" />
+						<Input {...nameInputProps} data-component-id="namefield" popupType="overlay" />
 					</div>
 				</div>
-				<ExpandableList {...securityTypeProps} />
 				{this.state.securityType !== 'none' && (
 					<div className={css.row}>
 						<div className={css.label}>{$L('Password')}</div>
 						<div className={css.item}>
-							<Input {...passwordInputProps} />
+							<Input {...passwordInputProps} popupType="overlay" />
 						</div>
 					</div>
 				)}
@@ -260,13 +236,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	connectingWifi (params) {
+	connectingWifi(params) {
 		dispatch(connectingWifi(params));
 	},
-	removePath () {
+	removePath() {
 		dispatch(removePath());
 	},
-	connectingAp (params) {
+	connectingAp(params) {
 		dispatch(connectingAp(params));
 	}
 });

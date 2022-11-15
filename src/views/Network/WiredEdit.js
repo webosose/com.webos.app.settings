@@ -17,13 +17,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
-
-import CheckboxItem from '@enact/moonstone/CheckboxItem';
-import Button from '@enact/moonstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Button from '@enact/sandstone/Button';
 import Spotlight from '@enact/spotlight';
 import $L from '@enact/i18n/$L';
 import css from '../../style/main.module.less';
-// import {getIpInformation} from './utils/NetworkCommon';
 import SplitInput from './controls/SplitInput';
 
 import {setDns, setIpv4} from '../../actions';
@@ -273,9 +271,10 @@ class WiredEdit extends React.Component {
 					/>
 					<Button
 						disabled={this.state.wired.method === 'dhcp' || !this.state.valid}
-						onClick={this.connectManual}
+						onKeyDown={this.connect}
 						data-component-id="connectButton"
-						className={css.networkEditButton}
+						className={css.networkConnectButton}
+						size="small"
 					>
 						{$L('Connect')}
 					</Button>

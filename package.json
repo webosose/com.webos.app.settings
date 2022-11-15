@@ -21,9 +21,6 @@
 	"enact": {
 		"title": "Settings",
 		"isomorphic": true,
-		"ri": {
-			"baseSize": 24
-		},
 		"deep": [
 			"(window.PalmSystem && window.PalmSystem.launchParams && JSON.parse(window.PalmSystem.launchParams).target))"
 		]
@@ -31,18 +28,18 @@
 	"eslintConfig": {
 		"extends": "enact/strict"
 	},
-  "dependencies": {
-	"@enact/core": "^4.5.0",
-	"@enact/i18n": "^4.5.0",
-	"@enact/spotlight": "^4.5.0",
-	"@enact/ui": "^4.5.0",
-	"@enact/webos": "^4.5.0",
-    "@enact/moonstone": "^4.5.0",
-    "prop-types": "^15.6.2",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-redux": "^7.2.4",
-    "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0"
-  }
+	"dependencies": {
+		"@enact/core": "^4.5.0",
+		"@enact/i18n": "^4.5.0",
+		"@enact/spotlight": "^4.5.0",
+		"@enact/ui": "^4.5.0",
+		"@enact/webos": "^4.5.0",
+		"@enact/sandstone": "^2.5.0",
+		"prop-types": "^15.6.2",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"react-redux": "^7.2.4",
+		"redux": "^4.1.0",
+		"redux-thunk": "^2.3.0"
+	}
 }

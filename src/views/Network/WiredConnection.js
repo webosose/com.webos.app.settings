@@ -18,12 +18,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
 import Spotlight from '@enact/spotlight';
-import Button from '@enact/moonstone/Button';
-import BodyText from '@enact/moonstone/BodyText';
-import Divider from '@enact/moonstone/Heading';
-
+import Button from '@enact/sandstone/Button';
+import BodyText from '@enact/sandstone/BodyText';
+import Divider from '@enact/sandstone/Heading';
 import $L from '@enact/i18n/$L';
-
 import css from '../../style/main.module.less';
 import {getIpInformation, getConnectionStatus} from './utils/NetworkCommon';
 import SplitItem from './controls/SplitItem';
@@ -122,7 +120,7 @@ class WiredConnection extends React.Component {
 					</SplitItem>
 					{this.state.ipSelection === 'ipv4' && (
 						<Button
-							small
+							size ="small"
 							onClick={this.onEditClick}
 							className={css.networkEditButton}
 							data-component-id="edit"
