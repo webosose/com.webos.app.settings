@@ -110,6 +110,7 @@ class WiredEdit extends React.Component {
 		})));
 	}
 
+	//This function is triggered on click of "Connect" button
 	connect (manual) {
 		this.setState({
 			status: 'CONNECTING'
@@ -214,6 +215,7 @@ class WiredEdit extends React.Component {
 
 	render () {
 		const dismissOnEnter = true;
+		console.log("this.state.status ==> ",this.state.status)
 		return (
 			<div>
 				<ConnectionStatus
@@ -271,7 +273,7 @@ class WiredEdit extends React.Component {
 					/>
 					<Button
 						disabled={this.state.wired.method === 'dhcp' || !this.state.valid}
-						onKeyDown={this.connect}
+						onClick={this.connectManual}
 						data-component-id="connectButton"
 						className={css.networkConnectButton}
 						size="small"

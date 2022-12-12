@@ -19,21 +19,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Spotlight from '@enact/spotlight';
 import LS2Request from '@enact/webos/LS2Request';
-// import SwitchItem from '@enact/moonstone/SwitchItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-// import TimePicker from '@enact/moonstone/TimePicker';
 import TimePicker from '@enact/sandstone/TimePicker';
-// import DatePicker from '@enact/moonstone/DatePicker';
 import DatePicker from '@enact/sandstone/DatePicker';
-// import ExpandableList from '@enact/moonstone/ExpandableList';
-// import ExpandableList from '@enact/sandstone/ExpandableList';
 import $L from '@enact/i18n/$L';
-
 import css from '../../style/main.module.less';
 import { setSystemSettings, setPreferences, setSystemTime } from '../../actions';
-
 import { debounce } from './utils/GeneralUtils';
-// import { Scroller } from '@enact/moonstone/Scroller';
 import { Scroller } from '@enact/sandstone/Scroller';
 import LabeledItem from '@enact/sandstone/Item';
 import Icon from '@enact/sandstone/Icon';
@@ -97,6 +89,10 @@ class TimeDate extends React.Component {
 	}
 
 	componentDidMount() {
+		//displayTimezone stores the name of the timeZone to be displayed on the UI.
+		this.setState({
+			displayTimezone: this.props.timeZone.timezoneProps.children[this.state.timezoneSelected],
+		})
 		const currentContainer = Spotlight.getActiveContainer();
 		if (currentContainer !== 'spotlightRootDecorator') {
 			Spotlight.focus(Spotlight.getActiveContainer());
@@ -142,11 +138,19 @@ class TimeDate extends React.Component {
 		});
 		this.setDisplayTime()
 	}
-	UNSAFE_componentWillReceiveProps(nextProps) {
-		if (this.state.timezoneSelected !== nextProps.timeZone.timezoneProps.selected) {
+
+	/*componentDidUpdate is designed to handle any changes in the TIMEZONE values (automatic through region change OR manual chanbge)
+	It handles time & date change functionalities. */
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.timeZone.timezoneProps.selected !== prevProps.timeZone.timezoneProps.selected) {
+			console.log("UPDATE ====>timeZone changed to ==> ",this.props.timeZone.timezoneProps.selected)
 			this.setState({
-				timezoneSelected: nextProps.timeZone.timezoneProps.selected
+				timezoneSelected: this.props.timeZone.timezoneProps.selected,
+				displayTimezone: this.props.timeZone.timezoneProps.children[this.props.timeZone.timezoneProps.selected],
 			});
+			this.setDisplayTime()
+		} else if (prevState.displayTimezone && this.state.displayTimezone !== prevState.displayTimezone) {
+			console.log("UPDATE ====>displayTimezone changed to ==> ", this.state.displayTimezone)
 			this.setDisplayTime()
 		}
 	}
@@ -340,6 +344,7 @@ class TimeDate extends React.Component {
 		if (ev.data !== 'Custom') {
 			this.setState({
 				timezoneSelected: ev.selected,
+				displayTimezone: ev.data,
 				timeZoneOpen: false,
 			});
 			this.setTimezone(this.props.timeZone.timezoneList[ev.selected]);
@@ -378,7 +383,6 @@ class TimeDate extends React.Component {
 			settings: { timeZone: value },
 			component: 'GENERAL'
 		});
-
 		this.props.setPreferences({ timeZone: value });
 	}
 
@@ -472,7 +476,7 @@ class TimeDate extends React.Component {
 				data={this.props.timeZone.timezoneProps.children[index]}
 				dataIndex={index}
 				selectedItem={this.state.timezoneSelected}
-				onClick={this.selectTimezone}
+				onClick={() => this.selectTimezone({ "data": this.props.timeZone.timezoneProps.children[index], "selected": index })}
 			/>
 		);
 	};
@@ -553,7 +557,7 @@ class TimeDate extends React.Component {
 						onClick={() => this.toggleDetails("timeZone")}   //eslint-disable-line react/jsx-no-bind
 						slotAfter={this.state.timeZoneOpen ? <Icon data-testid={'nextPanelIcon'}>arrowsmallup</Icon> : <Icon data-testid={'nextPanelIcon'}>arrowsmalldown</Icon>}
 						className={css.vspacingCMR}
-						label={this.props.timeZone.timezoneProps.children[this.state.timezoneSelected]}
+						label={this.state.displayTimezone}
 					>{$L('TimeZone')}</LabeledItem>
 
 					{this.state.timeZoneOpen && <VirtualList
