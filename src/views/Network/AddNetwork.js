@@ -19,8 +19,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import $L from '@enact/i18n/$L';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Dropdown from '@enact/sandstone/Dropdown';
 import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
+import { InputField } from '@enact/sandstone/Input';
 import Marquee from '@enact/sandstone/Marquee';
 import { connectingWifi, connectingAp } from '../../actions/networkAction';
 import { removePath } from '../../actions';
@@ -97,7 +98,17 @@ class AddNetwork extends React.Component {
 			this.validateState(state);
 		}
 	}
-
+	securityTypeProps () {
+	        const list = this.makeSecurityList();
+	        return {
+	                title: $L('Security'),
+	                selected: this.securityIndex[this.state.securityType],
+	                onSelect: this.onSecuritySelect,
+	                closeOnSelect: true,
+	                children: list,
+					className:css.dropdown
+	        };
+	}
 	makeSecurityList() {
 		const array = [];
 		for (let item in this.securityTypes) {
@@ -195,6 +206,7 @@ class AddNetwork extends React.Component {
 
 	render() {
 		const nameInputProps = this.nameInputProps();
+		const securityTypeProps = this.securityTypeProps();
 		const passwordInputProps = this.passwordInputProps();
 		const showPasswordProps = this.showPasswordProps();
 		const connectButtonProps = this.connectButtonProps();
@@ -204,14 +216,15 @@ class AddNetwork extends React.Component {
 				<div className={css.row}>
 					<Marquee className={css.label}>{$L('Network Name')}</Marquee>
 					<div className={css.item}>
-						<Input {...nameInputProps} data-component-id="namefield" popupType="overlay" />
+						<InputField {...nameInputProps} data-component-id="namefield" />
 					</div>
 				</div>
+				<Dropdown {...securityTypeProps} />
 				{this.state.securityType !== 'none' && (
 					<div className={css.row}>
 						<div className={css.label}>{$L('Password')}</div>
 						<div className={css.item}>
-							<Input {...passwordInputProps} popupType="overlay" />
+							<InputField {...passwordInputProps}  />
 						</div>
 					</div>
 				)}
