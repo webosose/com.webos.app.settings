@@ -51,6 +51,13 @@ class Network extends React.Component {
 
 		this.pushPathWiredConnection = props.addPath.bind(this, 'Wired Connection (Ethernet)');
 		this.pushPathWifiConnection = props.addPath.bind(this, 'Wi-Fi Connection');
+		document.addEventListener("keyboardStateChange",(ev)=>{
+			if(!ev.visibility){
+				console.log("keyboardStateChange::",ev)
+				this.setState({ deviceNameOpened: false })
+				this.nameOpened = false;
+			}
+		});
 	}
 
 	UNSAFE_componentWillReceiveProps(nextProps) {
