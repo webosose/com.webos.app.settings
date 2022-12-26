@@ -55,7 +55,6 @@ class LanguageListCheckboxItem extends React.Component {
 		return (
 			<CheckboxItem
 				{...rest}
-				className={css['general-virtual-list-item-layout']}
 				data-index={dataIndex}
 				selected={selectedLanguage.spec.indexOf(data.spec) > -1}
 				disabled={defaultLanguages.indexOf(data.spec) > -1}
@@ -315,8 +314,8 @@ class LanguageList extends React.Component {
 				<VirtualList
 					itemRenderer={this.state.selectedComponent}
 					dataSize={this.state.selectedLanguages.length}
-					itemSize={ri.scale(100)}
-					focusableScrollbar
+					itemSize={ri.scale(156)}
+					scrollMode="translate"
 				/>
 				<Alert open={this.state.confirmPopupShowing} onClose={this.confirmPopupClose} type="overlay">
 					<span>
