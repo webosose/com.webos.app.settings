@@ -17,24 +17,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-
 import $L from '@enact/i18n/$L';
-// import LabeledItem from '@enact/moonstone/LabeledItem';
 import LabeledItem from '@enact/sandstone/Item';
-
-// import {ExpandableInput} from '@enact/moonstone/ExpandableInput';
-// import {Expandable} from '@enact/moonstone/ExpandableItem';
-
 import { addPath } from '../../actions';
 import { setSystemSettings } from '../../actions';
-
 import SettingsScroller from '../../components/SettingsScroller';
 import css from './Network.module.less';
 import mainCss from '../../style/main.module.less';
 import Icon from '@enact/sandstone/Icon';
 import Input from '@enact/sandstone/Input';
-
-// const CustomExpandableInput = Expandable(ExpandableInputBase);
 
 class Network extends React.Component {
 	constructor(props) {
@@ -51,9 +42,9 @@ class Network extends React.Component {
 
 		this.pushPathWiredConnection = props.addPath.bind(this, 'Wired Connection (Ethernet)');
 		this.pushPathWifiConnection = props.addPath.bind(this, 'Wi-Fi Connection');
-		document.addEventListener("keyboardStateChange",(ev)=>{
-			if(!ev.visibility){
-				console.log("keyboardStateChange::",ev)
+		document.addEventListener("keyboardStateChange", (ev) => {
+			if (!ev.visibility) {
+				console.log("keyboardStateChange::", ev)
 				this.setState({ deviceNameOpened: false })
 				this.nameOpened = false;
 			}
@@ -102,8 +93,7 @@ class Network extends React.Component {
 	};
 
 	deviceNameClicked = () => {
-		this.setState({ deviceNameOpened: !this.state.deviceNameOpened }
-		)
+		this.setState((prevState) => ({ deviceNameOpened: !prevState.deviceNameOpened }))
 	}
 
 	setDeviceNameProps() {
@@ -119,7 +109,7 @@ class Network extends React.Component {
 		return (
 			<SettingsScroller className={css.scroller}>
 				<LabeledItem {...deviceNameProps} className={mainCss.vspacingCMR} label={this.state.deviceName ? this.state.deviceName : $L('Loading...')} slotAfter={this.state.deviceNameOpened ? <Icon>arrowsmallup</Icon> : <Icon>arrowsmalldown</Icon>}>{$L('Device Name')}</LabeledItem>
-				{this.state.deviceNameOpened && <Input className={css.deviceNameInputField} length={30} size='small' popupType="overlay" dismissOnEnter onClose={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />}
+				{this.state.deviceNameOpened && <Input className={css.deviceNameInputField} length={30} size='small' popupType="overlay" dismissOnEnter onBlur={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />}
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWiredConnection} label={(this.props.wiredOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="wiredConnection">{$L('Wired Connection (Ethernet)')}</LabeledItem>
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWifiConnection} label={(this.props.wifiOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="WifiConnection">{$L('Wi-Fi Connection')}</LabeledItem>
 			</SettingsScroller>
