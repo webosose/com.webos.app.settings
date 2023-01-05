@@ -26,8 +26,9 @@ import Item from '@enact/sandstone/Item';
 import VirtualList from '@enact/sandstone/VirtualList';
 import Spinner from '@enact/sandstone/Spinner';
 import ri from '@enact/ui/resolution';
+import BodyText from '@enact/sandstone/BodyText';
 import LS2Request from '@enact/webos/LS2Request';
-import css from './WifiConnection.less';
+import css from './WifiConnection.module.less';
 import mainCss from '../../style/main.module.less';
 import isNumeric from '../../utils/isNumeric';
 import { addPath } from '../../actions';
@@ -38,11 +39,13 @@ import {
 	releaseAp,
 	connectWifi,
 	deleteWifiProfile,
-	clearErrorStatus
+	clearErrorStatus,
+	changeWifiUISate
 } from '../../actions/networkAction';
 import { makeNetworkListArray, findMsgByErrorCode } from './utils/NetworkCommon';
 import WirelessItem from './controls/WirelessItem';
 import { SpotlightContainerDecorator } from '@enact/spotlight/SpotlightContainerDecorator';
+import Icon from '@enact/sandstone/Icon';
 
 const SpotlightContainer = SpotlightContainerDecorator(
 	{ preserveId: true, enterTo: 'last-focused' },
@@ -55,7 +58,7 @@ class TimerNotification extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showNotification: false
+			showNotification: false,
 		};
 		this.Timertime = null;
 	}
@@ -115,12 +118,17 @@ class WifiConnection extends React.Component {
 		super(props);
 		this.state = {
 			wifiEnabled: 'not_yet',
-			wifiNetworks: [],
+			// wifiNetworks: [],
+			myWifiNetworks: [],
+			otherWifiNetworks:[],
 			wifiNetworksLength: [],
 			wpsPBCShowing: false,
 			wpsPinShowing: false,
 			showErrorDialog: false,
-			errorPopupStatus: {}
+			errorPopupStatus: {},
+			showWifiHeaders: props.wifiUIState.showWifiHeaders,
+			wifitype: props.wifiUIState.wifitype,
+			loading:true
 		};
 		this.addHiddenNetwork = this.addHiddenNetwork.bind(this);
 		this.pushPathAddNetwork = props.addPath.bind(this, 'Add Network');
@@ -195,12 +203,19 @@ class WifiConnection extends React.Component {
 				}
 			}
 		}
-
+		// console.log('nextProps.wifiUIState:  ',nextProps.wifiUIState);
+		// console.log('this.props.storedWifiNetwork:  ',this.props.storedWifiNetwork);
+		// console.log('wifiNetworks:  ',wifiNetworks);
+		// console.log('myWifiNetworks:  ',wifiNetworks.filter((v)=>this.props.storedWifiNetwork.indexOf(v.ssid) >= 0))
+		// console.log('otherWifiNetworks:  ',wifiNetworks.filter((v)=>this.props.storedWifiNetwork.indexOf(v.ssid) < 0))
 		newState = {
 			...newState,
-			wifiNetworksLength: newNetworkList,
-			wifiNetworks: wifiNetworks,
-			showSpinner: wifiNetworks.length === 0
+			wifiNetworksLength: newNetworkList.length,
+			...nextProps.wifiUIState,
+			myWifiNetworks: wifiNetworks.filter((v)=>this.props.storedWifiNetwork.indexOf(v.ssid) >= 0),
+			otherWifiNetworks: wifiNetworks.filter((v)=>this.props.storedWifiNetwork.indexOf(v.ssid) < 0),
+			showSpinner: wifiNetworks.length === 0,
+			loading:false
 		};
 
 		this.setState(newState);
@@ -252,15 +267,29 @@ class WifiConnection extends React.Component {
 			if (!network.profileId && network.securityType !== 'none') {
 				this.props.connectWifi({ network });
 				this.props.addPath('Wi-Fi Security');
+				this.props.changeWifiUISate(this.state.showWifiHeaders,this.state.wifitype);
 			} else {
 				this.connectNetwork(network);
 			}
 		}
 	};
 
-	setWirelessItem = ({ index }) => {
+	setMyWirelessItem = ({ index }) => {
 		return (
 			<WirelessItem
+				type="mywifi"
+				key={index}
+				dataIndex={index}
+				onClick={this.wirelessItemClicked}
+				data-component-id="wirelessItem"
+			/>
+		);
+	};
+
+	setOtherWirelessItem = ({ index }) => {
+		return (
+			<WirelessItem
+				type="otherwifi"
 				key={index}
 				dataIndex={index}
 				onClick={this.wirelessItemClicked}
@@ -276,12 +305,19 @@ class WifiConnection extends React.Component {
 			className: css.wirelessSpinner
 		};
 	}
-
-	wifiNetworksProps() {
+	otherWifiNetworksProps() {
 		return {
-			dataSize: this.state.wifiNetworksLength.length,
-			itemSize: ri.scale(78),
-			itemRenderer: this.setWirelessItem,
+			dataSize: this.state.otherWifiNetworks.length,
+			itemSize: ri.scale(120),
+			itemRenderer: this.setOtherWirelessItem,
+			cbScrollTo: this.getScrollTo
+		};
+	}
+	myWifiNetworksProps() {
+		return {
+			dataSize: this.state.myWifiNetworks.length,
+			itemSize: ri.scale(120),
+			itemRenderer: this.setMyWirelessItem,
 			cbScrollTo: this.getScrollTo
 		};
 	}
@@ -341,7 +377,6 @@ class WifiConnection extends React.Component {
 			wpsPinShowing: false
 		});
 	}
-
 	handleErrorPopupAction(action) {
 		if (action === 'retry') {
 			const { connectingNetwork } = this.props;
@@ -398,18 +433,90 @@ class WifiConnection extends React.Component {
 		this.props.connectWifi({ network: {} });
 		this.pushPathAddNetwork();
 	}
-
+	myWifiClickHander = () => {
+		this.setState({
+			showWifiHeaders: false,
+			wifitype:'mywifi',
+		});
+		this.props.changeWifiUISate(false,'mywifi');
+	};
+	otherWifiClickHander = () => {
+		this.setState({
+			showWifiHeaders: false,
+			wifitype:'otherwifi',
+		});
+		this.props.changeWifiUISate(false,'otherwifi');
+	};
+	backClickHander = () => {
+		this.setState({
+			showWifiHeaders: true,
+			wifitype:'',
+		});
+		this.props.changeWifiUISate(true,'');
+	};
+	showMyWifiList = () =>{
+		if(this.state.showSpinner){
+			return <Spinner {...this.spinnerProps()} />
+		}else if(this.state.myWifiNetworks.length > 0){
+			return <VirtualList data-component-id="wifiList" {...this.myWifiNetworksProps()} focusableScrollbar />
+		}else {
+			return <BodyText centered>{this.state.loading ? 'Loading...' : 'No Data' }</BodyText>
+		}
+	}
+	showOtherWifiList = () =>{
+		if(this.state.showSpinner){
+			return <Spinner {...this.spinnerProps()} />
+		}else if(this.state.otherWifiNetworks.length > 0){
+			return <VirtualList data-component-id="wifiList" {...this.otherWifiNetworksProps()} focusableScrollbar />
+		}else {
+			return <BodyText centered>{this.state.loading ? 'Loading...' : 'No Data' }</BodyText>
+		}
+	}
 	render() {
+		console.log("this.state.showWifiHeaders: ",this.state.showWifiHeaders)
+		console.log("this.state.wifitype: ",this.state.wifitype)
 		this.initAction();
-		const wifiNetworksProps = this.wifiNetworksProps();
-		const spinnerProps = this.spinnerProps();
 		const wifiConnected = this.wifiConnectedProps();
 		const errorMessage = this.parseErrorMessage();
 		return (
 			<div>
-				{this.state.showSpinner && <Spinner {...spinnerProps} />}
-				<VirtualList data-component-id="wifiList" {...wifiNetworksProps} focusableScrollbar />
-				<SpotlightContainer containerId="networkStatic">
+				<div className={this.state.showWifiHeaders ? css.showheader : css.hideheader} direction="left">
+					{/* <div className={css.wifilistheader} onClick={this.myWifiClickHander}>
+						<BodyText className={css.wifilisttitle} >My Wifi</BodyText>
+						<Button size='small' className={css.buttonicon} icon="arrowlargeright"/>
+						
+					</div> */}
+					<Item
+						className={mainCss.vspacingCMR}
+						onClick={this.myWifiClickHander}
+						data-component-id="mywifilist"
+						slotAfter={(<Icon size="small">arrowlargeright</Icon>)}
+					>
+						{$L('My Wi-Fi')}
+					</Item>
+					<Item
+						className={mainCss.vspacingCMR}
+						onClick={this.otherWifiClickHander}
+						data-component-id="otherwifilist"
+						slotAfter={(<Icon size="small">arrowlargeright</Icon>)}
+					>
+						{$L('Other Wi-Fi')}
+					</Item>
+					{/* <div className={css.wifilistheader} onClick={this.otherWifiClickHander}>
+						<BodyText className={css.wifilisttitle}>Other Wifi</BodyText>
+						<Button size='small' className={css.buttonicon} icon="arrowlargeright"/>
+					</div> */}
+				</div>
+				<div className={this.state.showWifiHeaders ? css.hideheader : css.showheader} direction="right">
+					<div className={css.wifilistheader1}>
+							<Button size='small' onClick={this.backClickHander} icon="arrowhookleft"/>
+							<BodyText className={css.wifilisttitle1} >{this.state.wifitype === 'mywifi' ? 'My Wi-Fi List' : 'Other Wi-Fi List'}</BodyText>
+					</div>
+					<div className={css.wifilistcnt}>
+						{this.state.wifitype === 'mywifi' ? this.showMyWifiList() :	this.showOtherWifiList() }
+					</div>
+				</div>
+				<SpotlightContainer containerId="networkStatic" className={this.state.showWifiHeaders ? css.showheader : css.hideheader}>
 					<Item
 						className={mainCss.vspacingCMR}
 						onClick={this.addHiddenNetwork}
@@ -517,11 +624,13 @@ WifiConnection.propTypes = {
 	wifiState: PropTypes.string
 };
 
-const mapStateToProps = ({ network }) => ({
+const mapStateToProps = ({ network,storedWifiNetwork,wifiUIState }) => ({
 	wifiNetworks: makeNetworkListArray(network.wifiNetworks) || [],
 	wifiState: network.wifi && network.wifi.state,
 	parseNetworkError: network.parseNetworkError,
-	connectingNetwork: network.connectingAP
+	connectingNetwork: network.connectingAP,
+	storedWifiNetwork,
+	wifiUIState
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -548,6 +657,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	clearErrorStatus() {
 		dispatch(clearErrorStatus());
+	},
+	changeWifiUISate(showWifiHeaders,wifitype) {
+		dispatch(changeWifiUISate(showWifiHeaders,wifitype));
 	}
 });
 

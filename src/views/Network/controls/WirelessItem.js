@@ -187,7 +187,13 @@ class WirelessItemBase extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	const obj = makeNetworkListArray(state.network.wifiNetworks)[ownProps.dataIndex] || {};
+	const obj = makeNetworkListArray(state.network.wifiNetworks).filter((v)=>{
+		if(ownProps.type === 'mywifi'){
+			return state.storedWifiNetwork.indexOf(v.ssid) >= 0
+		}else {
+			return state.storedWifiNetwork.indexOf(v.ssid) < 0;
+		}		
+	})[ownProps.dataIndex] || {};
 	const supportBNO = (state.getConfigs && state.getConfigs.supportBNO) || false;
 	const returnObj = {
 		ssid: obj.ssid || '',

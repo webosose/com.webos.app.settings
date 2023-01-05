@@ -51,8 +51,8 @@ export const removePath = () => {
 /* ******************************************************************************************* */
 /* Luna Request */
 /* ******************************************************************************************* */
-export const lunaRequest = (params, dispatch,resolve) => {
-	const {service, method, param, handleLunaResponses, type, args} = params;
+export const lunaRequest = (params, dispatch, resolve) => {
+	const { service, method, param, handleLunaResponses, type, args } = params;
 	return new LS2Request().send({
 		service,
 		method,
@@ -68,9 +68,9 @@ export const lunaRequest = (params, dispatch,resolve) => {
 				payload = handleLunaResponses(res, args);
 			}
 			// console.log("method::"+service+"/"+method+" :: "+JSON.stringify(param))
-			if(resolve && type === 'GLOBAL_RECEIVE_PREFERENCES'){
+			if (resolve && type === 'GLOBAL_RECEIVE_PREFERENCES') {
 				resolve(payload);
-			}else if(resolve){
+			} else if (resolve) {
 				resolve();
 			}
 			if (type) {
@@ -78,6 +78,17 @@ export const lunaRequest = (params, dispatch,resolve) => {
 					type,
 					payload
 				});
+			}
+		},
+		onFailure: (res) => {
+			if (!res.returnValue && res.errorCode === 105 && type === 'ADD_STORED_NETWORK') {
+				//There is no stored profile in this case
+				dispatch({
+					type,
+					payload: []
+				});
+
+				console.log('res :', res);
 			}
 		}
 	});
@@ -93,20 +104,20 @@ export const setSystemTime = params => () => {
 	});
 };
 
-function receiveSetSystemSettingsCountry () {
+function receiveSetSystemSettingsCountry() {
 	return {
 		type: 'RELOAD_FOR_COUNTRY',
 		payload: true
 	};
 }
-function timeZoneUpdateFailure (value) {
+function timeZoneUpdateFailure(value) {
 	return {
-		type:'TIMEZONE_UPDATE_FAILURE',
-		errorObj:value
+		type: 'TIMEZONE_UPDATE_FAILURE',
+		errorObj: value
 	};
 }
 export const setSystemSettings = params => dispatch => {
-	let {component} = params;
+	let { component } = params;
 	delete params.component;
 	return new LS2Request().send({
 		service: 'luna://com.webos.settingsservice/',
@@ -119,7 +130,7 @@ export const setSystemSettings = params => dispatch => {
 		},
 		onFailure: (res) => {
 			if (component === 'GENERAL') {
-				dispatch(timeZoneUpdateFailure({errorCode:res.errorCode, errorReason:res.errorText}));
+				dispatch(timeZoneUpdateFailure({ errorCode: res.errorCode, errorReason: res.errorText }));
 			}
 		}
 	});

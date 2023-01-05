@@ -29,7 +29,7 @@ import WifiSecurity from './WifiSecurity';
 import Advanced from './Advanced';
 import WifiEdit from './WifiEdit';
 
-import {getInfo, getStatus, enableWifi} from '../../actions/networkAction';
+import {getInfo, getStatus, enableWifi,getStoredWifiNetwork} from '../../actions/networkAction';
 
 const panelMap = {
 	'Network': <Network key="Network" />,
@@ -47,6 +47,7 @@ class NetworkPanel extends React.Component {
 		this.props.getInfo();
 		this.props.getStatus();
 		this.props.enableWifi();
+		this.props.getStoredWifiNetwork();
 	}
 	render () {
 		return (
@@ -73,6 +74,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	enableWifi () {
 		dispatch(enableWifi());
+	},
+	getStoredWifiNetwork (){
+		dispatch(getStoredWifiNetwork());
 	}
 });
 

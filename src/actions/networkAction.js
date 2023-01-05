@@ -15,8 +15,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import LS2Request from '@enact/webos/LS2Request';
-import {EndPoints} from '../store/service';
-import {lunaRequest} from './index';
+import { EndPoints } from '../store/service';
+import { lunaRequest } from './index';
 
 export const getInfo = () => dispatch => {
 	let params = {
@@ -81,20 +81,25 @@ export const releaseAp = () => {
 	};
 };
 
-export const connectWifi = ({network}) => ({
+export const connectWifi = ({ network }) => ({
 	type: 'CONNECT_WIFI',
 	network
 });
 
-export const deleteWifiProfile = (param) => () => {
+export const deleteWifiProfile = (param) => (dispatch) => {
+	console.log("Enter deleteWifiProfile");
 	return new LS2Request().send({
 		service: EndPoints.wifi,
 		method: 'deleteprofile',
-		parameters:  param
+		parameters: param,
+		onComplete: () => {
+			console.log("deleteWifiProfile");
+			dispatch(getStoredWifiNetwork());
+		}
 	});
 };
 
-function parseError (res) {
+function parseError(res) {
 	return {
 		type: 'PARSE_NETWORK_ERROR',
 		payload: res
@@ -105,7 +110,7 @@ export const connectingWifi = (params) => dispatch => {
 	return new LS2Request().send({
 		service: EndPoints.wifi,
 		method: 'connect',
-		parameters:  params,
+		parameters: params,
 		onComplete: (res) => {
 			const obj = {};
 			if (res.returnValue) {
@@ -117,8 +122,27 @@ export const connectingWifi = (params) => dispatch => {
 			}
 			obj.errorCode = res.errorCode || -1;
 			dispatch(parseError(res));
+			dispatch(getStoredWifiNetwork(() => {
+				if (res.returnValue) {
+					dispatch(changeWifiUISate(false, 'mywifi'));
+				}
+			}));
 		}
 	});
+};
+export const getStoredWifiNetwork = (callback) => dispatch => {
+	let params = {
+		service: EndPoints.weboswifi,
+		method: 'getprofilelist',
+		type: 'ADD_STORED_NETWORK',
+		handleLunaResponses: (res) => {
+			console.log('getStoredWifiNetwork::', res);
+			callback && callback();
+			return res.profileList.map((v) => v.wifiProfile.ssid);
+		}
+	};
+
+	lunaRequest(params, dispatch);
 };
 
 export const clearErrorStatus = () => {
@@ -128,4 +152,14 @@ export const clearErrorStatus = () => {
 	};
 };
 
-export {parseError};
+
+export const changeWifiUISate = (showWifiHeaders, wifitype) => {
+	return {
+		type: 'CHANGE_WIFI_UI_STATE',
+		payload: {
+			showWifiHeaders,
+			wifitype
+		}
+	};
+};
+export { parseError };

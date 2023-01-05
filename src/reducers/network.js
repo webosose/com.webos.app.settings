@@ -36,3 +36,21 @@ export const network = (state = {}, action) => {
 			return state;
 	}
 };
+export const storedWifiNetwork = (state = [], action) => {
+	switch (action.type) {
+		case 'ADD_STORED_NETWORK':
+			return [...action.payload];
+		default:
+			return state;
+	}
+};
+
+export const wifiUIState = (state = {showWifiHeaders:true,wifitype:''}, action) => {
+	switch (action.type) {
+		case 'CHANGE_WIFI_UI_STATE':
+			return {...state,...action.payload};
+		default:
+			return state;
+	}
+};
+

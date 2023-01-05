@@ -26,5 +26,6 @@ export const EndPoints = {
 	notification: 'luna://com.webos.notification/',
 	update: 'luna://com.webos.service.update',
 	wifi: 'luna://com.palm.wifi',
+	weboswifi:'luna://com.webos.service.wifi',
 	wifiConnectionManager: 'palm://com.palm.connectionmanager'
 };

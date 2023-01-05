@@ -16,7 +16,7 @@
 
 import {combineReducers} from 'redux';
 import {path, intl,timeZoneData} from './reducer';
-import {network} from './network';
+import {network,storedWifiNetwork,wifiUIState} from './network';
 import {general, uiMenuLanguage, error} from './general';
 
 const rootReducer = combineReducers({
@@ -24,6 +24,8 @@ const rootReducer = combineReducers({
 	intl,
 	timeZoneData,
 	network,
+	storedWifiNetwork,
+	wifiUIState,
 	general,
 	uiMenuLanguage,
 	error
