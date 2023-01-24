@@ -57,6 +57,7 @@ class Network extends React.Component {
 				console.log("keyboardStateChange::",ev)
 				this.setState({ deviceNameOpened: false })
 				this.nameOpened = false;
+				this.deviceNameClosed()
 			}
 		});
 	}
