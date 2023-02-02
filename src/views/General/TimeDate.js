@@ -111,8 +111,9 @@ class TimeDate extends React.Component {
 		this.getEffectiveBroadcastTime = new LS2Request().send({
 			service: 'luna://com.palm.systemservice/time',
 			method: 'getSystemTime',
-			parameters: { subscribe: false },
+			parameters: { subscribe: true },
 			onSuccess: (res) => {
+				// console.log("getSystemTime :"+new Date(res.utc * 1000));
 				this.setState({
 					currentUtc: res.utc * 1000,
 					currentDate: new Date(res.utc * 1000)
@@ -123,20 +124,19 @@ class TimeDate extends React.Component {
 						this.setClock(updateTime);
 					}, updateTime);
 				}
-
-				let timeZone = this.props.timeZone;
-				let zone = timeZone.timezoneList[timeZone.timezoneProps.selected].ZoneID.split('/')[0];
-
-				for (let i = 0; i < this.defaultRegion.length; i++) {
-					if (this.defaultRegion[i].ZoneID.split('/')[0] === zone) {
-						this.setState({
-							regionSelected: i
-						});
-					}
-				}
+				this.setDisplayTime(new Date(res.utc * 1000));
 			}
 		});
-		this.setDisplayTime()
+		let timeZone = this.props.timeZone;
+		let zone = timeZone.timezoneList[timeZone.timezoneProps.selected].ZoneID.split('/')[0];
+
+		for (let i = 0; i < this.defaultRegion.length; i++) {
+			if (this.defaultRegion[i].ZoneID.split('/')[0] === zone) {
+				this.setState({
+					regionSelected: i
+				});
+			}
+		}
 	}
 
 	/*componentDidUpdate is designed to handle any changes in the TIMEZONE values (automatic through region change OR manual chanbge)
@@ -375,6 +375,7 @@ class TimeDate extends React.Component {
 				currentDate: new Date(adjustedUtc)
 			});
 		}
+		this.setDisplayTime(new Date(adjustedUtc))
 	};
 
 	setTimezone(value) {
@@ -408,7 +409,7 @@ class TimeDate extends React.Component {
 		let param = {};
 		param.utc = Math.floor(newTimeDate.getTime() / 1000);
 		this.props.setSystemTime(param);
-		this.props.setSystemSettings(param);
+		this.props.setSystemSettings({ category: 'time', settings: { utc: param.utc} });
 		this.setDisplayTime(newTime)
 	}
 
