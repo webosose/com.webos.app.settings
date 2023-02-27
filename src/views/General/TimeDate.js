@@ -144,6 +144,16 @@ class TimeDate extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (this.props.timeZone.timezoneProps.selected !== prevProps.timeZone.timezoneProps.selected) {
 			console.log("UPDATE ====>timeZone changed to ==> ",this.props.timeZone.timezoneProps.selected)
+			let timeZone = this.props.timeZone;
+			let zone = timeZone.timezoneList[timeZone.timezoneProps.selected].ZoneID.split('/')[0];
+
+			for (let i = 0; i < this.defaultRegion.length; i++) {
+				if (this.defaultRegion[i].ZoneID.split('/')[0] === zone) {
+					this.setState({
+						regionSelected: i
+					});
+				}
+			}
 			this.setState({
 				timezoneSelected: this.props.timeZone.timezoneProps.selected,
 				displayTimezone: this.props.timeZone.timezoneProps.children[this.props.timeZone.timezoneProps.selected],
