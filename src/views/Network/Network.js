@@ -75,13 +75,12 @@ class Network extends React.Component {
 			return true;
 		}
 		const value = e.value;
-		if (unescape(encodeURI(value)).length < 31) {
+		if (Array.from(value).length < 31) {
 			this.setState({
 				deviceName: value
 			});
 		}
 	}
-	
 	revertToPrevDeviceName = () => {
 		this.setState({
 			deviceName: this.props.deviceName
