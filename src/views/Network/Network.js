@@ -55,7 +55,7 @@ class Network extends React.Component {
 		document.addEventListener("keyboardStateChange",(ev)=>{
 			if(!ev.visibility){
 				console.log("keyboardStateChange::",ev)
-				this.setState({ deviceNameOpened: false })
+				// this.setState({ deviceNameOpened: false })
 				this.nameOpened = false;
 				this.deviceNameClosed()
 			}
@@ -128,7 +128,8 @@ class Network extends React.Component {
 		return (
 			<SettingsScroller className={css.scroller}>
 				<LabeledItem {...deviceNameProps} className={mainCss.vspacingCMR} label={this.state.deviceName ? this.state.deviceName : $L('Loading...')} slotAfter={this.state.deviceNameOpened ? <Icon>arrowsmallup</Icon> : <Icon>arrowsmalldown</Icon>}>{$L('Device Name')}</LabeledItem>
-				{this.state.deviceNameOpened && <Input className={css.deviceNameInputField} length={30} size='small' popupType="overlay" dismissOnEnter onBlur={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />}
+				{/*{this.state.deviceNameOpened && <Input className={css.deviceNameInputField} length={30} size='small' popupType="overlay" dismissOnEnter onBlur={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />}*/}
+				<Input className={css.deviceNameInputField} length={30} size='small' popupType="overlay" dismissOnEnter onBlur={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWiredConnection} label={(this.props.wiredOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="wiredConnection">{$L('Wired Connection (Ethernet)')}</LabeledItem>
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.wifieLinkClickHander} label={(this.props.wifiOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="WifiConnection">{$L('Wi-Fi Connection')}</LabeledItem>
 			</SettingsScroller>
