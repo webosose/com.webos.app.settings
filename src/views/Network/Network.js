@@ -19,30 +19,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import $L from '@enact/i18n/$L';
-// import LabeledItem from '@enact/moonstone/LabeledItem';
 import LabeledItem from '@enact/sandstone/Item';
-
-// import {ExpandableInput} from '@enact/moonstone/ExpandableInput';
-// import {Expandable} from '@enact/moonstone/ExpandableItem';
+import Icon from '@enact/sandstone/Icon';
+import {InputPopup} from '@enact/sandstone/Input';
+import Button from "@enact/sandstone/Button";
 
 import { addPath } from '../../actions';
 import { setSystemSettings } from '../../actions';
-
 import SettingsScroller from '../../components/SettingsScroller';
 import css from './Network.module.less';
 import mainCss from '../../style/main.module.less';
-import Icon from '@enact/sandstone/Icon';
-import Input from '@enact/sandstone/Input';
 import { changeWifiUISate } from '../../actions/networkAction';
-
-// const CustomExpandableInput = Expandable(ExpandableInputBase);
 
 class Network extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			deviceName: props.deviceName
+			deviceName: props.deviceName,
+			showPopupDeviceName: false,
+			deviceNameOpened: false
 		};
 
 		this.deviceNameInputChange = this.deviceNameInputChange.bind(this);
@@ -123,13 +119,47 @@ class Network extends React.Component {
 		this.props.addPath('Wi-Fi Connection')
 		this.props.changeWifiUISate(true,'');
 	}
+
+	handleClickDeviceNameBtn() {
+		this.setState({
+			showPopupDeviceName: true
+		})
+	}
+
+	handleCloseDeviceNamePopup() {
+		this.setState({
+			showPopupDeviceName: false,
+			deviceNameOpened: false
+		})
+	}
+
 	render() {
 		const deviceNameProps = this.setDeviceNameProps();
 		return (
 			<SettingsScroller className={css.scroller}>
 				<LabeledItem {...deviceNameProps} className={mainCss.vspacingCMR} label={this.state.deviceName ? this.state.deviceName : $L('Loading...')} slotAfter={this.state.deviceNameOpened ? <Icon>arrowsmallup</Icon> : <Icon>arrowsmalldown</Icon>}>{$L('Device Name')}</LabeledItem>
 				{/*{this.state.deviceNameOpened && <Input className={css.deviceNameInputField} length={30} size='small' popupType="overlay" dismissOnEnter onBlur={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />}*/}
-				<Input className={css.deviceNameInputField} length={30} size='small' popupType="overlay" dismissOnEnter onBlur={this.deviceNameClosed} placeholder={$L('Loading...')} onChange={this.deviceNameInputChange} value={this.state.deviceName} />
+				{this.state.deviceNameOpened && (
+					<Button
+						className={css.deviceNameInputField}
+						onClick={this.handleClickDeviceNameBtn.bind(this)}
+						size="small"
+					>
+						{this.state.deviceName || $L('Loading...')}
+					</Button>
+				)}
+				<InputPopup
+					open={this.state.showPopupDeviceName}
+					className={css.deviceNameInputField}
+					length={30}
+					size="small"
+					popupType="overlay"
+					dismissOnEnter
+					onBlur={this.deviceNameClosed}
+					placeholder={$L('Loading...')}
+					onChange={this.deviceNameInputChange}
+					onClose={this.handleCloseDeviceNamePopup.bind(this)}
+					value={this.state.deviceName}/>
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.pushPathWiredConnection} label={(this.props.wiredOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="wiredConnection">{$L('Wired Connection (Ethernet)')}</LabeledItem>
 				<LabeledItem className={mainCss.vspacingCMR} onClick={this.wifieLinkClickHander} label={(this.props.wifiOnInternet === 'yes') ? $L('Connected to Internet') : $L('Not Connected')} data-component-id="WifiConnection">{$L('Wi-Fi Connection')}</LabeledItem>
 			</SettingsScroller>
